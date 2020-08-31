@@ -1,0 +1,104 @@
+{
+    "arr": [
+        {
+            "id": "1",
+            "question": "Что такое поле data",
+            "answer": "содержит локальный стейт компонента",
+            "wronganswer": "Содержит различные свойства",
+            "wronganswer1": "Содержит различные свойства1",
+            "wronganswer2": "Содержит различные свойства2",
+            "wronganswer3": "Содержит различные свойства3",
+            "comment": "Ничего нет"
+        },
+        {
+            "id": "2",
+            "question": "Назовите хук ЖЦ Vue для первоначальной генерации компонента",
+            "answer": "beforeCreate",
+            "wronganswer": "mounted",
+            "wronganswer1": "created ",
+            "wronganswer2": "beforeMount",
+            "wronganswer3": "beforeUpdate",
+            "comment": "No"
+        },
+        {
+            "id": "3",
+            "question": "Что делает атрибут @change",
+            "answer": "Проверяет есть ли данное свойство",
+            "wronganswer": "Неверно",
+            "wronganswer1": "Неверно1",
+            "wronganswer2": "Неверно2",
+            "wronganswer3": "Неверно3",
+            "comment": "Нет2"
+        },
+        {
+            "id": "4",
+            "question": "Что делает атрибут @click",
+            "answer": "Вызывает метод-функцию",
+            "wronganswer": "Вызывает Дату",
+            "wronganswer1": "Отслуживает клик мышкой",
+            "wronganswer2": "Ничего не делает",
+            "wronganswer3": "Ничего не делает2",
+            "comment": "Нет 1"
+        },
+        {
+            "id": "5",
+            "question": "Что делает свойство computed",
+            "answer": "Вычисляет различные свойства",
+            "wronganswer": "Ничего не делает1",
+            "wronganswer1": "Ничего не делает2",
+            "wronganswer2": "Ничего не делает3",
+            "wronganswer3": "Ничего не делает4",
+            "comment": "Нет"
+        },
+        {
+            "id": "6",
+            "question": "Что делает поле methods",
+            "answer": "Содержит функции которые вызываются по клику",
+            "wronganswer": "Ничего не делает13",
+            "wronganswer1": "Ничего не делает34",
+            "wronganswer2": "Ничего не делает55",
+            "wronganswer3": "Ничего не делает66",
+            "comment": "Нет12"
+        },
+        {
+            "id": "7",
+            "question": "Что делает v-if",
+            "answer": "Отрисовывает  по условию",
+            "wronganswer": "Ничего не делает124354",
+            "wronganswer1": "Ничего не делает3563",
+            "wronganswer2": "Ничего не делает678",
+            "wronganswer3": "Ничего не делает657",
+            "comment": "Нет34344"
+        },
+        {
+            "id": "8",
+            "question": "Что делает v-for",
+            "answer": "Отрисовывает  список из массива или объекта",
+            "wronganswer": "Что там отрисовывает1",
+            "wronganswer1": "Что там отрисовывает12",
+            "wronganswer2": "Что там отрисовывает13",
+            "wronganswer3": "Что там отрисовывает14",
+            "comment": "Нет3453245"
+        },
+        {
+            "id": "9",
+            "question": "Что означает :key",
+            "answer": "Сохраняет состояние компонента",
+            "wronganswer": "Что там сохраняет",
+            "wronganswer1": "Что там сохраняет1",
+            "wronganswer2": "Что там сохраняет2",
+            "wronganswer3": "Что там сохраняет3",
+            "comment": "Нет2354345"
+        },
+        {
+            "id": "10",
+            "question": "Что делает v-model",
+            "answer": "Двусторонняя привязка",
+            "wronganswer": "Что там привязывает",
+            "wronganswer1": "Что там привязывает1",
+            "wronganswer2": "Что там привязывает2",
+            "wronganswer3": "Что там привязывает4",
+            "comment": "Что там привязывает545"
+        }
+    ]
+}
