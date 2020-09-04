@@ -27,7 +27,7 @@ export default {
     },
     async deleteDeal({ commit, dispatch }, payload) {
       const { data } = await axios.delete("/api/deals/" + payload);
-      commit("deleteUser", payload);
+      commit("deleteDeal", payload);
       dispatch("fetchDeals");
     },
   },

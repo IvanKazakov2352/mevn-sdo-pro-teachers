@@ -3,34 +3,25 @@ const Schema = mongoose.Schema;
 
 const course = new Schema(
   {
-    namecourse: {
+    nameProfile: {
       type: String,
     },
-    testDostupTests: {
-      type: Boolean
+    dostupOnModule: {
+      type: Boolean,
     },
-    testDostupMaterial: {
-      type: Boolean
+    dostupOnTests: {
+      type: Boolean,
     },
-    dateAddCourse: {
+    dostupOnLections: {
+      type: Boolean,
+    },
+    allCategories: {
+      type: Array
+    },
+    createdAt: {
       type: Date,
       default: Date.now,
     },
-    tests: {
-      type: Array,
-    },
-    examen: {
-      type: Array,
-    },
-    examenID: {
-      type: String,
-    },
-    quantityExam: {
-      type: Number
-    },
-    materials: {
-      type: Array
-    }
   },
   {
     collection: "courses",

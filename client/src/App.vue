@@ -149,7 +149,7 @@ export default {
             text: "Слушатели",
             route: "/users",
           },
-          { icon: "mdi-book", text: "Курсы", route: "/courses" },
+          { icon: "mdi-book", text: "Профили обучения", route: "/courses" },
           { icon: "mdi-cloud-upload", text: "Файлы", route: "/files" },
           {
             icon: "mdi-cog",

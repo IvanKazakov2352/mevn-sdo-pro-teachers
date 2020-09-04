@@ -4,7 +4,7 @@
       >Банковские реквизиты контрагента</v-expansion-panel-header
     >
     <v-expansion-panel-content>
-      <v-row justify="center">
+      <v-row justify="center" class="mt-3">
         <v-dialog v-model="dialogBanks" persistent max-width="1000px">
           <template v-slot:activator="{ on }">
             <v-btn color="primary" dark v-on="on"
@@ -74,7 +74,7 @@
         </v-dialog>
       </v-row>
       <v-container fluid>
-        <v-simple-table v-if="counterparty.banks.length">
+        <v-simple-table >
           <template v-slot:default>
             <thead>
               <tr>

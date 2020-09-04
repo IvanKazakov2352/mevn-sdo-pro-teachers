@@ -51,7 +51,7 @@
                               </v-col>
                             </v-row>
                           </v-form>
-                          <v-expansion-panels>
+                          <v-expansion-panels focusable>
                             <CounterpartyEditZao
                               @postDopDataZao="dataZao"
                               :counterparty="this.counterparty"
@@ -108,7 +108,7 @@
                             </v-row>
                           </v-form>
 
-                          <v-expansion-panels>
+                          <v-expansion-panels focusable>
                             <CounterpartyEditCh
                               @postDopDataCh="dataCh"
                               :counterparty="this.counterparty"

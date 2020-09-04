@@ -110,6 +110,14 @@ const routes = [
     },
   },
   {
+    path: "/course/:id",
+    name: "course",
+    component: () => import("@/components/CourseComponents/CourseEdit"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/user/:id",
     name: "user",
     component: () => import("@/components/UsersComponents/UserEdit"),

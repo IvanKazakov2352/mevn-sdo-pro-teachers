@@ -35,14 +35,11 @@ router.put("/:id", (req, res, next) => {
     if (!course) {
       return next(new Error("Error update course"));
     } else {
-      course.namecourse = req.body.namecourse,
-      course.testDostupTests = req.body.testDostupTests,
-      course.testDostupMaterial = req.body.testDostupMaterial,
-      course.tests = req.body.tests,
-      course.examen = req.body.examen,
-      course.examenID = req.body.examenID,
-      course.quantityExam = req.body.quantityExam,
-      course.materials = req.body.materials
+      course.nameProfile = req.body.nameProfile,
+      course.dostupOnModule = req.body.dostupOnModule,
+      course.dostupOnTests = req.body.dostupOnTests,
+      course.dostupOnLections = req.body.dostupOnLections,
+      course.allCategories = req.body.allCategories
       course.save()
         .then((course) => {
           res.json("Update completed");

@@ -52,7 +52,7 @@
                               </v-col>
                             </v-row>
                           </v-form>
-                          <v-expansion-panels>
+                          <v-expansion-panels focusable>
                             <CounterpartiesDopDataZao
                               @fetchDopDataZao="getDopDataZao"
                             />
@@ -105,7 +105,7 @@
                               </v-col>
                             </v-row>
                           </v-form>
-                          <v-expansion-panels>
+                          <v-expansion-panels focusable>
                             <CounterpartiesDopDataCh
                               @fetchDopDataCh="getDopDataCh"
                             />

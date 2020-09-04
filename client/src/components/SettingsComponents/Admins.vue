@@ -18,7 +18,9 @@
         </template>
         <v-card>
           <v-card-title>
-            <span class="headline">Создание дополнительного администратора</span>
+            <span class="headline"
+              >Создание дополнительного администратора</span
+            >
           </v-card-title>
           <v-card-text>
             <v-form v-model="valid" autocomplete="off">
@@ -30,15 +32,14 @@
                 prepend-icon="mdi-account-box"
                 type="text"
               ></v-text-field>
-              <v-select
+              <v-text-field
+                label="Должность"
                 :rules="PositionRules"
                 v-model="position"
-                :items="positions"
-                item-text="pos"
-                label="Выберите должность"
+                autocomplete="off"
                 prepend-icon="mdi-card-account-details-star"
-                item-disabled="Ген Директор"
-              ></v-select>
+                type="text"
+              ></v-text-field>
               <v-text-field
                 :rules="emailRules"
                 label="Email"
@@ -62,7 +63,11 @@
             <v-btn color="blue darken-1" text @click="dialog = false"
               >Отмена</v-btn
             >
-            <v-btn color="blue darken-1" :disabled="!valid" text @click="createAdmin"
+            <v-btn
+              color="blue darken-1"
+              :disabled="!valid"
+              text
+              @click="createAdmin"
               >Создать</v-btn
             >
           </v-card-actions>
@@ -98,7 +103,7 @@ export default {
     pageCount: 0,
     itemsPerPage: 10,
     FioRules: [(v) => !!v || "Введите Фамилию Имя Отчество"],
-    PositionRules: [(v) => !!v || "Выберите пожалуйста должность"],
+    PositionRules: [(v) => !!v || "Введите пожалуйста должность"],
     emailRules: [
       (v) => !!v || "Введите Email",
       (v) => /.+@.+\..+/.test(v) || "Введите корректный Email",
