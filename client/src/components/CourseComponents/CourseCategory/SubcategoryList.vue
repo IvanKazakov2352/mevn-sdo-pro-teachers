@@ -1,44 +1,38 @@
 <template>
-  <v-card max-width="340">
+  <v-card max-width="344">
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="headline">
-          {{ category.nameCategory }}
+          {{ subcategory.nameSubcategory }}
         </v-list-item-title>
+        <v-list-item-subtitle>
+          Программа расчитана на
+          {{ subcategory.hoursTrainingSubcategory }}
+          часа обучения
+        </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-
-    <v-img :src="category.linkPhotoCategory" height="194"></v-img>
+    <v-img :src="subcategory.photoSubcategory" height="194"></v-img>
     <v-card-actions>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-            @click="addMaterialRoutes(category)"
-          >
+          <v-btn icon v-bind="attrs" v-on="on">
             <v-icon>
               mdi-plus
             </v-icon>
           </v-btn>
         </template>
-        <span>Добавить подкатегорию</span>
+        <span>Добавить модуль обучения</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-            @click="dialog = true"
-          >
+          <v-btn icon v-bind="attrs" v-on="on" @click="dialog = true">
             <v-icon>
               mdi-pencil
             </v-icon>
           </v-btn>
         </template>
-        <span>Редактировать категорию</span>
+        <span>Редактировать подкатегорию</span>
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -46,36 +40,45 @@
             icon
             v-bind="attrs"
             v-on="on"
-            @click="deleteCategory(category.id)"
+            @click="deleteSubcategory(subcategory.id)"
           >
             <v-icon>
               mdi-delete
             </v-icon>
           </v-btn>
         </template>
-        <span>Удалить категорию</span>
+        <span>Удалить подкатегорию</span>
       </v-tooltip>
     </v-card-actions>
     <v-dialog v-model="dialog" max-width="1500">
       <v-card>
         <v-card-title>
-          <span class="headline">Категория: {{ category.nameCategory }}</span>
+          <span class="headline">
+            Подкатегория: {{ subcategory.nameSubcategory }}
+          </span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-form v-model="valid">
               <v-col cols="12" sm="6">
                 <v-text-field
-                  :rules="nameCategoryRules"
-                  v-model="category.nameCategory"
+                  :rules="nameSubCategoryRules"
+                  v-model="subcategory.nameSubcategory"
                   label="Название категории"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
-                  :rules="photoCategoryRules"
-                  v-model="category.linkPhotoCategory"
+                  :rules="photoSubCategoryRules"
+                  v-model="subcategory.photoSubcategory"
                   label="Ссылка на фотографию"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  :rules="hoursTrainingSubCategoryRules"
+                  v-model="subcategory.hoursTrainingSubcategory"
+                  label="Часы обучения"
                 ></v-text-field>
               </v-col>
             </v-form>
@@ -91,7 +94,7 @@
             color="green darken-1"
             text
             :disabled="!valid"
-            @click="updateCategory"
+            @click="updateSubCategory"
           >
             Редактировать
           </v-btn>
@@ -104,43 +107,40 @@
 import axios from "axios";
 export default {
   props: {
+    subcategory: {
+      type: Object,
+      default: {},
+      required: true,
+    },
     category: {
       type: Object,
-      required: true,
       default: {},
+      required: true,
     },
     profile: {
       type: Object,
-      required: true,
       default: {},
+      required: true,
     },
   },
   data: () => ({
     dialog: false,
     valid: false,
-    nameCategoryRules: [(v) => !!v || "Введите пожалуйста название категории"],
-    photoCategoryRules: [
-      (v) => !!v || "Вставьте пожалуйста ссылку на фотографию",
-    ],
-    categories: [],
+    nameSubCategoryRules: [(v) => !!v || "Введите пожалуйста название подкатегории"],
+    photoSubCategoryRules: [(v) => !!v || "Вставьте пожалуйста ссылку на фотографию"],
+    hoursTrainingSubCategoryRules: [(v) => !!v || "Введите пожалуйста часы обучения"],
   }),
   methods: {
-    addMaterialRoutes(category) {
-      this.$router.push({
-        name: "subcategory",
-        params: { categoryID: category.id, category },
-      });
+    async deleteSubcategory(id) {
+      this.category.subCategories = this.category.subCategories.filter((subCats) => subCats.id !== id);
+      const res = await axios.put("/api/course/" + this.profile._id, {...this.profile});
+      this.profile = res.data;
     },
-    async updateCategory() {
-      this.category = Object.assign(this.category);
+    async updateSubCategory() {
+      this.subcategory = Object.assign(this.subcategory);
       const res = await axios.put("/api/course/" + this.profile._id, {...this.profile});
       this.profile = res.data;
       this.dialog = false;
-    },
-    async deleteCategory(id) {
-      this.profile.allCategories = this.profile.allCategories.filter((cats) => cats.id !== id);
-      const res = await axios.put("/api/course/" + this.profile._id, {...this.profile});
-      this.profile = res.data;
     },
   },
 };

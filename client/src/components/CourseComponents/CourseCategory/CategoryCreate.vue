@@ -38,13 +38,6 @@
                       label="Ссылка на фотографию"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      :rules="hoursCategoryRules"
-                      v-model.number="trainingHours"
-                      label="Количество часов обучения"
-                    ></v-text-field>
-                  </v-col>
                 </v-form>
               </v-container>
             </v-card-text>
@@ -93,12 +86,10 @@ export default {
     trainingHours: null,
     linkPhotoCategory: null,
     valid: false,
+    subCategories: [],
     nameCategoryRules: [(v) => !!v || "Введите пожалуйста название категории"],
     photoCategoryRules: [
       (v) => !!v || "Вставьте пожалуйста ссылку на фотографию",
-    ],
-    hoursCategoryRules: [
-      (v) => !!v || "Укажите пожалуйста количество часов обучения",
     ],
   }),
   methods: {
@@ -106,8 +97,8 @@ export default {
       const category = {
         id: this.$uuid.v4(),
         nameCategory: this.nameCategory,
-        trainingHours: this.trainingHours,
         linkPhotoCategory: this.linkPhotoCategory,
+        subCategories: this.subCategories
       };
       this.profile.allCategories.push(category)
       const res = await axios.put("/api/course/" + this.profile._id, {...this.profile})
