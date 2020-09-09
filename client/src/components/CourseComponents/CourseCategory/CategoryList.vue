@@ -27,12 +27,7 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-bind="attrs"
-            v-on="on"
-            @click="dialog = true"
-          >
+          <v-btn icon v-bind="attrs" v-on="on" @click="dialog = true">
             <v-icon>
               mdi-pencil
             </v-icon>
@@ -46,7 +41,7 @@
             icon
             v-bind="attrs"
             v-on="on"
-            @click="deleteCategory(category.id)"
+            @click="deleteCategory(category)"
           >
             <v-icon>
               mdi-delete
@@ -87,12 +82,7 @@
           <v-btn color="green darken-1" text @click="dialog = false">
             Отмена
           </v-btn>
-          <v-btn
-            color="green darken-1"
-            text
-            :disabled="!valid"
-            @click="updateCategory"
-          >
+          <v-btn color="green darken-1" text :disabled="!valid" @click="updateCategory(category)">
             Редактировать
           </v-btn>
         </v-card-actions>
@@ -109,11 +99,6 @@ export default {
       required: true,
       default: {},
     },
-    profile: {
-      type: Object,
-      required: true,
-      default: {},
-    },
   },
   data: () => ({
     dialog: false,
@@ -122,7 +107,6 @@ export default {
     photoCategoryRules: [
       (v) => !!v || "Вставьте пожалуйста ссылку на фотографию",
     ],
-    categories: [],
   }),
   methods: {
     addMaterialRoutes(category) {
@@ -131,17 +115,13 @@ export default {
         params: { categoryID: category.id, category },
       });
     },
-    async updateCategory() {
-      this.category = Object.assign(this.category);
-      const res = await axios.put("/api/course/" + this.profile._id, {...this.profile});
-      this.profile = res.data;
-      this.dialog = false;
+    deleteCategory(category) {
+      this.$store.dispatch("deleteCategory", category);
     },
-    async deleteCategory(id) {
-      this.profile.allCategories = this.profile.allCategories.filter((cats) => cats.id !== id);
-      const res = await axios.put("/api/course/" + this.profile._id, {...this.profile});
-      this.profile = res.data;
-    },
+    updateCategory(category) {
+      this.$store.dispatch("updateCategory", category);
+      this.dialog = false
+    }
   },
 };
 </script>

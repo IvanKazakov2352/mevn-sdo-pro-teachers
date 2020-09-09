@@ -15,7 +15,7 @@ const course = new Schema(
     dostupOnLections: {
       type: Boolean,
     },
-    allCategories: {
+    categories: {
       type: Array
     },
     createdAt: {

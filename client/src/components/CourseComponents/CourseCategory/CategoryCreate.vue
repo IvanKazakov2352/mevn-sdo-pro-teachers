@@ -60,10 +60,9 @@
       <v-row>
         <list
           class="mt-4 mb-4 mr-4 ml-4"
-          v-for="category in profile.allCategories"
-          :key="category.id"
+          v-for="category in categories"
+          :key="category.payload"
           :category="category"
-          :profile="profile"
         />
       </v-row>
     </v-expansion-panel-content>
@@ -71,15 +70,9 @@
 </template>
 <script>
 import list from "@/components/CourseComponents/CourseCategory/CategoryList";
-import axios from "axios"
+import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
-  props: {
-    profile: {
-      type: Object,
-      default: {},
-    },
-  },
   data: () => ({
     dialog: false,
     nameCategory: null,
@@ -95,15 +88,18 @@ export default {
   methods: {
     async createCategory() {
       const category = {
-        id: this.$uuid.v4(),
+        payload: this.$uuid.v4(),
+        routeID: this.$route.params.id,
         nameCategory: this.nameCategory,
         linkPhotoCategory: this.linkPhotoCategory,
-        subCategories: this.subCategories
+        subCategories: this.subCategories,
       };
-      this.profile.allCategories.push(category)
-      const res = await axios.put("/api/course/" + this.profile._id, {...this.profile})
+      this.$store.dispatch("addCategory", category);
       this.dialog = false;
     },
+  },
+  computed: {
+    ...mapGetters(["categories"])
   },
   components: {
     list,

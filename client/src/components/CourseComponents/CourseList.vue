@@ -30,10 +30,7 @@
                     <template v-slot:activator="{ on, attrs }">
                       <router-link
                         tag="button"
-                        :to="{
-                          name: 'course',
-                          params: { id: modul._id },
-                        }"
+                        :to="{ name: 'course', params: { id: modul._id }}"
                       >
                         <v-btn icon v-bind="attrs" v-on="on">
                           <v-icon>
@@ -106,7 +103,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("fetchModule");
+    this.$store.dispatch("fetchModules");
   },
 };
 </script>

@@ -103,7 +103,7 @@ export default {
     async getProfile() {
       const res = await axios.get("/api/course/" + this.$route.params.id);
       this.profile = res.data;
-      this.category = this.profile.allCategories.find(
+      this.category = this.profile.categories.find(
         (cats) => cats.id === this.categoryID
       );
     },
