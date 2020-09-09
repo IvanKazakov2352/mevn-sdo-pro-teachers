@@ -54,7 +54,7 @@
     <v-dialog v-model="dialog" max-width="1500">
       <v-card>
         <v-card-title>
-          <span class="headline">Категория: {{ category.nameCategory }}</span>
+          <span class="headline">{{ category.nameCategory }}</span>
         </v-card-title>
         <v-card-text>
           <v-container>

@@ -40,7 +40,7 @@
             icon
             v-bind="attrs"
             v-on="on"
-            @click="deleteSubcategory(subcategory.id)"
+            @click="deleteSubcategory(subcategory)"
           >
             <v-icon>
               mdi-delete
@@ -90,12 +90,7 @@
           <v-btn color="green darken-1" text @click="dialog = false">
             Отмена
           </v-btn>
-          <v-btn
-            color="green darken-1"
-            text
-            :disabled="!valid"
-            @click="updateSubCategory"
-          >
+          <v-btn color="green darken-1" text :disabled="!valid" @click="updateSubcategory(subcategory)">
             Редактировать
           </v-btn>
         </v-card-actions>
@@ -117,30 +112,31 @@ export default {
       default: {},
       required: true,
     },
-    profile: {
-      type: Object,
-      default: {},
-      required: true,
-    },
   },
   data: () => ({
     dialog: false,
     valid: false,
-    nameSubCategoryRules: [(v) => !!v || "Введите пожалуйста название подкатегории"],
-    photoSubCategoryRules: [(v) => !!v || "Вставьте пожалуйста ссылку на фотографию"],
-    hoursTrainingSubCategoryRules: [(v) => !!v || "Введите пожалуйста часы обучения"],
+    nameSubCategoryRules: [
+      (v) => !!v || "Введите пожалуйста название подкатегории",
+    ],
+    photoSubCategoryRules: [
+      (v) => !!v || "Вставьте пожалуйста ссылку на фотографию",
+    ],
+    hoursTrainingSubCategoryRules: [
+      (v) => !!v || "Введите пожалуйста часы обучения",
+    ],
   }),
   methods: {
-    async deleteSubcategory(id) {
-      this.category.subCategories = this.category.subCategories.filter((subCats) => subCats.id !== id);
-      const res = await axios.put("/api/course/" + this.profile._id, {...this.profile});
-      this.profile = res.data;
+    deleteSubcategory(subcategory) {
+      const id = subcategory.id;
+      this.category.subCategories = this.category.subCategories.filter(
+        (subcategory) => subcategory.id !== id
+      );
+      this.$store.dispatch("deleteSubCategory", subcategory);
     },
-    async updateSubCategory() {
-      this.subcategory = Object.assign(this.subcategory);
-      const res = await axios.put("/api/course/" + this.profile._id, {...this.profile});
-      this.profile = res.data;
-      this.dialog = false;
+    updateSubcategory(subcategory) {
+      this.$store.dispatch("updateCategory", subcategory);
+      this.dialog = false
     },
   },
 };

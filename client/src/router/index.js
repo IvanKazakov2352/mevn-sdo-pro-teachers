@@ -118,7 +118,7 @@ const routes = [
     },
   },
   {
-    path: "/course/:id/create/:categoryID",
+    path: "/course/:id/category/:categoryID",
     name: "subcategory",
     props: true,
     component: () => import("@/components/CourseComponents/CourseCategory/CreateSubcategory"),

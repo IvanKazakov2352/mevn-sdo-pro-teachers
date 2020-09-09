@@ -4,7 +4,6 @@ export default {
   state: {
     modules: [],
     module: {},
-    category: {}
   },
   mutations: {
     setModules(state, data) {
@@ -23,12 +22,11 @@ export default {
       state.module.categories.push(payload);
     },
     deleteCategory(state, payload) {
-      state.module.categories = state.module.categories.filter(cats => cats.payload !== payload)
+      state.module.categories = state.module.categories.filter((cats) => cats.id !== payload);
     },
-    updateCategory(state, payload) {
-      const upCats = Object.assign(payload)
-      console.log(upCats)
-    }
+    updateCategory(payload) {
+      Object.assign(payload);
+    },
   },
   actions: {
     async fetchModules({ commit }) {
@@ -59,11 +57,14 @@ export default {
       dispatch("updateProfile", payload.routeID);
     },
     deleteCategory({ commit, dispatch }, payload) {
-      commit("deleteCategory", payload.payload);
-      dispatch("updateProfile", payload.routeID)
+      commit("deleteCategory", payload.id);
+      dispatch("updateProfile", payload.routeID);
     },
-    updateCategory({commit, dispatch}, payload) {
-      commit("updateCategory", payload)
+    updateCategory({ commit, dispatch }, payload) {
+      commit("updateCategory", payload);
+      dispatch("updateProfile", payload.routeID);
+    },
+    deleteSubCategory({dispatch}, payload) {
       dispatch("updateProfile", payload.routeID)
     }
   },
@@ -76,6 +77,9 @@ export default {
     },
     categories(state) {
       return state.module.categories;
+    },
+    category: (state) => (categoryID) => {
+      return state.module.categories.find(cats => cats.id === categoryID)
     },
     countModule(state) {
       return state.modules.length;

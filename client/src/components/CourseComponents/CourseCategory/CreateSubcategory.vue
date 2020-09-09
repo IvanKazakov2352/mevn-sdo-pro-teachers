@@ -68,13 +68,13 @@
         :key="subcategory.id"
         :subcategory="subcategory"
         :category="category"
-        :profile="profile"
       />
     </v-row>
   </v-row>
 </template>
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 import SubcategoryList from "@/components/CourseComponents/CourseCategory/SubcategoryList";
 export default {
   props: {
@@ -90,9 +90,8 @@ export default {
     nameSubcategory: null,
     photoSubcategory: null,
     hoursTrainingSubcategory: null,
-    profile: {},
-    category: {},
     subCategories: [],
+    modules: [],
     nameSubcategoryRules: [(v) => !!v || "Укажите имя подкатегории"],
     photoSubcategoryRules: [(v) => !!v || "Вставьте ссылку на фотографию"],
     hoursTrainingSubcategoryRules: [
@@ -100,29 +99,32 @@ export default {
     ],
   }),
   methods: {
-    async getProfile() {
-      const res = await axios.get("/api/course/" + this.$route.params.id);
-      this.profile = res.data;
-      this.category = this.profile.categories.find(
-        (cats) => cats.id === this.categoryID
-      );
+    getProfile() {
+      this.$store.dispatch("fetchModule", this.$route.params.id);
     },
     async createSubcategory() {
       const subcategory = {
         id: this.$uuid.v4(),
+        routeID: this.$route.params.id,
         nameSubcategory: this.nameSubcategory,
         photoSubcategory: this.photoSubcategory,
         hoursTrainingSubcategory: this.hoursTrainingSubcategory,
+        modules: this.modules,
       };
       this.category.subCategories.push(subcategory);
-      const res = await axios.put("/api/course/" + this.profile._id, {
-        ...this.profile,
-      });
-      this.profile = res.data;
+      this.$store.dispatch("updateProfile", this.$route.params.id);
       this.dialog = false;
     },
   },
-  mounted() {
+  computed: {
+    profile() {
+      return this.$store.getters.profile
+    },
+    category() {
+      return this.$store.getters.category(this.categoryID)
+    }
+  },
+  created() {
     this.getProfile();
   },
   components: {

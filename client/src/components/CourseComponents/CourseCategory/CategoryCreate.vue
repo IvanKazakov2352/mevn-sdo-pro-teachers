@@ -88,7 +88,7 @@ export default {
   methods: {
     async createCategory() {
       const category = {
-        payload: this.$uuid.v4(),
+        id: this.$uuid.v4(),
         routeID: this.$route.params.id,
         nameCategory: this.nameCategory,
         linkPhotoCategory: this.linkPhotoCategory,

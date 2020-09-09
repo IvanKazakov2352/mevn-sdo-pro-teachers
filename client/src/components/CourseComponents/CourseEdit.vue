@@ -87,7 +87,7 @@ export default {
   }),
   methods: {
     updateProfile() {
-      this.$store.dispatch("updateProfile", this.$route.params.id, this.profile);
+      this.$store.dispatch("updateProfile", this.$route.params.id);
     },
   },
   computed: {
