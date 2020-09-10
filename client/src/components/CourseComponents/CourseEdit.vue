@@ -37,32 +37,6 @@
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item>
-                  <v-list-item-action>
-                    <v-checkbox v-model="profile.dostupOnTests"></v-checkbox>
-                  </v-list-item-action>
-                  <v-list-item-content>
-                    <v-list-item-title
-                      >Доступ слушателя до тестов</v-list-item-title
-                    >
-                    <v-list-item-subtitle>
-                      Разрешить ли доступ слушателю до тестов
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-action>
-                    <v-checkbox v-model="profile.dostupOnLections"></v-checkbox>
-                  </v-list-item-action>
-                  <v-list-item-content>
-                    <v-list-item-title
-                      >Доступ слушателю до лекций</v-list-item-title
-                    >
-                    <v-list-item-subtitle>
-                      Разрешить ли доступ слушателю до лекций
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
               </v-list>
             </v-expansion-panel-content>
           </v-expansion-panel>

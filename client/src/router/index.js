@@ -127,6 +127,15 @@ const routes = [
     },
   },
   {
+    path: "/course/:id/category/:categoryID/module/:subcategoryID",
+    name: "module",
+    props: true,
+    component: () => import("@/components/CourseComponents/CourseModule/CreateModule"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/user/:id",
     name: "user",
     component: () => import("@/components/UsersComponents/UserEdit"),

@@ -16,7 +16,12 @@
     <v-card-actions>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+            @click="redirectToModule(subcategory)"
+          >
             <v-icon>
               mdi-plus
             </v-icon>
@@ -90,7 +95,12 @@
           <v-btn color="green darken-1" text @click="dialog = false">
             Отмена
           </v-btn>
-          <v-btn color="green darken-1" text :disabled="!valid" @click="updateSubcategory(subcategory)">
+          <v-btn
+            color="green darken-1"
+            text
+            :disabled="!valid"
+            @click="updateSubcategory(subcategory)"
+          >
             Редактировать
           </v-btn>
         </v-card-actions>
@@ -100,6 +110,7 @@
 </template>
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   props: {
     subcategory: {
@@ -136,8 +147,12 @@ export default {
     },
     updateSubcategory(subcategory) {
       this.$store.dispatch("updateCategory", subcategory);
-      this.dialog = false
+      this.dialog = false;
+    },
+    redirectToModule(subcategory) {
+      this.$router.push({name: "module", params: { subcategoryID: subcategory.id }});
     },
   },
+  computed: {},
 };
 </script>

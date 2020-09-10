@@ -16,16 +16,24 @@ export default {
       state.modules.push(payload);
     },
     deleteModule(state, payload) {
-      state.modules.filter((m) => m.payload !== payload);
+      state.modules = state.modules.filter((m) => m._id !== payload);
     },
     addCategory(state, payload) {
       state.module.categories.push(payload);
     },
     deleteCategory(state, payload) {
-      state.module.categories = state.module.categories.filter((cats) => cats.id !== payload);
+      state.module.categories = state.module.categories.filter(
+        (cats) => cats.id !== payload
+      );
     },
     updateCategory(payload) {
       Object.assign(payload);
+    },
+    saveSubcategoryToState(state, payload) {
+      const category = state.module.categories.find(category => category.id === payload.categoryID)
+      const subCategory = category.subCategories.find(subCategory => subCategory.id === payload.subcategoryID)
+      Object.assign(subCategory, {modules: payload.modules})
+      console.log(subCategory)
     },
   },
   actions: {
@@ -64,13 +72,19 @@ export default {
       commit("updateCategory", payload);
       dispatch("updateProfile", payload.routeID);
     },
-    deleteSubCategory({dispatch}, payload) {
-      dispatch("updateProfile", payload.routeID)
-    }
+    deleteSubCategory({ dispatch }, payload) {
+      dispatch("updateProfile", payload.routeID);
+    },
+    saveSubcategoryToState({ commit }, payload) {
+      commit("saveSubcategoryToState", payload);
+    },
   },
   getters: {
     allModule(state) {
       return state.modules;
+    },
+    countModule(state) {
+      return state.modules.length;
     },
     profile(state) {
       return state.module;
@@ -79,10 +93,7 @@ export default {
       return state.module.categories;
     },
     category: (state) => (categoryID) => {
-      return state.module.categories.find(cats => cats.id === categoryID)
-    },
-    countModule(state) {
-      return state.modules.length;
+      return state.module.categories.find((cats) => cats.id === categoryID);
     },
   },
 };
