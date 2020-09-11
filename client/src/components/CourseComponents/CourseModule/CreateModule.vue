@@ -70,6 +70,7 @@
         v-for="modul in subCategory.modules"
         :key="modul.id"
         :modul="modul"
+        :subCategory="subCategory"
       />
     </v-row>
   </v-row>
@@ -84,6 +85,7 @@ export default {
     nameModule: null,
     photoModule: null,
     descriptionModule: null,
+    lections: [],
     nameModuleRules: [(v) => !!v || "Укажите имя модуля обучения"],
     photoModuleRules: [
       (v) => !!v || "Вставьте ссылку на фотографию для модуля обучения",
@@ -96,16 +98,13 @@ export default {
     createModule() {
       const module = {
         id: this.$uuid.v4(),
+        routeID: this.$route.params.id,
         nameModule: this.nameModule,
         photoModule: this.photoModule,
         descriptionModule: this.descriptionModule,
+        lections: this.lections
       };
       this.subCategory.modules.push(module);
-      this.$store.dispatch("saveSubcategoryToState", {
-        categoryID: this.$route.params.categoryID,
-        subcategoryID: this.$route.params.subcategoryID,
-        modules: this.subCategory.modules,
-      });
       this.$store.dispatch("updateProfile", this.$route.params.id)
       this.dialog = false;
     },
@@ -119,13 +118,6 @@ export default {
         (cats) => cats.id === this.$route.params.subcategoryID
       );
     },
-  },
-  mounted() {
-    this.$store.dispatch("saveSubcategoryToState", {
-      categoryID: this.$route.params.categoryID,
-      subcategoryID: this.$route.params.subcategoryID,
-      modules: this.subCategory.modules,
-    });
   },
   components: {
     moduleList,

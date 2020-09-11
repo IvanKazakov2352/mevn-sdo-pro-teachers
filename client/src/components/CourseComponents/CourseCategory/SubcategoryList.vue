@@ -6,9 +6,9 @@
           {{ subcategory.nameSubcategory }}
         </v-list-item-title>
         <v-list-item-subtitle>
-          Программа расчитана на
+          Подкатегория расчитана на
           {{ subcategory.hoursTrainingSubcategory }}
-          часа обучения
+          часа
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>

@@ -136,6 +136,24 @@ const routes = [
     },
   },
   {
+    path: "/course/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID",
+    name: "createLection",
+    props: true,
+    component: () => import("@/components/CourseComponents/CourseModule/ModuleCreateLectionAndTest"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/course/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/lection/:lectID",
+    name: "previewLection",
+    props: true,
+    component: () => import("@/components/CourseComponents/CourseModule/LectionPreview"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/user/:id",
     name: "user",
     component: () => import("@/components/UsersComponents/UserEdit"),

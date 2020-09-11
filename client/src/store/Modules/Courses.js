@@ -29,12 +29,6 @@ export default {
     updateCategory(payload) {
       Object.assign(payload);
     },
-    saveSubcategoryToState(state, payload) {
-      const category = state.module.categories.find(category => category.id === payload.categoryID)
-      const subCategory = category.subCategories.find(subCategory => subCategory.id === payload.subcategoryID)
-      Object.assign(subCategory, {modules: payload.modules})
-      console.log(subCategory)
-    },
   },
   actions: {
     async fetchModules({ commit }) {
@@ -55,10 +49,11 @@ export default {
       commit("deleteModule", payload);
       dispatch("fetchModules");
     },
-    async updateProfile({ state }, payload) {
+    async updateProfile({ state, dispatch }, payload) {
       const { data } = await axios.put("/api/course/" + payload, {
         ...state.module,
       });
+      dispatch("fetchModule", payload);
     },
     addCategory({ commit, dispatch }, payload) {
       commit("addCategory", payload);
@@ -75,8 +70,8 @@ export default {
     deleteSubCategory({ dispatch }, payload) {
       dispatch("updateProfile", payload.routeID);
     },
-    saveSubcategoryToState({ commit }, payload) {
-      commit("saveSubcategoryToState", payload);
+    deleteSubModule({ dispatch }, payload) {
+      dispatch("updateProfile", payload._id);
     },
   },
   getters: {
@@ -95,5 +90,8 @@ export default {
     category: (state) => (categoryID) => {
       return state.module.categories.find((cats) => cats.id === categoryID);
     },
+    preview(state) {
+      return state.lectPreview
+    }
   },
 };
