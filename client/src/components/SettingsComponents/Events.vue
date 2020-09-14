@@ -42,11 +42,7 @@
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker
-                        v-model="start"
-                        no-title
-                        scrollable
-                      >
+                      <v-date-picker v-model="start" no-title scrollable>
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="menu = false"
                           >Отмена</v-btn
@@ -80,11 +76,7 @@
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker
-                        v-model="end"
-                        no-title
-                        scrollable
-                      >
+                      <v-date-picker v-model="end" no-title scrollable>
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="menu2 = false"
                           >Отмена</v-btn
@@ -118,9 +110,12 @@
   </v-row>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
 import EventsList from "@/components/SettingsComponents/EventsList";
 export default {
+  metaInfo: {
+    title: "События | СДО PRO",
+  },
   data: () => ({
     dialog: false,
     nameEvent: null,
@@ -136,7 +131,7 @@ export default {
         start: this.start,
         end: this.end,
       };
-      const res = await axios.post("/api/events/", event)
+      const res = await axios.post("/api/events/", event);
       this.dialog = false;
     },
   },

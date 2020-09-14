@@ -16,7 +16,11 @@
                 max-height="auto"
                 color="grey lighten-3"
               >
-                <div class="mx-auto sheet" ref="contentContainer" contenteditable="false"></div>
+                <div
+                  class="mx-auto sheet"
+                  ref="contentContainer"
+                  contenteditable="false"
+                ></div>
               </v-sheet>
             </v-col>
           </v-row>
@@ -29,6 +33,9 @@
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 export default {
+  metaInfo: {
+    title: "Предпросмотр лекции | СДО PRO",
+  },
   data: () => ({
     delta: undefined,
   }),
@@ -56,6 +63,7 @@ export default {
     let article = document.createElement("article");
     let quill = new Quill(article, {});
     quill.setContents(this.lectionContent.content);
+    quill.enable(false)
     setTimeout(() => {
       this.$refs.contentContainer.appendChild(article);
     }, 0);

@@ -110,6 +110,7 @@
           <v-text-field v-model="email" label="Email"></v-text-field>
         </v-col>
       </v-row>
+      <v-card-text>Данные автоматически сохраняются каждые 7 секунд</v-card-text>
       <v-btn class="ma-2" outlined color="indigo" @click="fetchDopData"
         >Сохранить</v-btn
       >
@@ -162,6 +163,30 @@ export default {
         email: this.email,
       });
     },
+  },
+  mounted() {
+    setInterval(() => {
+      this.$emit("fetchDopDataZao", {
+        namekr: this.namekr,
+        position: this.position,
+        fio: this.fio,
+        postcode: this.postcode,
+        town: this.town,
+        legal: this.legal,
+        postaddress: this.postaddress,
+        factaddress: this.factaddress,
+        ogrn: this.ogrn,
+        kpp: this.kpp,
+        okpo: this.okpo,
+        okato: this.okato,
+        oktmo: this.oktmo,
+        okogu: this.okogu,
+        okopf: this.okopf,
+        phone: this.phone,
+        faks: this.faks,
+        email: this.email,
+      });
+    }, 7000);
   },
 };
 </script>

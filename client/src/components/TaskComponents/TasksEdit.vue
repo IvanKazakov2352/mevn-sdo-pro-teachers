@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-toolbar class="mb-2" color="indigo darken-5" dark flat>
-      <v-toolbar-title>Редактирование задачи: {{task.name}}</v-toolbar-title>
+      <v-toolbar-title>Редактирование задачи: {{ task.name }}</v-toolbar-title>
     </v-toolbar>
     <v-card>
       <v-row justify="center" class="mr-2 ml-2">
@@ -192,14 +192,15 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
+  metaInfo: {
+    title: "Редактирование задачи | СДО PRO",
+  },
   data: () => ({
-    task: {},
     timemenu: false,
     timemenu1: false,
     menu: false,
     menu2: false,
     alert: false,
-    admins: [],
     states: [
       "Задача активна",
       "Задача находится в работе",
@@ -208,29 +209,20 @@ export default {
     ],
   }),
   methods: {
-    async updateTask() {
-      const res = await axios.put(
-        "/api/tasks/" + this.$route.params.id,
-        this.task
-      );
-      this.task = res.data;
-      this.$router.push({ name: "tasks", query: { message: "Task Updated" } });
-    },
-    async getAdmins() {
-      const res = await axios.get("/api/getAdmin");
-      this.admins = res.data;
-    },
-    async getTask() {
-      const res = await axios.get("/api/tasks/" + this.$route.params.id);
-      this.task = res.data;
+    updateTask() {
+      this.$store.dispatch("updateTask", this.$route.params.id);
+      this.$router.push({
+        name: "tasks",
+        query: { message: "TaskUpdated" + `(${Date.now()})` },
+      });
     },
   },
   computed: {
-    ...mapGetters(["allAdmins"]),
+    ...mapGetters(["allAdmins", "task"]),
   },
   mounted() {
     this.$store.dispatch("fetchAdmins");
-    this.getTask();
+    this.$store.dispatch("fetchTask", this.$route.params.id);
   },
 };
 </script>

@@ -55,6 +55,9 @@
 import axios from "axios";
 import sweetalert from "sweetalert";
 export default {
+  metaInfo: {
+    title: "Регистрация | СДО PRO",
+  },
   data: () => ({
     fio: null,
     position: null,
@@ -92,7 +95,7 @@ export default {
         const response = await axios.post("/api/admin/register", admin);
         const token = response.data.token;
         if (token) {
-          localStorage.setItem("JWT", token);
+          localStorage.setItem("userToken", token);
           this.$router.push("/tasks");
           sweetalert("Успех", "Регистрация прошла успешно", "success");
           setTimeout(() => {

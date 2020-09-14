@@ -25,8 +25,8 @@
               <v-col cols="12" sm="4">
                 <v-autocomplete
                   v-model="course"
-                  :items="courses"
-                  item-text="namecourse"
+                  :items="allModule"
+                  item-text="nameProfile"
                   label="Выберите курс обучения"
                   return-object
                 ></v-autocomplete>
@@ -80,14 +80,17 @@
                       <v-text-field
                         v-model="phone1"
                         label="Телефон 1"
+                        v-mask="'8(###) ###-##-##'"
                       ></v-text-field>
                       <v-text-field
                         v-model="phone2"
                         label="Телефон 2"
+                        v-mask="'8(###) ###-##-##'"
                       ></v-text-field>
                       <v-text-field
                         v-model="phone3"
                         label="Телефон 3"
+                        v-mask="'8(###) ###-##-##'"
                       ></v-text-field>
                       <v-text-field
                         v-model="email"
@@ -205,8 +208,11 @@
 <script>
 import axios from "axios";
 import DealList from "@/components/DealComponents/DealList";
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex";
 export default {
+  metaInfo: {
+    title: "Сделки | СДО PRO",
+  },
   data: () => ({
     dialog: false,
     admin: null,
@@ -265,12 +271,12 @@ export default {
         colorCard: this.colorCard,
         colorChip: this.colorChip,
       };
-      this.$store.dispatch("addedDeals", deal)
-      this.dialog = false
+      this.$store.dispatch("addedDeals", deal);
+      this.dialog = false;
     },
   },
   computed: {
-    ...mapGetters(["allCounterparties", "allAdmins", "allGroups"]),
+    ...mapGetters(["allCounterparties", "allAdmins", "allGroups", "allModule"]),
     colorCard: {
       get() {
         return this[this.type];
@@ -289,9 +295,10 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("fetchAdmins")
-    this.$store.dispatch("fetchGroups")
-    this.$store.dispatch("fetchCounterparties")
+    this.$store.dispatch("fetchAdmins");
+    this.$store.dispatch("fetchModules");
+    this.$store.dispatch("fetchGroups");
+    this.$store.dispatch("fetchCounterparties");
   },
   components: {
     DealList,

@@ -43,7 +43,14 @@
           <category :profile="profile" />
         </v-expansion-panels>
         <v-col cols="12">
-          <v-btn class="ma-2" x-large tile outlined color="success" @click="updateProfile">
+          <v-btn
+            class="ma-2"
+            x-large
+            tile
+            outlined
+            color="success"
+            @click="updateProfile"
+          >
             <v-icon left>mdi-pencil</v-icon> Редактировать
           </v-btn>
         </v-col>
@@ -56,12 +63,19 @@ import category from "@/components/CourseComponents/CourseCategory/CategoryCreat
 import { mapGetters } from "vuex";
 import axios from "axios";
 export default {
+  metaInfo: {
+    title: "Редактирование профиля обучения | СДО PRO",
+  },
   data: () => ({
     nameModuleRules: [(v) => !!v || "Укажите пожалуйста имя профиля обучения"],
   }),
   methods: {
     updateProfile() {
       this.$store.dispatch("updateProfile", this.$route.params.id);
+      this.$router.push({
+        name: "courses",
+        query: { message: "ProfileUpdated" + `(${Date.now()})` },
+      });
     },
   },
   computed: {

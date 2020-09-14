@@ -79,6 +79,9 @@
 import { mapGetters } from "vuex";
 import moduleList from "@/components/CourseComponents/CourseModule/ModuleList";
 export default {
+  metaInfo: {
+    title: "Создание модуля обучения | СДО PRO",
+  },
   data: () => ({
     dialog: false,
     valid: false,
@@ -102,10 +105,10 @@ export default {
         nameModule: this.nameModule,
         photoModule: this.photoModule,
         descriptionModule: this.descriptionModule,
-        lections: this.lections
+        lections: this.lections,
       };
       this.subCategory.modules.push(module);
-      this.$store.dispatch("updateProfile", this.$route.params.id)
+      this.$store.dispatch("updateProfile", this.$route.params.id);
       this.dialog = false;
     },
   },

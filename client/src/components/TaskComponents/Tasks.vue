@@ -186,7 +186,7 @@
     <v-col cols="12">
       <TasksList />
     </v-col>
-<!--     <v-col cols="11">
+    <!--     <v-col cols="11">
       <TasksCalendar />
     </v-col> -->
   </v-row>
@@ -195,8 +195,11 @@
 import axios from "axios";
 import TasksList from "@/components/TaskComponents/TasksList";
 import TasksCalendar from "@/components/TaskComponents/TasksCalendar";
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex";
 export default {
+  metaInfo: {
+    title: "Задачи | СДО PRO",
+  },
   data: () => ({
     dialog: false,
     timemenu: false,
@@ -233,7 +236,7 @@ export default {
         timestart: this.timestart,
         timeend: this.timeend,
       };
-      this.$store.dispatch('addedTasks', task);
+      this.$store.dispatch("addedTasks", task);
       this.dialog = false;
     },
   },

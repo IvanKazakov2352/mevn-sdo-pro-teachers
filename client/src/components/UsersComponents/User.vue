@@ -55,7 +55,7 @@
                   v-model="login"
                   label="Логин"
                 ></v-text-field>
-                <v-btn text color="blue" @click="generateLogin"
+                <v-btn text color="blue" @click="generatingLogin"
                   >Сгенерировать логин</v-btn
                 >
               </v-col>
@@ -65,7 +65,7 @@
                   v-model="password"
                   label="Пароль"
                 ></v-text-field>
-                <v-btn text color="blue" @click="generatePassword"
+                <v-btn text color="blue" @click="generatingPassword"
                   >Сгенерировать пароль</v-btn
                 >
               </v-col>
@@ -215,7 +215,14 @@
 <script>
 import axios from "axios";
 import UsersList from "@/components/UsersComponents/UserList.vue";
+import {
+  generateLogin,
+  generatePassword,
+} from "@/functions/GenerateLogin&Password.js";
 export default {
+  metaInfo: {
+    title: "Слушатели | СДО PRO",
+  },
   data: () => ({
     dialog: false,
     fiolistener: null,
@@ -285,24 +292,15 @@ export default {
         pasport: this.pasport,
         vpasport: this.vpasport,
       };
-      this.$store.dispatch("addedUser", listener)
+      this.$store.dispatch("addedUser", listener);
       this.dialog = false;
     },
-    generateLogin() {
-      var login = "";
-      var string = "0123456789";
-      for (var i = 0; i < 7; i++) {
-        login += string.charAt(Math.floor(Math.random() * string.length));
-      }
+    generatingLogin() {
+      const login = generateLogin();
       this.login = login;
     },
-    generatePassword() {
-      var password = "";
-      var string =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*/\|=-_()";
-      for (var i = 0; i < 15; i++) {
-        password += string.charAt(Math.floor(Math.random() * string.length));
-      }
+    generatingPassword() {
+      const password = generatePassword();
       this.password = password;
     },
   },

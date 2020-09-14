@@ -17,7 +17,7 @@
             ></v-text-field>
             <v-text-field
               :rules="passwordRules"
-              label="Password"
+              label="Пароль"
               v-model="password"
               prepend-icon="mdi-lock"
               type="password"
@@ -38,6 +38,9 @@
 import axios from "axios";
 import sweetalert from "sweetalert";
 export default {
+  metaInfo: {
+    title: "Авторизация | СДО PRO",
+  },
   data: () => ({
     email: null,
     password: null,
@@ -61,7 +64,7 @@ export default {
       try {
         const response = await axios.post("/api/admin/login", admin);
         const token = response.data.token;
-        localStorage.setItem("JWT", token);
+        localStorage.setItem("userToken", token);
         if (token) {
           this.$router.push("/tasks");
           sweetalert("Успех", "Регистрация прошла успешно", "success");

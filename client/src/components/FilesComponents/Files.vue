@@ -10,3 +10,10 @@
     </v-col>
   </v-row>
 </template>
+<script>
+export default {
+  metaInfo: {
+    title: "Файловая система | СДО PRO",
+  },
+};
+</script>

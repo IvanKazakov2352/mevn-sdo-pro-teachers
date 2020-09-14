@@ -1,6 +1,11 @@
 <template>
   <v-row justify="center">
-    <v-img max-width="240" max-height="240" src="../../images/logo.jpg" class="mt-9 ml-7"></v-img>
+    <v-img
+      max-width="240"
+      max-height="240"
+      src="../../images/logo.jpg"
+      class="mt-9 ml-7"
+    ></v-img>
     <v-col>
       <v-list-item three-line>
         <v-list-item-content>
@@ -38,3 +43,10 @@
     >
   </v-row>
 </template>
+<script>
+export default {
+  metaInfo: {
+    title: "Добро пожаловать | СДО PRO",
+  },
+};
+</script>

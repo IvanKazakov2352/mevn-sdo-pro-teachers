@@ -60,6 +60,9 @@
 <script>
 import courseList from "@/components/CourseComponents/CourseList";
 export default {
+  metaInfo: {
+    title: "Профили обучения | СДО PRO",
+  },
   data: () => ({
     dialog: false,
     nameProfile: null,

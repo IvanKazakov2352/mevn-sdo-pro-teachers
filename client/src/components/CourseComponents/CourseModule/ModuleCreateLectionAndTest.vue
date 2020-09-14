@@ -71,6 +71,9 @@ import "quill/dist/quill.bubble.css";
 import { quillEditor } from "vue-quill-editor";
 import LectionList from "@/components/CourseComponents/CourseModule/LectionList";
 export default {
+  metaInfo: {
+    title: "Создание лекции | СДО PRO",
+  },
   data: () => ({
     dialog: false,
     valid: false,

@@ -40,17 +40,17 @@ export default {
       commit("setModule", data);
     },
     async addedModule({ commit, dispatch }, payload) {
-      const { data } = await axios.post("/api/course", payload);
+      await axios.post("/api/course", payload);
       commit("addModule", payload);
       dispatch("fetchModules");
     },
     async deleteModule({ commit, dispatch }, payload) {
-      const { data } = await axios.delete("/api/course/" + payload);
+      await axios.delete("/api/course/" + payload);
       commit("deleteModule", payload);
       dispatch("fetchModules");
     },
     async updateProfile({ state, dispatch }, payload) {
-      const { data } = await axios.put("/api/course/" + payload, {
+      await axios.put("/api/course/" + payload, {
         ...state.module,
       });
       dispatch("fetchModule", payload);

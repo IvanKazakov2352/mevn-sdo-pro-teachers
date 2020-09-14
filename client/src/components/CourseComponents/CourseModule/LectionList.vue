@@ -20,16 +20,16 @@
         </template>
         <span>Просмотреть превью лекции</span>
       </v-tooltip>
-      <v-tooltip bottom>
+<!--       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" @click="dialogEdit = true">
+          <v-btn icon v-bind="attrs" v-on="on" @click="lectionEdit(lect)">
             <v-icon>
               mdi-pencil
             </v-icon>
           </v-btn>
         </template>
         <span>Редактировать лекцию</span>
-      </v-tooltip>
+      </v-tooltip> -->
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" @click="deleteLection(lect.id)">
@@ -41,55 +41,9 @@
         <span>Удалить лекцию</span>
       </v-tooltip>
     </v-card-actions>
-    <v-dialog
-      v-model="dialogEdit"
-      fullscreen
-      hide-overlay
-      transition="dialog-bottom-transition"
-    >
-      <v-card>
-        <v-toolbar dark color="blue darken-3">
-          <v-btn icon dark @click="dialogEdit = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title
-            >Редактирование лекции: {{ lect.nameLection }}</v-toolbar-title
-          >
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn dark text>Редактировать</v-btn>
-          </v-toolbar-items>
-        </v-toolbar>
-        <v-col cols="12" sm="3">
-          <v-text-field
-            v-model="lect.nameLection"
-            label="Название лекции"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="3">
-          <v-text-field
-            v-model="lect.photoLection"
-            label="Фотография лекции"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12">
-          <quillEditor
-            style="height: 600px;"
-            v-model="content"
-            ref="lection"
-            :options="editorOption"
-          />
-        </v-col>
-      </v-card>
-    </v-dialog>
   </v-card>
 </template>
 <script>
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import "quill/dist/quill.bubble.css";
-import { quillEditor } from "vue-quill-editor";
-import Quill from "quill";
 export default {
   props: {
     lect: {
@@ -104,8 +58,6 @@ export default {
     },
   },
   data: () => ({
-    dialogPreview: false,
-    dialogEdit: false,
     valid: false,
     content: "",
     editorOption: {
@@ -123,17 +75,11 @@ export default {
       this.$store.dispatch("updateProfile", this.$route.params.id);
     },
     lectionPreview(lect) {
-      this.$router.push({
-        name: "previewLection",
-        params: { lectID: lect.id, lectContent: lect },
-      });
+      this.$router.push({name: "previewLection", params: { lectID: lect.id }});
     },
-  },
-  mounted() {
-    this.content = this.lect.content;
-  },
-  components: {
-    quillEditor,
+/*     lectionEdit(lect) {
+      this.$router.push({ name: "lectionEdit", params: { lectEditID: lect.id } });
+    }, */
   },
 };
 </script>

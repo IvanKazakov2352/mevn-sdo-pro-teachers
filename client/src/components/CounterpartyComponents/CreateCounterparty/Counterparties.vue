@@ -148,6 +148,9 @@ import CounterpartiesDopDataCh from "@/components/CounterpartyComponents/CreateC
 import CounterpartiesBanks from "@/components/CounterpartyComponents/CreateCounterparty/CounterpartiesBanks";
 import CounterpartiyList from "@/components/CounterpartyComponents/CounterpartiesList";
 export default {
+  metaInfo: {
+    title: "Контрагенты | СДО PRO",
+  },
   data: () => ({
     valid: false,
     dialog: false,

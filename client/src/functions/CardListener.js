@@ -12,7 +12,6 @@ export function userInfo(user) {
         user.datebirth
       ).toLocaleDateString()}</p>
       <p>Образование - ${user.education}</p>
-      <p>Место работы - ${user.counterparty}</p>
       <p>Должность - ${user.position}</p>
       </body>
       </html>`;

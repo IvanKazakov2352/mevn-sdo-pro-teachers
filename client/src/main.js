@@ -7,11 +7,15 @@ import vuetify from "./plugins/vuetify";
 import VueMask from "v-mask";
 import VueHtmlToPaper from "vue-html-to-paper";
 import UUID from "vue-uuid";
+import VueMeta from 'vue-meta'
 
 Vue.use(VueMask);
 Vue.use(VueHtmlToPaper, options);
 Vue.use(UUID);
 Vue.use(VueHtmlToPaper);
+Vue.use(VueMeta, {
+  refreshOnceOnNavigation: true
+})
 
 
 Vue.config.productionTip = false;

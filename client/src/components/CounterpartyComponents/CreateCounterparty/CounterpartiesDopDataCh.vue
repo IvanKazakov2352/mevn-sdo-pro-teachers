@@ -119,6 +119,7 @@
           ></v-text-field>
         </v-col>
       </v-row>
+      <v-card-text>Данные автоматически сохраняются каждые 7 секунд</v-card-text>
       <v-btn class="ma-2" outlined color="indigo" @click="fetchDopDataCh"
         >Сохранить</v-btn
       >
@@ -170,6 +171,23 @@ export default {
         vpasport: this.vpasport,
       });
     },
+  },
+  mounted() {
+    setInterval(() => {
+      this.$emit("fetchDopDataCh", {
+        birthday: this.birthday,
+        education: this.education,
+        phone: this.phone,
+        email: this.email,
+        postcode: this.postcode,
+        town: this.town,
+        address: this.address,
+        factaddress: this.factaddress,
+        snils: this.snils,
+        pasport: this.pasport,
+        vpasport: this.vpasport,
+      });
+    }, 7000);
   },
 };
 </script>

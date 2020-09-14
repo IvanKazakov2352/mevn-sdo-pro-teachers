@@ -155,9 +155,9 @@
             <v-col cols="12">
               <v-select
                 v-model="course"
-                :items="courses"
-                item-text="namecourse"
-                label="Выберите курс для группы"
+                :items="allModule"
+                item-text="nameProfile"
+                label="Выберите профиль обучения для группы"
                 return-object
                 multiple
               ></v-select>
@@ -180,7 +180,9 @@
               ></v-checkbox>
             </v-col>
             <v-col cols="12">
-              <h3>Сообщить о сдаче экзамена</h3>
+              <v-card-text class="headline">
+                Сообщить о сдаче экзамена
+              </v-card-text>
             </v-col>
             <v-col cols="12" sm="6" md="4">
               <v-checkbox v-model="alert" :label="'В уведомлении'"></v-checkbox>
@@ -227,6 +229,9 @@ import GroupsList from "@/components/GroupComponents/GroupsList";
 import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
+  metaInfo: {
+    title: "Группы | СДО PRO",
+  },
   data: () => ({
     dialog: false,
     menu: false,
@@ -245,10 +250,6 @@ export default {
     starttraining: new Date().toISOString().substr(0, 10),
     endtraining: new Date().toISOString().substr(0, 10),
     dateexamen: new Date().toISOString().substr(0, 10),
-    groups: [],
-    usersGroup: [],
-    users: [],
-    courses: [],
     namegroupRules: [(v) => !!v || "Введите название группы"],
     starttrainingRules: [(v) => !!v || "Укажите дату начала обучения"],
     endtrainingRules: [(v) => !!v || "Укажите дату конца обучения"],
@@ -279,15 +280,16 @@ export default {
         user: this.user,
         course: this.course,
       };
-      this.$store.dispatch("addedGroup", group)
+      this.$store.dispatch("addedGroup", group);
       this.dialog = false;
     },
   },
   computed: {
-    ...mapGetters(["allUsers"])
+    ...mapGetters(["allUsers", "allModule"]),
   },
   mounted() {
-    this.$store.dispatch("fetchUsers")
+    this.$store.dispatch("fetchUsers");
+    this.$store.dispatch("fetchModules");
   },
   components: {
     GroupsList,

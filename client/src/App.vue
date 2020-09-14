@@ -100,7 +100,7 @@ export default {
     messages: 4,
     dialog: false,
     drawer: null,
-    exit: localStorage.getItem("JWT"),
+    exit: localStorage.getItem("userToken"),
     user: {},
     profileComponents: [
       { title: "Уведовления", icon: "mdi-alert-rhombus", route: "/alerts" },
@@ -110,12 +110,12 @@ export default {
   }),
   methods: {
     logout() {
-      localStorage.removeItem("JWT");
+      localStorage.removeItem("userToken");
       this.$router.push("/signin");
       location.reload();
     },
     getUserDetails() {
-      const token = localStorage.getItem("JWT");
+      const token = localStorage.getItem("userToken");
       const decoded = jwt_decode(token);
       this.user = decoded;
     },
@@ -149,7 +149,7 @@ export default {
             text: "Слушатели",
             route: "/users",
           },
-          { icon: "mdi-book", text: "Профили обучения", route: "/courses" },
+          { icon: "mdi-book", text: "Профили обучения", route: "/profiles" },
           { icon: "mdi-cloud-upload", text: "Файлы", route: "/files" },
           {
             icon: "mdi-cog",

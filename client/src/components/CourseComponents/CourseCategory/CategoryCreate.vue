@@ -73,6 +73,9 @@ import list from "@/components/CourseComponents/CourseCategory/CategoryList";
 import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
+  metaInfo: {
+    title: "Создание категории обучения | СДО PRO",
+  },
   data: () => ({
     dialog: false,
     nameCategory: null,
@@ -99,7 +102,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["categories"])
+    ...mapGetters(["categories"]),
   },
   components: {
     list,

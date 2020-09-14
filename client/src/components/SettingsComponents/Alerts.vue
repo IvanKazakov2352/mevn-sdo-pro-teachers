@@ -10,3 +10,10 @@
     </v-col>
   </v-row>
 </template>
+<script>
+export default {
+  metaInfo: {
+    title: "Уведомления | СДО PRO",
+  },
+};
+</script>

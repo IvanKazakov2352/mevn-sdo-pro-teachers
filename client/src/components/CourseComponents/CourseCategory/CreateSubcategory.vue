@@ -77,6 +77,9 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 import SubcategoryList from "@/components/CourseComponents/CourseCategory/SubcategoryList";
 export default {
+  metaInfo: {
+    title: "Создание подкатегории обучения | СДО PRO",
+  },
   props: {
     categoryID: {
       type: String,
@@ -118,11 +121,11 @@ export default {
   },
   computed: {
     profile() {
-      return this.$store.getters.profile
+      return this.$store.getters.profile;
     },
     category() {
-      return this.$store.getters.category(this.categoryID)
-    }
+      return this.$store.getters.category(this.categoryID);
+    },
   },
   created() {
     this.getProfile();

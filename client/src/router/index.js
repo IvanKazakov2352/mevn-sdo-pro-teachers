@@ -102,7 +102,7 @@ const routes = [
     },
   },
   {
-    path: "/courses",
+    path: "/profiles",
     name: "courses",
     component: () => import("@/components/CourseComponents/Course"),
     meta: {
@@ -110,7 +110,7 @@ const routes = [
     },
   },
   {
-    path: "/course/:id",
+    path: "/profile/:id",
     name: "course",
     component: () => import("@/components/CourseComponents/CourseEdit"),
     meta: {
@@ -118,7 +118,7 @@ const routes = [
     },
   },
   {
-    path: "/course/:id/category/:categoryID",
+    path: "/profile/:id/category/:categoryID",
     name: "subcategory",
     props: true,
     component: () => import("@/components/CourseComponents/CourseCategory/CreateSubcategory"),
@@ -127,7 +127,7 @@ const routes = [
     },
   },
   {
-    path: "/course/:id/category/:categoryID/module/:subcategoryID",
+    path: "/profile/:id/category/:categoryID/module/:subcategoryID",
     name: "module",
     props: true,
     component: () => import("@/components/CourseComponents/CourseModule/CreateModule"),
@@ -136,7 +136,7 @@ const routes = [
     },
   },
   {
-    path: "/course/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID",
+    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID",
     name: "createLection",
     props: true,
     component: () => import("@/components/CourseComponents/CourseModule/ModuleCreateLectionAndTest"),
@@ -145,7 +145,7 @@ const routes = [
     },
   },
   {
-    path: "/course/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/lection/:lectID",
+    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/lection/:lectID",
     name: "previewLection",
     props: true,
     component: () => import("@/components/CourseComponents/CourseModule/LectionPreview"),
@@ -153,6 +153,16 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/lectionEdit/:lectEditID",
+    name: "lectionEdit",
+    props: true,
+    component: () => import("@/components/CourseComponents/CourseModule/LectionEdit"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
   {
     path: "/user/:id",
     name: "user",
@@ -249,7 +259,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (localStorage.getItem("JWT") == null) {
+    if (localStorage.getItem("userToken") == null) {
       next({
         path: "/signin",
       });

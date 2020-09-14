@@ -29,7 +29,9 @@
 import admins from "@/components/SettingsComponents/Admins";
 import organization from "@/components/SettingsComponents/Organization";
 export default {
-  data: () => ({}),
+  metaInfo: {
+    title: "Настройки | СДО PRO",
+  },
   components: {
     admins,
     organization,

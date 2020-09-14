@@ -1,205 +1,221 @@
 <template>
-  <v-card class="edit">
-    <v-row class="mr-2 ml-2" justify="center">
-      <h1>Редактирование Группы</h1>
-      <v-col cols="12">
-        <v-alert v-model="alert1" type="success">
-          Группа успешно изменена, через 5 секунд вы будете перенаправлены на
-          страницу с группами
-        </v-alert>
-      </v-col>
-      <v-col cols="12">
-        <v-text-field
-          v-model="group.namegroup"
-          label="Название группы"
-          required
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12">
-        <h3>
-          Внимание дата в полях по умолчанию сегодняшняя
-        </h3>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-menu
-          ref="menu"
-          v-model="menu"
-          :close-on-content-click="false"
-          :return-value.sync="group.starttraining"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on, attrs }">
+  <v-container fluid>
+    <v-toolbar class="mb-2" color="indigo darken-5" dark flat>
+      <v-toolbar-title>
+        Редактирование группы: {{ group.namegroup }}
+      </v-toolbar-title>
+    </v-toolbar>
+    <v-card>
+      <v-form v-model="valid">
+        <v-row class="mr-2 ml-2">
+          <v-col cols="12" sm="6" md="3">
             <v-text-field
-              v-model="group.starttraining"
-              label="Начало обучения"
-              readonly
-              v-bind="attrs"
-              v-on="on"
+              :rules="namegroupRules"
+              v-model="group.namegroup"
+              label="Название группы"
+              required
             ></v-text-field>
-          </template>
-          <v-date-picker v-model="group.starttraining" no-title scrollable>
-            <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-            <v-btn
-              text
-              color="primary"
-              @click="$refs.menu.save(group.starttraining)"
-              >OK</v-btn
+          </v-col>
+          <v-col cols="12" sm="6" md="3">
+            <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              :return-value.sync="group.starttraining"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
             >
-          </v-date-picker>
-        </v-menu>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-menu
-          ref="menu1"
-          v-model="menu1"
-          :close-on-content-click="false"
-          :return-value.sync="group.endtraining"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on, attrs }">
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="group.starttraining"
+                  :rules="starttrainingRules"
+                  label="Начало обучения"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="group.starttraining" no-title scrollable>
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.menu.save(group.starttraining)"
+                  >OK</v-btn
+                >
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col cols="12" sm="6" md="3">
+            <v-menu
+              ref="menu1"
+              v-model="menu1"
+              :close-on-content-click="false"
+              :return-value.sync="group.endtraining"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="group.endtraining"
+                  :rules="endtrainingRules"
+                  label="Конец обучения"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="group.endtraining" no-title scrollable>
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu1 = false"
+                  >Cancel</v-btn
+                >
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.menu1.save(group.endtraining)"
+                  >OK</v-btn
+                >
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col cols="12" sm="6" md="3">
+            <v-menu
+              ref="menu2"
+              v-model="menu2"
+              :close-on-content-click="false"
+              :return-value.sync="group.dateexamen"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="group.dateexamen"
+                  :rules="dateexamenRules"
+                  label="Дата экзамена"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="group.dateexamen" no-title scrollable>
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu2 = false"
+                  >Cancel</v-btn
+                >
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.menu2.save(group.dateexamen)"
+                  >OK</v-btn
+                >
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col cols="12" sm="6" md="3">
+            <v-select
+              v-model="group.trainingplan"
+              :rules="trainingplanRules"
+              :items="[
+                'Очная',
+                'Стажировка',
+                'Дистанционная',
+                'Индивидуальный учебный план',
+              ]"
+              label="Форма обучения"
+            ></v-select>
+          </v-col>
+          <v-col cols="12" sm="6" md="3">
+            <v-select
+              v-model="group.user"
+              :items="allUsers"
+              item-text="fiolistener"
+              label="Выберите слушателей для группы"
+              return-object
+              multiple
+            ></v-select>
+          </v-col>
+          <v-col cols="12" sm="6" md="3">
+            <v-select
+              v-model="group.course"
+              :items="allModule"
+              item-text="nameProfile"
+              label="Выберите профиль обучения для группы"
+              return-object
+              multiple
+            ></v-select>
+          </v-col>
+          <v-col cols="12">
+            <v-textarea
+              outlined
+              v-model="group.messagelistener"
+              :rules="messagelistenerRules"
+              name="input-7-4"
+              counter
+              maxlength="1000"
+              label="Сообщение слушателю(1000 символов максимум)"
+            ></v-textarea>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-checkbox
+              v-model="group.dostup"
+              :label="'Доступ группы к сдаче экзамена'"
+            ></v-checkbox>
+          </v-col>
+          <v-col cols="12">
+            <v-card-text class="headline">
+              Сообщить о сдаче экзамена
+            </v-card-text>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
+            <v-checkbox
+              v-model="group.alert"
+              :label="'В уведомлении'"
+            ></v-checkbox>
+          </v-col>
+          <v-col cols="12" sm="6" md="4">
+            <v-checkbox
+              :disabled="this.group.alert === true"
+              v-model="message"
+              :label="'На почту'"
+            ></v-checkbox>
+          </v-col>
+          <v-col cols="12" v-if="this.message === true">
             <v-text-field
-              v-model="group.endtraining"
-              label="Конец обучения"
-              readonly
-              v-bind="attrs"
-              v-on="on"
+              v-model="group.email"
+              :rules="emailRules"
+              label="Название почты"
+              required
             ></v-text-field>
-          </template>
-          <v-date-picker v-model="group.endtraining" no-title scrollable>
-            <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="menu1 = false">Cancel</v-btn>
+          </v-col>
+          <v-col cols="12">
             <v-btn
-              text
-              color="primary"
-              @click="$refs.menu1.save(group.endtraining)"
-              >OK</v-btn
+              class="ma-2"
+              x-large
+              tile
+              outlined
+              color="success"
+              @click="updateGroup"
             >
-          </v-date-picker>
-        </v-menu>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-menu
-          ref="menu2"
-          v-model="menu2"
-          :close-on-content-click="false"
-          :return-value.sync="group.dateexamen"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-text-field
-              v-model="group.dateexamen"
-              label="Дата экзамена"
-              readonly
-              v-bind="attrs"
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-date-picker v-model="group.dateexamen" no-title scrollable>
-            <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="menu2 = false">Cancel</v-btn>
-            <v-btn
-              text
-              color="primary"
-              @click="$refs.menu2.save(group.dateexamen)"
-              >OK</v-btn
-            >
-          </v-date-picker>
-        </v-menu>
-      </v-col>
-      <v-col cols="12">
-        <v-select
-          v-model="group.trainingplan"
-          :items="[
-            'Очная',
-            'Стажировка',
-            'Дистанционная',
-            'Индивидуальный учебный план',
-          ]"
-          label="Форма обучения"
-        ></v-select>
-      </v-col>
-      <v-col cols="12">
-        <v-textarea
-          outlined
-          v-model="group.messagelistener"
-          name="input-7-4"
-          counter
-          maxlength="1000"
-          label="Сообщение слушателю(1000 символов максимум)"
-        ></v-textarea>
-      </v-col>
-      <v-col cols="12">
-        <v-select
-          v-model="group.user"
-          :items="usersGroup"
-          item-text="fiolistener"
-          label="Выберите слушателей для группы"
-          return-object
-          multiple
-          persistent-hint
-        ></v-select>
-      </v-col>
-      <v-col cols="12">
-        <v-select
-          v-model="group.course"
-          :items="courses"
-          item-text="namecourse"
-          label="Выберите курс для группы"
-          return-object
-          multiple
-        ></v-select>
-      </v-col>
-      <v-col cols="12" sm="6" md="5">
-        <v-checkbox
-          v-model="group.dostup"
-          :label="'Доступ группы к сдаче экзамена'"
-        ></v-checkbox>
-      </v-col>
-      <v-col cols="12">
-        <h3>Сообщить о сдаче экзамена</h3>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-checkbox v-model="group.alert" :label="'В уведомлении'"></v-checkbox>
-      </v-col>
-      <v-col cols="12" sm="6" md="4">
-        <v-checkbox
-          :disabled="this.group.alert === true"
-          v-model="group.message"
-          :label="'На почту'"
-        ></v-checkbox>
-      </v-col>
-      <v-col cols="12" v-if="this.group.message === true">
-        <v-text-field
-          v-model="group.email"
-          label="Название почты"
-          required
-        ></v-text-field>
-      </v-col>
-      <v-col cols="11">
-        <v-btn
-          class="ma-2"
-          x-large
-          tile
-          outlined
-          color="success"
-          @click="updateGroup"
-        >
-          <v-icon left>mdi-pencil</v-icon> Редактировать
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-card>
+              <v-icon left>mdi-pencil</v-icon> Редактировать
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-form>
+    </v-card>
+  </v-container>
 </template>
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
+  metaInfo: {
+    title: "Редактирование группы | СДО PRO",
+  },
   data: () => ({
     menu: false,
     menu1: false,
@@ -210,41 +226,37 @@ export default {
     alert1: false,
     email: null,
     user: null,
-    group: {},
-    usersGroup: [],
-    users: [],
-    courses: [],
+    valid: false,
+    namegroupRules: [(v) => !!v || "Введите название группы"],
+    starttrainingRules: [(v) => !!v || "Укажите дату начала обучения"],
+    endtrainingRules: [(v) => !!v || "Укажите дату конца обучения"],
+    dateexamenRules: [(v) => !!v || "Укажите дату экзамена"],
+    trainingplanRules: [(v) => !!v || "Выберите план обучения"],
+    userRules: [(v) => !!v || "Выберите слушателей для группы"],
+    messagelistenerRules: [
+      (v) => !!v || "Введите сообщение для сушателей данной группы",
+    ],
+    emailRules: [
+      (v) => !!v || "Введите Email слушателя",
+      (v) => /.+@.+\..+/.test(v) || "Введите корректный Email",
+    ],
   }),
   methods: {
-    async updateGroup() {
-      const res = await axios.put(
-        "/api/groups/" + this.$route.params.id,
-        this.group
-      );
-      this.group = await res.data;
-      this.alert1 = true;
-      setTimeout(() => {
-        this.alert1 = false;
-        this.$router.push("/groups");
-      }, 5000);
-    },
-    async getGroup() {
-      const res = await axios.get("/api/groups/" + this.$route.params.id);
-      this.group = res.data;
-    },
-    async getUsers() {
-      const res = await axios.get("/api/listeners/");
-      this.usersGroup = res.data;
-    },
-    async getCourses() {
-      const res = await axios.get("/api/course");
-      this.courses = res.data;
+    updateGroup() {
+      this.$store.dispatch("updateGroup", this.$route.params.id);
+      this.$router.push({
+        name: "groups",
+        query: { message: "GroupUpdated" + `(${Date.now()})` },
+      });
     },
   },
+  computed: {
+    ...mapGetters(["group", "allUsers", "allModule"]),
+  },
   mounted() {
-    this.getGroup();
-    this.getUsers();
-    this.getCourses();
+    this.$store.dispatch("fetchGroup", this.$route.params.id);
+    this.$store.dispatch("fetchUsers");
+    this.$store.dispatch("fetchModules");
   },
 };
 </script>

@@ -150,33 +150,27 @@ import CounterpartyBanks from "@/components/CounterpartyComponents/EditCounterpa
 import CounterpartyEditCh from "@/components/CounterpartyComponents/EditCounterparty/CounterpartyEditCh";
 import CounterpartyEditZao from "@/components/CounterpartyComponents/EditCounterparty/CounterpartyEditZao";
 export default {
+  metaInfo: {
+    title: "Редактирование контрагента | СДО PRO",
+  },
   data: () => ({
     alert: false,
     valid: false,
     date: new Date().toISOString().substr(0, 10),
     date1: new Date().toISOString().substr(0, 10),
     date2: new Date().toISOString().substr(0, 10),
-    counterparty: {},
     tabMode: "data",
     nameRules: [(v) => !!v || "Введите название контрагента"],
     innRules: [(v) => !!v || "Введите ИНН контрагента"],
     managerRules: [(v) => !!v || "Укажите менеджера для данного контрагента"],
   }),
   methods: {
-    async updateCounterparty() {
-      const res = await axios.put(
-        "/api/counterparty/" + this.$route.params.id,
-        this.counterparty
-      );
-      this.counterparty = res.data;
+    updateCounterparty() {
+      this.$store.dispatch("updateCounterparty", this.$route.params.id);
       this.$router.push({
         name: "counterparties",
-        query: { message: "Counterparty Updated" },
+        query: { message: "CounterpartyUpdated" + `(${Date.now()})` },
       });
-    },
-    async getCounterparty() {
-      const res = await axios.get("/api/counterparty/" + this.$route.params.id);
-      this.counterparty = res.data;
     },
     dataZao(dataZao) {
       this.counterparty = dataZao;
@@ -186,11 +180,11 @@ export default {
     },
   },
   mounted() {
-    this.getCounterparty();
     this.$store.dispatch("fetchAdmins");
     this.$store.dispatch("fetchGroups");
+    this.$store.dispatch("fetchCounterparty", this.$route.params.id);
   },
-  computed: mapGetters(["allAdmins", "allGroups"]),
+  computed: mapGetters(["allAdmins", "allGroups", "counterparty"]),
   components: {
     CounterpartyBanks,
     CounterpartyEditCh,
