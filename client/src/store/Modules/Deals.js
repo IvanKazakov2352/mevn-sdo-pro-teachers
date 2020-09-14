@@ -33,6 +33,7 @@ export default {
         ...state.deal,
       });
       dispatch("fetchDeal", payload);
+      dispatch("fetchDeals");
     },
     async addedDeals({ commit, dispatch }, payload) {
       await axios.post("/api/deals/", payload);

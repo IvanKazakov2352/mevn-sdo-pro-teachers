@@ -208,6 +208,7 @@ export default {
   methods: {
     updateDeal() {
       this.$store.dispatch("updateDeal", this.$route.params.id);
+      this.$router.push({ name: "deals", query: { message: "DealUpdated" + `(${Date.now()})` } });
     },
   },
   computed: {
