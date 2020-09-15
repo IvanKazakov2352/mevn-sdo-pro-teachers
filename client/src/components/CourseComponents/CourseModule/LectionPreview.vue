@@ -36,26 +36,13 @@ export default {
   metaInfo: {
     title: "Предпросмотр лекции | СДО PRO",
   },
-  data: () => ({
-    delta: undefined,
-  }),
   computed: {
-    category() {
-      return this.$store.getters.category(this.$route.params.categoryID);
-    },
-    subCategory() {
-      return this.category.subCategories.find(
-        (cats) => cats.id === this.$route.params.subcategoryID
-      );
-    },
-    subModule() {
-      return this.subCategory.modules.find(
-        (modul) => modul.id === this.$route.params.moduleID
-      );
-    },
     lectionContent() {
-      return this.subModule.lections.find(
-        (lect) => lect.id === this.$route.params.lectID
+      return this.$store.getters.lection(
+        this.$route.params.categoryID,
+        this.$route.params.subcategoryID,
+        this.$route.params.moduleID,
+        this.$route.params.lectID
       );
     },
   },
@@ -63,7 +50,7 @@ export default {
     let article = document.createElement("article");
     let quill = new Quill(article, {});
     quill.setContents(this.lectionContent.content);
-    quill.enable(false)
+    quill.enable(false);
     setTimeout(() => {
       this.$refs.contentContainer.appendChild(article);
     }, 0);

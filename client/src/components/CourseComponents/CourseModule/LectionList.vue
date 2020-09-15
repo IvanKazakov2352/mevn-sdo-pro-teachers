@@ -22,14 +22,24 @@
       </v-tooltip>
 <!--       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" @click="lectionEdit(lect)">
+          <v-btn icon v-bind="attrs" v-on="on" @click="redirectToEditlection(lect)">
             <v-icon>
               mdi-pencil
             </v-icon>
           </v-btn>
         </template>
-        <span>Редактировать лекцию</span>
+        <span>Редактирование данной лекции</span>
       </v-tooltip> -->
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on" @click="createTest(lect)">
+            <v-icon>
+              mdi-alpha-t-box-outline
+            </v-icon>
+          </v-btn>
+        </template>
+        <span>Создание тестирования для данной лекции</span>
+      </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" @click="deleteLection(lect.id)">
@@ -75,11 +85,23 @@ export default {
       this.$store.dispatch("updateProfile", this.$route.params.id);
     },
     lectionPreview(lect) {
-      this.$router.push({name: "previewLection", params: { lectID: lect.id }});
+      this.$router.push({
+        name: "previewLection",
+        params: { lectID: lect.id },
+      });
     },
-/*     lectionEdit(lect) {
-      this.$router.push({ name: "lectionEdit", params: { lectEditID: lect.id } });
-    }, */
+    createTest(lect) {
+      this.$router.push({
+        name: "createTest",
+        params: { lectTestID: lect.id },
+      });
+    },
+    redirectToEditlection(lect) {
+      this.$router.push({
+        name: "lectionEdit",
+        params: { lectEditID: lect.id },
+      });
+    },
   },
 };
 </script>

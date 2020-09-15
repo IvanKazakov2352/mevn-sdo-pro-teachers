@@ -162,7 +162,15 @@ const routes = [
       requiresAuth: true,
     },
   },
-
+  {
+    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/testing/:lectTestID",
+    name: "createTest",
+    props: true,
+    component: () => import("@/components/CourseComponents/CourseTest/CreateTest"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
   {
     path: "/user/:id",
     name: "user",

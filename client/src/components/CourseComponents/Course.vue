@@ -43,7 +43,7 @@
               <v-checkbox v-model="dostupOnModule"></v-checkbox>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Доступ слушателя до модуля</v-list-item-title>
+              <v-list-item-title>Доступ до модуля</v-list-item-title>
               <v-list-item-subtitle>
                 Разрешить ли доступ слушателя до модуля обучения
               </v-list-item-subtitle>

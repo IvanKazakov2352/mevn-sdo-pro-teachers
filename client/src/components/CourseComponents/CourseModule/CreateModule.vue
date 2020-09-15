@@ -113,12 +113,10 @@ export default {
     },
   },
   computed: {
-    category() {
-      return this.$store.getters.category(this.$route.params.categoryID);
-    },
     subCategory() {
-      return this.category.subCategories.find(
-        (cats) => cats.id === this.$route.params.subcategoryID
+      return this.$store.getters.subCategory(
+        this.$route.params.categoryID,
+        this.$route.params.subcategoryID
       );
     },
   },

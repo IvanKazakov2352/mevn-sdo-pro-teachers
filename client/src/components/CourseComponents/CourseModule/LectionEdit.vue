@@ -19,13 +19,13 @@
         ></v-text-field>
       </v-col>
       <v-col cols="12">
-        <quillEditor
-          id="editor"
-          ref="editor"
-          style="height: 600px;"
-          :options="editorOption"
-        />
+        <quillEditor ref="editor" :options="editorOption" />
       </v-col>
+    </v-col>
+    <v-col cols="12">
+      <v-btn class="mt-5 ml-3" x-large tile outlined color="success">
+        <v-icon left>mdi-pencil</v-icon> Редактировать
+      </v-btn>
     </v-col>
   </v-row>
 </template>
@@ -49,29 +49,18 @@ export default {
     },
   }),
   computed: {
-    category() {
-      return this.$store.getters.category(this.$route.params.categoryID);
-    },
-    subCategory() {
-      return this.category.subCategories.find(
-        (cats) => cats.id === this.$route.params.subcategoryID
-      );
-    },
-    subModule() {
-      return this.subCategory.modules.find(
-        (modul) => modul.id === this.$route.params.moduleID
-      );
-    },
     lection() {
-      return this.subModule.lections.find(
-        (lect) => lect.id === this.$route.params.lectEditID
+      return this.$store.getters.lection(
+        this.$route.params.categoryID,
+        this.$route.params.subcategoryID,
+        this.$route.params.moduleID,
+        this.$route.params.lectEditID
       );
     },
   },
   mounted() {
-    var container = document.querySelector("#editor");
-    const quill = new quillEditor(container)
-    quill.enable(false)
+    const delta = Quill.import('delta')
+    console.log(delta)
   },
   components: {
     quillEditor,

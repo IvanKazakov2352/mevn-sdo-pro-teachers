@@ -80,6 +80,7 @@ export default {
     content: "",
     nameLection: null,
     photoLection: null,
+    tests: [],
     editorOption: {
       debug: "info",
       placeholder: "Создание лекции",
@@ -93,6 +94,7 @@ export default {
         id: this.$uuid.v4(),
         nameLection: this.nameLection,
         photoLection: this.photoLection,
+        tests: this.tests,
         content: this.$refs.lection.quill.getContents(),
       };
       this.subModule.lections.push(lection);
@@ -101,17 +103,11 @@ export default {
     },
   },
   computed: {
-    category() {
-      return this.$store.getters.category(this.$route.params.categoryID);
-    },
-    subCategory() {
-      return this.category.subCategories.find(
-        (cats) => cats.id === this.$route.params.subcategoryID
-      );
-    },
     subModule() {
-      return this.subCategory.modules.find(
-        (modul) => modul.id === this.$route.params.moduleID
+      return this.$store.getters.subModule(
+        this.$route.params.categoryID,
+        this.$route.params.subcategoryID,
+        this.$route.params.moduleID
       );
     },
   },

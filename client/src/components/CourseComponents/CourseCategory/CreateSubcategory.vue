@@ -80,13 +80,6 @@ export default {
   metaInfo: {
     title: "Создание подкатегории обучения | СДО PRO",
   },
-  props: {
-    categoryID: {
-      type: String,
-      default: "",
-      required: true,
-    },
-  },
   data: () => ({
     dialog: false,
     valid: false,
@@ -102,9 +95,6 @@ export default {
     ],
   }),
   methods: {
-    getProfile() {
-      this.$store.dispatch("fetchModule", this.$route.params.id);
-    },
     async createSubcategory() {
       const subcategory = {
         id: this.$uuid.v4(),
@@ -120,15 +110,9 @@ export default {
     },
   },
   computed: {
-    profile() {
-      return this.$store.getters.profile;
-    },
     category() {
-      return this.$store.getters.category(this.categoryID);
+      return this.$store.getters.category(this.$route.params.categoryID);
     },
-  },
-  created() {
-    this.getProfile();
   },
   components: {
     SubcategoryList,

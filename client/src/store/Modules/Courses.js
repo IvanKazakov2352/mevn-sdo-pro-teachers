@@ -90,8 +90,20 @@ export default {
     category: (state) => (categoryID) => {
       return state.module.categories.find((cats) => cats.id === categoryID);
     },
-    preview(state) {
-      return state.lectPreview
+    subCategory: (state) => (categoryID, subcategoryID) => {
+      const category = state.module.categories.find((cats) => cats.id === categoryID);
+      return category.subCategories.find(subcats => subcats.id === subcategoryID)
+    },
+    subModule: (state) => (categoryID, subcategoryID, moduleID) => {
+      const category = state.module.categories.find((cats) => cats.id === categoryID);
+      const subCategory = category.subCategories.find(subcats => subcats.id === subcategoryID)
+      return subCategory.modules.find(modul => modul.id === moduleID)
+    },
+    lection: (state) => (categoryID, subcategoryID, moduleID, lectionID) => {
+      const category = state.module.categories.find((cats) => cats.id === categoryID);
+      const subCategory = category.subCategories.find(subcats => subcats.id === subcategoryID)
+      const module = subCategory.modules.find(modul => modul.id === moduleID)
+      return module.lections.find(lect => lect.id === lectionID)
     }
   },
 };
