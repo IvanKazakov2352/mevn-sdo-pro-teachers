@@ -1,14 +1,14 @@
 export function exportToExcel(array) {
   import("../vendor/Export2Excel").then((excel) => {
     const tHeader = [
-      "id Вопроса",
-      "Вопрос",
-      "Правильный ответ",
-      "Неверный ответ1",
-      "Неверный ответ2",
-      "Неверный ответ3",
-      "Неверный ответ4",
-      "Комментарий к вопросу",
+      "id",
+      "question",
+      "answer",
+      "wronganswer",
+      "wronganswer1",
+      "wronganswer2",
+      "wronganswer3",
+      "comment",
     ];
     const filterVal = [
       "id",

@@ -172,6 +172,15 @@ const routes = [
     },
   },
   {
+    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/testing/:lectTestID/test/:testID",
+    name: "testEdit",
+    props: true,
+    component: () => import("@/components/CourseComponents/CourseTest/TestingEdit"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/user/:id",
     name: "user",
     component: () => import("@/components/UsersComponents/UserEdit"),

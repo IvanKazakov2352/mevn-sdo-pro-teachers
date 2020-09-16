@@ -104,6 +104,13 @@ export default {
       const subCategory = category.subCategories.find(subcats => subcats.id === subcategoryID)
       const module = subCategory.modules.find(modul => modul.id === moduleID)
       return module.lections.find(lect => lect.id === lectionID)
-    }
+    },
+    test: (state) => (categoryID, subcategoryID, moduleID, lectionID, testID) => {
+      const category = state.module.categories.find((cats) => cats.id === categoryID);
+      const subCategory = category.subCategories.find(subcats => subcats.id === subcategoryID)
+      const module = subCategory.modules.find(modul => modul.id === moduleID)
+      const lection = module.lections.find(lect => lect.id === lectionID)
+      return lection.tests.find(test => test.id === testID)
+    },
   },
 };

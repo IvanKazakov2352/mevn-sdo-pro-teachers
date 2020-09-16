@@ -27,16 +27,55 @@
         <v-list three-line subheader>
           <v-list-item>
             <v-list-item-content>
-              <v-col>
-                <v-btn
-                  class="ma-2"
-                  outlined
-                  color="indigo"
-                  @click="dialogQuestion = true"
-                >
-                  Добавить вопрос
-                </v-btn>
-              </v-col>
+              <v-row justify="start">
+                <v-col>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        class="ma-2"
+                        outlined
+                        v-bind="attrs"
+                        v-on="on"
+                        color="indigo"
+                        @click="dialogQuestion = true"
+                      >
+                        Добавить вопрос
+                      </v-btn>
+                    </template>
+                    <span>Добавить вопрос в ручном режиме</span>
+                  </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        class="ma-2"
+                        outlined
+                        color="indigo"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="dialogQuestionTable = true"
+                      >
+                        Добавить вопросы списком
+                      </v-btn>
+                    </template>
+                    <span>Добавить вопросы списком Excel файл</span>
+                  </v-tooltip>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        class="ma-2"
+                        outlined
+                        color="indigo"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="exportFileQuestion"
+                      >
+                        Скачать шаблон
+                      </v-btn>
+                    </template>
+                    <span>Скачать шаблон для вопросов(Excel файл)</span>
+                  </v-tooltip>
+                </v-col>
+              </v-row>
 
               <v-dialog v-model="dialogQuestion" max-width="800">
                 <v-card>
@@ -176,27 +215,31 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-              <v-list-item-subtitle>
-                Добавлять вопросы вручную
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-col>
-                <v-btn
-                  class="ma-2"
-                  outlined
-                  color="indigo"
-                  @click="exportFileQuestion"
-                >
-                  Скачать шаблон
-                </v-btn>
-              </v-col>
-              <v-list-item-subtitle>
-                Для того чтобы добавлять вопросы списком нужно их добавлять
-                через шаблон Excel файла
-              </v-list-item-subtitle>
+              <v-dialog v-model="dialogQuestionTable" max-width="650">
+                <v-card>
+                  <v-card-title class="headline"
+                    >Добавление вопросов списком</v-card-title
+                  >
+
+                  <v-card-text>
+                    <ExcelImportData
+                      :on-success="handleSuccess"
+                      :before-upload="beforeUpload"
+                    />
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="green darken-1"
+                      text
+                      @click="dialogQuestionTable = false"
+                    >
+                      Отмена
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -312,8 +355,10 @@
 </template>
 <script>
 import TestingList from "@/components/CourseComponents/CourseTest/TestingList";
+import ExcelImportData from "@/components/CourseComponents/CourseTest/ExcelImportComponent";
 import ShablonQuestion from "@/components/CourseComponents/test.json";
 import { exportToExcel } from "@/functions/ExportExcelQuestionFile.js";
+import XLSX from "xlsx";
 export default {
   metaInfo: {
     title: "Создание тестирования | СДО PRO",
@@ -321,6 +366,7 @@ export default {
   data: () => ({
     dialog: false,
     dialogQuestion: false,
+    dialogQuestionTable: false,
     dialogQuestionEdit: false,
     dostupTest: false,
     question: null,
@@ -340,6 +386,10 @@ export default {
     photoTestRules: [
       (v) => !!v || "Добавьте ссылку на фотографию тестирования",
     ],
+    excelData: {
+      header: null,
+      results: null,
+    },
   }),
   methods: {
     exportFileQuestion() {
@@ -347,14 +397,15 @@ export default {
     },
     addTestingToLection() {
       const test = {
+        id: this.$uuid.v4(),
         nameTest: this.nameTest,
         photoTest: this.photoTest,
         dostupTest: this.dostupTest,
-        questions: this.questions
-      }
-      this.lectionContent.tests.push(test)
-      this.$store.dispatch("updateProfile", this.$route.params.id)
-      this.dialog = false
+        questions: this.questions,
+      };
+      this.lectionContent.tests.push(test);
+      this.$store.dispatch("updateProfile", this.$route.params.id);
+      this.dialog = false;
     },
     addQuestionToTests() {
       const question = {
@@ -378,9 +429,25 @@ export default {
       this.dialogQuestionEdit = true;
     },
     updateQuestion() {
-      this.quest = Object.assign(this.quest)
-      this.dialogQuestionEdit = false
-    }
+      this.quest = Object.assign(this.quest);
+      this.dialogQuestionEdit = false;
+    },
+    beforeUpload(file) {
+      const isLt1M = file.size / 1024 / 1024 < 1;
+      if (isLt1M) {
+        return true;
+      }
+      this.$message({
+        message: "Please do not upload files larger than 1m in size.",
+        type: "warning",
+      });
+      return false;
+    },
+    handleSuccess({ results, header }) {
+      this.questions = results;
+      this.tableHeader = header;
+      this.dialogQuestionTable = false
+    },
   },
   computed: {
     lectionContent() {
@@ -394,6 +461,10 @@ export default {
   },
   components: {
     TestingList,
+    ExcelImportData,
   },
 };
 </script>
+<style scoped>
+@import "../../../assets/index.css";
+</style>
