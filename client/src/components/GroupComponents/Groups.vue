@@ -173,12 +173,6 @@
                 label="Сообщение слушателю(1000 символов максимум)"
               ></v-textarea>
             </v-col>
-            <v-col cols="12" sm="6" md="5">
-              <v-checkbox
-                v-model="dostup"
-                :label="'Доступ группы к сдаче экзамена'"
-              ></v-checkbox>
-            </v-col>
             <v-col cols="12">
               <v-card-text class="headline">
                 Сообщить о сдаче экзамена
@@ -245,7 +239,7 @@ export default {
     namegroup: null,
     trainingplan: null,
     email: null,
-    user: null,
+    user: [],
     course: null,
     starttraining: new Date().toISOString().substr(0, 10),
     endtraining: new Date().toISOString().substr(0, 10),

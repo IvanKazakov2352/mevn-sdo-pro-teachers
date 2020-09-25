@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-toolbar class="mb-2" color="indigo darken-5" dark flat>
       <v-toolbar-title
-        >Модуль обучения: {{ profile.nameProfile }}</v-toolbar-title
+        >Профиль обучения: {{ profile.nameProfile }}</v-toolbar-title
       >
     </v-toolbar>
     <v-card>
@@ -41,6 +41,7 @@
             </v-expansion-panel-content>
           </v-expansion-panel>
           <category :profile="profile" />
+          <examen :profile="profile"/>
         </v-expansion-panels>
         <v-col cols="12">
           <v-btn
@@ -51,7 +52,7 @@
             color="success"
             @click="updateProfile"
           >
-            <v-icon left>mdi-pencil</v-icon> Редактировать
+            <v-icon left>mdi-pencil</v-icon> Сохранить
           </v-btn>
         </v-col>
       </v-row>
@@ -60,6 +61,7 @@
 </template>
 <script>
 import category from "@/components/CourseComponents/CourseCategory/CategoryCreate";
+import examen from "@/components/CourseComponents/CourseExamen/CreateExamen"
 import { mapGetters } from "vuex";
 import axios from "axios";
 export default {
@@ -86,6 +88,7 @@ export default {
   },
   components: {
     category,
+    examen
   },
 };
 </script>

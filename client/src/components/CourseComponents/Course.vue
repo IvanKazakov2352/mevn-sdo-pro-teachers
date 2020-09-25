@@ -70,6 +70,8 @@ export default {
     dostupOnTests: true,
     dostupOnLections: true,
     nameModuleRules: [(v) => !!v || "Укажите пожалуйста имя профиля обучения"],
+    categories: [],
+    examens: []
   }),
   methods: {
     addProfileModule() {
@@ -78,6 +80,8 @@ export default {
         dostupOnLections: this.dostupOnLections,
         dostupOnModule: this.dostupOnModule,
         dostupOnTests: this.dostupOnTests,
+        categories: this.categories,
+        examens: this.examens
       };
       this.$store.dispatch("addedModule", profile);
       this.dialog = false;

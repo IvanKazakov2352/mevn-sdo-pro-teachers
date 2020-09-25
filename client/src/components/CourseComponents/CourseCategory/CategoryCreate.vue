@@ -61,7 +61,7 @@
         <list
           class="mt-4 mb-4 mr-4 ml-4"
           v-for="category in categories"
-          :key="category.payload"
+          :key="category.id"
           :category="category"
         />
       </v-row>

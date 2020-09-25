@@ -5,188 +5,152 @@
       <v-row>
         <v-col cols="12" sm="3">
           <v-text-field
-            v-model="namekr"
+            v-model="dataZao.namekr"
             label="Краткое наименование"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
-          <v-text-field v-model="fio" label="ФИО Директора"></v-text-field>
+          <v-text-field
+            v-model="dataZao.fio"
+            label="ФИО Директора"
+          ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
-          <v-text-field v-model="position" label="Должность"></v-text-field>
+          <v-text-field
+            v-model="dataZao.position"
+            label="Должность"
+          ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'######'"
-            v-model="postcode"
+            v-model="dataZao.postcode"
             label="Почтовый индекс"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
-          <v-text-field v-model="town" label="Город"></v-text-field>
+          <v-text-field v-model="dataZao.town" label="Город"></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
-            v-model="legal"
+            v-model="dataZao.legal"
             label="Юридический адрес"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
-            v-model="postaddress"
+            v-model="dataZao.postaddress"
             label="Почтовый адрес"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
-            v-model="factaddress"
+            v-model="dataZao.factaddress"
             label="Фактический адрес"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'###############'"
-            v-model="ogrn"
+            v-model="dataZao.ogrn"
             label="ОГРН(ИП)"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'##########'"
-            v-model="kpp"
+            v-model="dataZao.kpp"
             label="КПП"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'#########'"
-            v-model="okpo"
+            v-model="dataZao.okpo"
             label="ОКПО"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'###########'"
-            v-model="okato"
+            v-model="dataZao.okato"
             label="ОКАТО"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'###########'"
-            v-model="oktmo"
+            v-model="dataZao.oktmo"
             label="ОКТМО"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'#######'"
-            v-model="okogu"
+            v-model="dataZao.okogu"
             label="ОКОГУ"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'#####'"
-            v-model="okopf"
+            v-model="dataZao.okopf"
             label="ОКОПФ"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'8(###)###-##-## доб ####'"
-            v-model="phone"
+            v-model="dataZao.phone"
             label="Телефон"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'8(###)###-##-## доб ####'"
-            v-model="faks"
+            v-model="dataZao.faks"
             label="Факс"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
-          <v-text-field v-model="email" label="Email"></v-text-field>
+          <v-text-field v-model="dataZao.email" label="Email"></v-text-field>
         </v-col>
       </v-row>
-      <v-card-text>Данные автоматически сохраняются каждые 7 секунд</v-card-text>
-      <v-btn class="ma-2" outlined color="indigo" @click="fetchDopData"
-        >Сохранить</v-btn
-      >
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
 <script>
 export default {
   data: () => ({
-    namekr: null,
-    position: null,
-    fio: null,
-    postcode: null,
-    town: null,
-    legal: null,
-    postaddress: null,
-    factaddress: null,
-    ogrn: null,
-    kpp: null,
-    okpo: null,
-    okato: null,
-    okato: null,
-    oktmo: null,
-    okogu: null,
-    okopf: null,
-    phone: null,
-    faks: null,
-    email: null,
-  }),
-  methods: {
-    fetchDopData() {
-      this.$emit("fetchDopDataZao", {
-        namekr: this.namekr,
-        position: this.position,
-        fio: this.fio,
-        postcode: this.postcode,
-        town: this.town,
-        legal: this.legal,
-        postaddress: this.postaddress,
-        factaddress: this.factaddress,
-        ogrn: this.ogrn,
-        kpp: this.kpp,
-        okpo: this.okpo,
-        okato: this.okato,
-        oktmo: this.oktmo,
-        okogu: this.okogu,
-        okopf: this.okopf,
-        phone: this.phone,
-        faks: this.faks,
-        email: this.email,
-      });
+    dataZao: {
+      namekr: null,
+      position: null,
+      fio: null,
+      postcode: null,
+      town: null,
+      legal: null,
+      postaddress: null,
+      factaddress: null,
+      ogrn: null,
+      kpp: null,
+      okpo: null,
+      okato: null,
+      okato: null,
+      oktmo: null,
+      okogu: null,
+      okopf: null,
+      phone: null,
+      faks: null,
+      email: null,
     },
-  },
-  mounted() {
-    setInterval(() => {
-      this.$emit("fetchDopDataZao", {
-        namekr: this.namekr,
-        position: this.position,
-        fio: this.fio,
-        postcode: this.postcode,
-        town: this.town,
-        legal: this.legal,
-        postaddress: this.postaddress,
-        factaddress: this.factaddress,
-        ogrn: this.ogrn,
-        kpp: this.kpp,
-        okpo: this.okpo,
-        okato: this.okato,
-        oktmo: this.oktmo,
-        okogu: this.okogu,
-        okopf: this.okopf,
-        phone: this.phone,
-        faks: this.faks,
-        email: this.email,
-      });
-    }, 7000);
+  }),
+  watch: {
+    dataZao: {
+      deep: true,
+      handler(newValue) {
+        this.$emit("fetchDopDataZao", newValue);
+      },
+    },
   },
 };
 </script>

@@ -6,25 +6,25 @@
         <v-col cols="12" sm="3">
           <v-menu
             ref="menu"
-            v-model="menu"
+            v-model="dataCh.menu"
             :close-on-content-click="false"
-            :return-value.sync="date"
+            :return-value.sync="dataCh.date"
             transition="scale-transition"
             offset-y
             min-width="290px"
           >
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-model="date"
+                v-model="dataCh.date"
                 label="Дата рождения"
                 readonly
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="date" no-title scrollable>
+            <v-date-picker v-model="dataCh.date" no-title scrollable>
               <v-spacer></v-spacer>
               <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-              <v-btn text color="primary" @click="$refs.menu.save(date)"
+              <v-btn text color="primary" @click="$refs.menu.save(dataCh.date)"
                 >OK</v-btn
               >
             </v-date-picker>
@@ -32,13 +32,13 @@
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
-            v-model="birthday"
+            v-model="dataCh.birthday"
             label="Место рождения"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-select
-            v-model="education"
+            v-model="dataCh.education"
             :items="educations"
             label="Образование"
           ></v-select>
@@ -46,67 +46,70 @@
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'8(###) ###-##-##'"
-            v-model="phone"
+            v-model="dataCh.phone"
             label="Tелефон"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
-          <v-text-field v-model="email" label="Email"></v-text-field>
+          <v-text-field v-model="dataCh.email" label="Email"></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'######'"
-            v-model="postcode"
+            v-model="dataCh.postcode"
             label="Почтовый индекс"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
-          <v-text-field v-model="town" label="Город"></v-text-field>
+          <v-text-field v-model="dataCh.town" label="Город"></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
-            v-model="address"
+            v-model="dataCh.address"
             label="Адрес регистрации"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
-            v-model="factaddress"
+            v-model="dataCh.factaddress"
             label="Фактический адрес"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-text-field
             v-mask="'###-###-###-##'"
-            v-model="snils"
+            v-model="dataCh.snils"
             label="Снилс"
           ></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
-          <v-text-field v-model="pasport" label="Паспорт"></v-text-field>
+          <v-text-field v-model="dataCh.pasport" label="Паспорт"></v-text-field>
         </v-col>
         <v-col cols="12" sm="3">
           <v-menu
             ref="menu1"
-            v-model="menu1"
+            v-model="dataCh.menu1"
             :close-on-content-click="false"
-            :return-value.sync="date1"
+            :return-value.sync="dataCh.date1"
             transition="scale-transition"
             offset-y
             min-width="290px"
           >
             <template v-slot:activator="{ on }">
               <v-text-field
-                v-model="date1"
+                v-model="dataCh.date1"
                 label="Дата получения"
                 readonly
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker v-model="date1" no-title scrollable>
+            <v-date-picker v-model="dataCh.date1" no-title scrollable>
               <v-spacer></v-spacer>
               <v-btn text color="primary" @click="menu1 = false">Cancel</v-btn>
-              <v-btn text color="primary" @click="$refs.menu1.save(date1)"
+              <v-btn
+                text
+                color="primary"
+                @click="$refs.menu1.save(dataCh.date1)"
                 >OK</v-btn
               >
             </v-date-picker>
@@ -114,15 +117,11 @@
         </v-col>
         <v-col cols="11" sm="3">
           <v-text-field
-            v-model="vpasport"
+            v-model="dataCh.vpasport"
             label="Выдан(Паспорт)"
           ></v-text-field>
         </v-col>
       </v-row>
-      <v-card-text>Данные автоматически сохраняются каждые 7 секунд</v-card-text>
-      <v-btn class="ma-2" outlined color="indigo" @click="fetchDopDataCh"
-        >Сохранить</v-btn
-      >
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
@@ -130,21 +129,23 @@
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
-    birthday: null,
-    education: null,
-    phone: null,
-    email: null,
-    postcode: null,
-    town: null,
-    address: null,
-    factaddress: null,
-    snils: null,
-    pasport: null,
-    vpasport: null,
-    menu: false,
-    menu1: false,
-    date: new Date().toISOString().substr(0, 10),
-    date1: new Date().toISOString().substr(0, 10),
+    dataCh: {
+      birthday: null,
+      education: null,
+      phone: null,
+      email: null,
+      postcode: null,
+      town: null,
+      address: null,
+      factaddress: null,
+      snils: null,
+      pasport: null,
+      vpasport: null,
+      menu: false,
+      menu1: false,
+      date: new Date().toISOString().substr(0, 10),
+      date1: new Date().toISOString().substr(0, 10),
+    },
     educations: [
       "Неопределенно",
       "Основоное общее",
@@ -155,39 +156,13 @@ export default {
       "Высшее-магистратура",
     ],
   }),
-  methods: {
-    fetchDopDataCh() {
-      this.$emit("fetchDopDataCh", {
-        birthday: this.birthday,
-        education: this.education,
-        phone: this.phone,
-        email: this.email,
-        postcode: this.postcode,
-        town: this.town,
-        address: this.address,
-        factaddress: this.factaddress,
-        snils: this.snils,
-        pasport: this.pasport,
-        vpasport: this.vpasport,
-      });
+  watch: {
+    dataCh: {
+      deep: true,
+      handler(newValue) {
+        this.$emit("fetchDopDataCh", newValue)
+      },
     },
-  },
-  mounted() {
-    setInterval(() => {
-      this.$emit("fetchDopDataCh", {
-        birthday: this.birthday,
-        education: this.education,
-        phone: this.phone,
-        email: this.email,
-        postcode: this.postcode,
-        town: this.town,
-        address: this.address,
-        factaddress: this.factaddress,
-        snils: this.snils,
-        pasport: this.pasport,
-        vpasport: this.vpasport,
-      });
-    }, 7000);
   },
 };
 </script>

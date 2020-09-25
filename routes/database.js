@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Upload = require("../models/Upload");
 const router = express.Router();
 
-const DIR = './files/';
+const DIR = "./files/";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -20,9 +20,8 @@ var upload = multer({
   storage: storage,
 });
 
-
-router.post("/database", upload.array("files", 10), (req, res, next) => {
-  const reqName = req.body.name
+router.post("/", upload.array("files", 10), (req, res, next) => {
+  const reqName = req.body.name;
   const reqFiles = [];
   const url = req.protocol + "://" + req.get("host");
   for (var i = 0; i < req.files.length; i++) {
@@ -55,7 +54,7 @@ router.post("/database", upload.array("files", 10), (req, res, next) => {
     });
 });
 
-router.get("/database", (req, res, next) => {
+router.get("/", (req, res, next) => {
   Upload.find().then((data) => {
     res.status(200).json({
       message: "Файлы получены",
@@ -64,10 +63,10 @@ router.get("/database", (req, res, next) => {
   });
 });
 
-router.get('/database/:id', (req, res) => {
+router.get("/database/:id", (req, res) => {
   Upload.findById(req.params.id, (err, collect) => {
-      res.json(collect)
-  })
-})
+    res.json(collect);
+  });
+});
 
 module.exports = router;

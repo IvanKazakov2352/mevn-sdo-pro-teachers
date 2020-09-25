@@ -181,7 +181,7 @@
             color="success"
             @click="updateTask"
           >
-            <v-icon left>mdi-pencil</v-icon> Редактировать
+            <v-icon left>mdi-pencil</v-icon> Сохранить
           </v-btn>
         </v-col>
       </v-row>

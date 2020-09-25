@@ -134,9 +134,6 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      <v-btn class="ma-2" outlined color="indigo" @click="fetchDopDataCh"
-        >Сохранить</v-btn
-      >
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
@@ -161,10 +158,10 @@ export default {
       "Высшее-магистратура",
     ],
   }),
-  methods: {
-    fetchDopDataCh() {
+  watch: {
+    counterparty() {
       this.$emit("postDopDataCh", this.counterparty);
-    },
+    }
   },
 };
 </script>

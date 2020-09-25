@@ -13,7 +13,7 @@
       @dragover="handleDragover"
       @dragenter="handleDragover"
     >
-      Выберите файл с вопросами для теста
+      Перетащите файл с вопросами сюда
     </div>
   </div>
 </template>

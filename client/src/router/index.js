@@ -118,6 +118,14 @@ const routes = [
     },
   },
   {
+    path: "/profile/:id/examen/:examenID",
+    name: "examen",
+    component: () => import("@/components/CourseComponents/CourseExamen/ExamenEdit"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/profile/:id/category/:categoryID",
     name: "subcategory",
     props: true,

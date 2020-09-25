@@ -4,6 +4,7 @@ export default {
   state: {
     modules: [],
     module: {},
+    tests: []
   },
   mutations: {
     setModules(state, data) {
@@ -86,6 +87,9 @@ export default {
     },
     categories(state) {
       return state.module.categories;
+    },
+    examen: (state) => (examenID) => {
+      return state.module.examens.find((examen) => examen.id === examenID)
     },
     category: (state) => (categoryID) => {
       return state.module.categories.find((cats) => cats.id === categoryID);

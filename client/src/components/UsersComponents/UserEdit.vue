@@ -189,7 +189,7 @@
         </v-form>
         <v-col cols="12">
           <v-btn class="ma-2" x-large tile outlined color="success" @click="updateUser">
-            <v-icon left>mdi-pencil</v-icon> Редактировать
+            <v-icon left>mdi-pencil</v-icon> Сохранить
           </v-btn>
           <v-btn
             class="ma-2"

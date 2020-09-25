@@ -136,7 +136,7 @@
             @click="updateCounterparty"
             :disabled="!valid"
           >
-            <v-icon left>mdi-pencil</v-icon> Редактировать
+            <v-icon left>mdi-pencil</v-icon> Сохранить
           </v-btn>
         </v-col>
       </v-row>
@@ -173,10 +173,10 @@ export default {
       });
     },
     dataZao(dataZao) {
-      this.counterparty = dataZao;
+      Object.assign(this.counterparty, dataZao)
     },
     dataCh(dataCh) {
-      this.counterparty = dataCh;
+      Object.assign(this.counterparty, dataCh)
     },
   },
   mounted() {

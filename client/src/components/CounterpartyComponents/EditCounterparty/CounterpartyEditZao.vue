@@ -122,9 +122,6 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      <v-btn class="ma-2" outlined color="indigo" @click="fetchDopDataZao"
-        >Сохранить</v-btn
-      >
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
@@ -145,9 +142,9 @@ export default {
       "Работник",
     ],
   }),
-  methods: {
-    fetchDopDataZao() {
-      this.$emit("postDopDataZao", this.counterparty)
+  watch: {
+    counterparty() {
+      this.$emit("postDopDataZao", this.counterparty);
     },
   },
 };

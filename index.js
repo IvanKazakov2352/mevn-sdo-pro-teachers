@@ -17,6 +17,7 @@ const courseRoutes = require("./routes/course");
 const dealsRoutes = require("./routes/deal");
 const settingsRoutes = require("./routes/settings");
 const eventsRoutes = require("./routes/event")
+const path = require("path")
 const app = express();
 
 mongoose.set("useCreateIndex", true);
@@ -30,6 +31,7 @@ mongoose
   });
 
 app.use(cors());
+app.use('/files', express.static(path.join(__dirname, 'files')))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

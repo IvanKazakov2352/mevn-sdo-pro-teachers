@@ -5,7 +5,7 @@
       <v-expansion-panel>
         <v-expansion-panel-header>Журнал</v-expansion-panel-header>
         <v-expansion-panel-content>
-          <Journal :journal="this.doc.tests" />
+          <Journal :journal="doc.tests" />
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel>
@@ -14,13 +14,13 @@
           обучения</v-expansion-panel-header
         >
         <v-expansion-panel-content>
-          <ListListener :users="this.doc.user" />
+          <ListListener :users="doc.user" />
         </v-expansion-panel-content>
       </v-expansion-panel>
       <v-expansion-panel>
         <v-expansion-panel-header>Приказ о зачислении</v-expansion-panel-header>
         <v-expansion-panel-content>
-          <Zachislenie :group="this.doc" />
+          <Zachislenie :group="doc" />
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -37,6 +37,7 @@ export default {
   },
   data: () => ({
     dialog: false,
+    doc: {}
   }),
   methods: {
     async getGroups() {

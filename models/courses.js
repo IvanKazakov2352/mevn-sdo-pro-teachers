@@ -18,6 +18,7 @@ const course = new Schema(
     categories: {
       type: Array
     },
+    examens: [],
     createdAt: {
       type: Date,
       default: Date.now,

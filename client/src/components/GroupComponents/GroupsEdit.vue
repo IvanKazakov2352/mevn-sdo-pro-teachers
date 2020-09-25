@@ -160,12 +160,6 @@
               label="Сообщение слушателю(1000 символов максимум)"
             ></v-textarea>
           </v-col>
-          <v-col cols="12" sm="6">
-            <v-checkbox
-              v-model="group.dostup"
-              :label="'Доступ группы к сдаче экзамена'"
-            ></v-checkbox>
-          </v-col>
           <v-col cols="12">
             <v-card-text class="headline">
               Сообщить о сдаче экзамена
@@ -201,7 +195,7 @@
               color="success"
               @click="updateGroup"
             >
-              <v-icon left>mdi-pencil</v-icon> Редактировать
+              <v-icon left>mdi-pencil</v-icon> Сохранить
             </v-btn>
           </v-col>
         </v-row>
