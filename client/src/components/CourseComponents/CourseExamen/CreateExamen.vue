@@ -133,173 +133,22 @@
                     </v-row>
                   </v-col>
                 </v-list-item-content>
-                <v-dialog v-model="dialogQuestion" max-width="800">
-                  <v-card>
-                    <v-card-title class="headline">
-                      Добавление вопроса
-                    </v-card-title>
-                    <v-card-text>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="question"
-                          label="Название вопроса"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="answer"
-                          label="Правильный ответ"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="wronganswer"
-                          label="Неверный ответ"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="wronganswer1"
-                          label="Неверный ответ1"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="wronganswer2"
-                          label="Неверный ответ2"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="wronganswer3"
-                          label="Неверный ответ3"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-textarea
-                          v-model="comment"
-                          outlined
-                          label="Комментарий к вопросу"
-                        ></v-textarea>
-                      </v-col>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="dialogQuestion = false"
-                      >
-                        Отмена
-                      </v-btn>
-
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="addQuestionToTests"
-                      >
-                        Добавить вопрос
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-                <v-dialog v-model="dialogQuestionEdit" max-width="800">
-                  <v-card>
-                    <v-card-title class="headline">
-                      Редактирование вопроса: {{ quest.question }}
-                    </v-card-title>
-                    <v-card-text>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="quest.question"
-                          label="Название вопроса"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="quest.answer"
-                          label="Правильный ответ"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="quest.wronganswer"
-                          label="Неверный ответ"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="quest.wronganswer1"
-                          label="Неверный ответ1"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="quest.wronganswer2"
-                          label="Неверный ответ2"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          v-model="quest.wronganswer3"
-                          label="Неверный ответ3"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-textarea
-                          v-model="quest.comment"
-                          outlined
-                          label="Комментарий к вопросу"
-                        ></v-textarea>
-                      </v-col>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="dialogQuestionEdit = false"
-                      >
-                        Отмена
-                      </v-btn>
-
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="updateQuestion"
-                      >
-                        Редактировать вопрос
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-                <v-dialog v-model="dialogQuestionTable" max-width="650">
-                  <v-card>
-                    <v-card-title class="headline"
-                      >Добавление вопросов списком</v-card-title
-                    >
-
-                    <v-card-text>
-                      <ExcelImportData
-                        :on-success="handleSuccess"
-                        :before-upload="beforeUpload"
-                      />
-                    </v-card-text>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="dialogQuestionTable = false"
-                      >
-                        Отмена
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
+                <ExamenDialogImportExcelData
+                  :dialogQuestionTable="dialogQuestionTable"
+                  @closeDialog="dialogQuestionTable = false"
+                  @handleSuccess="handleSuccess"
+                />
+                <ExamenDialogAddQuestion
+                  :dialogQuestion="dialogQuestion"
+                  @closeDialog="dialogQuestion = false"
+                  @addQuestionToTest="addQuestionToTests"
+                />
+                <ExamenDialogEditQuestion
+                  :dialogQuestionEdit="dialogQuestionEdit"
+                  :quest="quest"
+                  @closeDialogEdit="dialogQuestionEdit = false"
+                  @updateQuestion="updateQuestion"
+                />
               </v-list-item>
               <ExamenListQuestions
                 :questions="questions"
@@ -324,12 +173,13 @@
   </v-expansion-panel>
 </template>
 <script>
-import ShablonQuestion from "@/components/CourseComponents/test.json";
-import { exportToExcel } from "@/functions/ExportExcelQuestionFile.js";
-const ExcelImportData = () =>
-  import("@/components/CourseComponents/CourseTest/ExcelImportComponent");
 const ExamenListQuestions = () => import("./ExamenListQuestions");
 const ExamensListItem = () => import("./ExamenList");
+const ExamenDialogImportExcelData = () => import("./ExamenDialogImportExcelData");
+const ExamenDialogAddQuestion = () => import("./ExamenDialogAddQuestion");
+const ExamenDialogEditQuestion = () => import("./ExamenDialogEditQuestion");
+import ShablonQuestion from "@/components/CourseComponents/test.json";
+import { exportToExcel } from "@/functions/ExportExcelQuestionFile.js";
 export default {
   props: {
     profile: {
@@ -372,31 +222,19 @@ export default {
       this.$store.dispatch("updateProfile", this.$route.params.id);
       this.dialog = false;
     },
-    addQuestionToTests() {
-      const question = {
-        id: this.$uuid.v4(),
-        question: this.question,
-        answer: this.answer,
-        wronganswer: this.wronganswer,
-        wronganswer1: this.wronganswer1,
-        wronganswer2: this.wronganswer2,
-        wronganswer3: this.wronganswer3,
-        comment: this.comment,
-      };
+    addQuestionToTests(question) {
       this.questions.push(question);
       this.dialogQuestion = false;
     },
     deleteQuestion(id) {
-      this.questions = this.questions.filter((ques) => ques.id !== id);
+      this.questions = this.questions.filter(ques => ques.id !== id);
     },
     updateQuestionDialog(id) {
-      this.quest = this.questions.find((ques) => ques.id === id);
+      this.quest = this.questions.find(ques => ques.id === id);
       this.dialogQuestionEdit = true;
     },
     deleteExamen(id) {
-      this.profile.examens = this.profile.examens.filter(
-        (examen) => examen.id !== id
-      );
+      this.profile.examens = this.profile.examens.filter(examen => examen.id !== id);
       this.$store.dispatch("updateProfile", this.$route.params.id);
     },
     updateExamen(examen) {
@@ -409,30 +247,19 @@ export default {
     selectlinkPhoto() {
       document.querySelector("#photo").select();
     },
-    beforeUpload(file) {
-      const isLt1M = file.size / 1024 / 1024 < 1;
-      if (isLt1M) {
-        return true;
-      }
-      this.$message({
-        message: "Please do not upload files larger than 1m in size.",
-        type: "warning",
-      });
-      return false;
-    },
-    handleSuccess({ results, header }) {
-      this.questions = results;
-      this.tableHeader = header;
-      this.dialogQuestionTable = false;
-    },
     exportFileQuestion() {
       return exportToExcel(this.array);
     },
+    handleSuccess(data) {
+      this.questions = data.results
+    }
   },
   components: {
-    ExcelImportData,
     ExamenListQuestions,
     ExamensListItem,
+    ExamenDialogAddQuestion,
+    ExamenDialogEditQuestion,
+    ExamenDialogImportExcelData,
   },
 };
 </script>

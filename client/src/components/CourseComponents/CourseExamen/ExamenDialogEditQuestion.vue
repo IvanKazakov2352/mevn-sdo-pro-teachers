@@ -75,7 +75,6 @@ export default {
       required: true,
     },
   },
-  data: () => ({}),
   methods: {
     updateQuestion() {
       this.$emit("updateQuestion", this.quest);

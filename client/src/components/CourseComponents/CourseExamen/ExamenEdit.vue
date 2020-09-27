@@ -154,31 +154,11 @@
         </v-card>
       </v-col>
       <v-col cols="12">
-        <v-dialog v-model="dialogQuestionTable" max-width="650">
-          <v-card>
-            <v-card-title class="headline"
-              >Добавление вопросов списком</v-card-title
-            >
-
-            <v-card-text>
-              <ExcelImportData
-                :on-success="handleSuccess"
-                :before-upload="beforeUpload"
-              />
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="green darken-1"
-                text
-                @click="dialogQuestionTable = false"
-              >
-                Отмена
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+        <ExamenDialogImportExcelData
+          :dialogQuestionTable="dialogQuestionTable"
+          @closeDialog="dialogQuestionTable = false"
+          @handleSuccess="handleSuccess"
+        />
         <ExamenDialogAddQuestion
           :dialogQuestion="dialogQuestion"
           @closeDialog="dialogQuestion = false"
@@ -212,6 +192,7 @@ import { exportToExcel } from "@/functions/ExportExcelQuestionFile.js";
 const ExcelImportData = () => import("../CourseTest/ExcelImportComponent");
 const ExamenDialogAddQuestion = () => import("./ExamenDialogAddQuestion");
 const ExamenDialogEditQuestion = () => import("./ExamenDialogEditQuestion");
+const ExamenDialogImportExcelData = () => import("./ExamenDialogImportExcelData");
 export default {
   metaInfo: {
     title: "Редактирование экзамена | СДО PRO",
@@ -228,12 +209,10 @@ export default {
       document.querySelector("#photo").select();
     },
     deleteQuestion(id) {
-      this.examen.questions = this.examen.questions.filter(
-        (ques) => ques.id !== id
-      );
+      this.examen.questions = this.examen.questions.filter(ques => ques.id !== id);
     },
     updateDialogQuestion(id) {
-      this.quest = this.examen.questions.find((ques) => ques.id === id);
+      this.quest = this.examen.questions.find(ques => ques.id === id);
       this.dialogQuestionEdit = true;
     },
     updateQuestion(data) {
@@ -241,6 +220,7 @@ export default {
     },
     updateExamTest() {
       this.$store.dispatch("updateProfile", this.$route.params.id);
+      this.$router.go(-1)
     },
     addQuestionToTest(data) {
       this.examen.questions.push(data);
@@ -248,21 +228,8 @@ export default {
     exportToExcel() {
       return exportToExcel(this.array);
     },
-    beforeUpload(file) {
-      const isLt1M = file.size / 1024 / 1024 < 1;
-      if (isLt1M) {
-        return true;
-      }
-      this.$message({
-        message: "Please do not upload files larger than 1m in size.",
-        type: "warning",
-      });
-      return false;
-    },
-    handleSuccess({ results, header }) {
-      this.examen.questions = results;
-      this.tableHeader = header;
-      this.dialogQuestionTable = false;
+    handleSuccess(data) {
+      this.examen.questions = data.results;
     },
   },
   computed: {
@@ -274,6 +241,7 @@ export default {
     ExcelImportData,
     ExamenDialogAddQuestion,
     ExamenDialogEditQuestion,
+    ExamenDialogImportExcelData,
   },
 };
 </script>
