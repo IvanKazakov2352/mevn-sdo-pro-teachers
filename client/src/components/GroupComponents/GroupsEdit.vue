@@ -161,30 +161,10 @@
             ></v-textarea>
           </v-col>
           <v-col cols="12">
-            <v-card-text class="headline">
-              Сообщить о сдаче экзамена
-            </v-card-text>
-          </v-col>
-          <v-col cols="12" sm="6" md="4">
             <v-checkbox
-              v-model="group.alert"
-              :label="'В уведомлении'"
+              v-model="group.dostupExamen"
+              label="Доступ до сдачи экзаменационных тестов"
             ></v-checkbox>
-          </v-col>
-          <v-col cols="12" sm="6" md="4">
-            <v-checkbox
-              :disabled="this.group.alert === true"
-              v-model="message"
-              :label="'На почту'"
-            ></v-checkbox>
-          </v-col>
-          <v-col cols="12" v-if="this.message === true">
-            <v-text-field
-              v-model="group.email"
-              :rules="emailRules"
-              label="Название почты"
-              required
-            ></v-text-field>
           </v-col>
           <v-col cols="12">
             <v-btn

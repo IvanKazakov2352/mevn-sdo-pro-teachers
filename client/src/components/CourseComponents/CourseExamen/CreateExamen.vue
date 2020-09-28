@@ -68,20 +68,6 @@
                 </v-list-item-content>
               </v-list-item>
               <v-list-item>
-                <v-list-item-action>
-                  <v-checkbox v-model="dostupExamen"></v-checkbox>
-                </v-list-item-action>
-                <v-list-item-content>
-                  <v-list-item-title
-                    >Доступ до сдачи экзамена</v-list-item-title
-                  >
-                  <v-list-item-subtitle
-                    >Разрешить доступ до экзамена, слушателям которые входят в
-                    данный профиль обучения</v-list-item-subtitle
-                  >
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
                 <v-list-item-content>
                   <v-col cols="12">
                     <v-row>

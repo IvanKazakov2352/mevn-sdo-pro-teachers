@@ -28,18 +28,6 @@
           >Выделить ссылку</v-btn
         >
       </v-col>
-      <v-list-item>
-        <v-list-item-action>
-          <v-checkbox v-model="examen.dostupExamen"></v-checkbox>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Доступ до сдачи экзамена</v-list-item-title>
-          <v-list-item-subtitle
-            >Разрешить доступ до экзамена, слушателям которые входят в данный
-            профиль обучения</v-list-item-subtitle
-          >
-        </v-list-item-content>
-      </v-list-item>
       <v-col cols="12">
         <v-row>
           <v-tooltip bottom>

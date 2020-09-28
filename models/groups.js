@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const mongooseDateFormat = require("mongoose-date-format");
 const Schema = mongoose.Schema;
 
 const group = new Schema(
@@ -25,29 +24,24 @@ const group = new Schema(
     messagelistener: {
       type: String,
     },
-    email: {
-      type: String,
-    },
-    dostup: {
-      type: Boolean,
-    },
-    alert: {
-      type: Boolean,
-    },
-    message: {
-      type: Boolean,
+    dostupExamen: {
+      type: Boolean
     },
     user: {
       type: Array,
+      default: []
     },
     course: {
       type: Array,
+      default: []
     },
+    tests: {
+      type: Array,
+      default: []
+    }
   },
   {
     collection: "groups",
   }
 );
-
-group.plugin(mongooseDateFormat);
 module.exports = mongoose.model("group", group);

@@ -174,27 +174,7 @@
               ></v-textarea>
             </v-col>
             <v-col cols="12">
-              <v-card-text class="headline">
-                Сообщить о сдаче экзамена
-              </v-card-text>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <v-checkbox v-model="alert" :label="'В уведомлении'"></v-checkbox>
-            </v-col>
-            <v-col cols="12" sm="6" md="4">
-              <v-checkbox
-                :disabled="this.alert === true"
-                v-model="message"
-                :label="'На почту'"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="12" v-if="this.message === true">
-              <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="Название почты"
-                required
-              ></v-text-field>
+              <v-checkbox v-model="dostupExamen" label="Доступ до сдачи экзаменационных тестов"></v-checkbox>
             </v-col>
           </v-form>
         </v-card-text>
@@ -231,16 +211,13 @@ export default {
     menu: false,
     menu1: false,
     menu2: false,
-    dostup: false,
-    message: false,
-    alert: true,
     valid: false,
     messagelistener: null,
     namegroup: null,
     trainingplan: null,
-    email: null,
+    dostupExamen: false,
     user: [],
-    course: null,
+    course: [],
     starttraining: new Date().toISOString().substr(0, 10),
     endtraining: new Date().toISOString().substr(0, 10),
     dateexamen: new Date().toISOString().substr(0, 10),
@@ -264,13 +241,10 @@ export default {
         starttraining: this.starttraining,
         endtraining: this.endtraining,
         dateexamen: this.dateexamen,
-        dostup: this.dostup,
-        message: this.message,
-        alert: this.alert,
         messagelistener: this.messagelistener,
         namegroup: this.namegroup,
         trainingplan: this.trainingplan,
-        email: this.email,
+        dostupExamen: this.dostupExamen,
         user: this.user,
         course: this.course,
       };

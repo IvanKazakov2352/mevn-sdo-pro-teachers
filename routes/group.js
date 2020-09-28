@@ -43,12 +43,10 @@ router.put("/:id", (req, res, next) => {
       group.end = req.body.end;
       group.trainingplan = req.body.trainingplan;
       group.messagelistener = req.body.messagelistener;
-      group.email = req.body.email;
-      group.dostup = req.body.dostup;
-      group.alert = req.body.alert;
-      group.message = req.body.message;
+      group.dostupExamen = req.body.dostupExamen
       group.user = req.body.user;
       group.course = req.body.course;
+      group.tests = req.body.tests
       group
         .save()
         .then((group) => {

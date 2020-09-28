@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const mongooseDateFormat = require("mongoose-date-format");
 const Schema = mongoose.Schema;
 
 const event = new Schema(
@@ -18,6 +17,4 @@ const event = new Schema(
     collection: "events",
   }
 );
-
-event.plugin(mongooseDateFormat);
 module.exports = mongoose.model("event", event);
