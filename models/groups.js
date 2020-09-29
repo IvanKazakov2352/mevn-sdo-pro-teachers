@@ -27,6 +27,9 @@ const group = new Schema(
     dostupExamen: {
       type: Boolean
     },
+    attemptExamen: {
+      type: Number
+    },
     user: {
       type: Array,
       default: []

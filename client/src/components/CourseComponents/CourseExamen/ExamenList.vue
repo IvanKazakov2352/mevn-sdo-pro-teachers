@@ -30,6 +30,16 @@
         </template>
         <span>Удалить экзамен</span>
       </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on" @click="redirectToListListers(examen)">
+            <v-icon>
+              mdi-clipboard-list
+            </v-icon>
+          </v-btn>
+        </template>
+        <span>Слушатели завершившие данный экзаменационный тест</span>
+      </v-tooltip>
     </v-card-actions>
   </v-card>
 </template>
@@ -49,6 +59,9 @@ export default {
     deleteExamen(id) {
       this.$emit("deleteExamen", id);
     },
+    redirectToListListers(examen) {
+      this.$router.push({name: 'listeners', params: {examenID: examen.id}})
+    }
   },
 };
 </script>

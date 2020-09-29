@@ -9,13 +9,25 @@
       <v-col cols="12" sm="4">
         <v-text-field
           v-model="examen.nameExamen"
-          label="Название экзамена"
+          label="Название экзаменационного теста"
         ></v-text-field>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" sm="3">
         <v-text-field
-          v-model.number="examen.countExam"
-          label="Количество попыток сдачи экзамена"
+          v-model="examen.appraisal3"
+          label="Процент прохождения теста на оценку 3"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="3">
+        <v-text-field
+          v-model="examen.appraisal4"
+          label="Процент прохождения теста на оценку 4"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="3">
+        <v-text-field
+          v-model="examen.appraisal5"
+          label="Процент прохождения теста на оценку 5"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="4">
@@ -24,9 +36,7 @@
           label="Фотография для экзамена"
           id="photo"
         ></v-text-field>
-        <v-btn text small color="primary" @click="selectlinkPhoto"
-          >Выделить ссылку</v-btn
-        >
+        <v-btn text small color="primary" @click="selectlinkPhoto">Выделить ссылку</v-btn>
       </v-col>
       <v-col cols="12">
         <v-row>
@@ -180,7 +190,8 @@ import { exportToExcel } from "@/functions/ExportExcelQuestionFile.js";
 const ExcelImportData = () => import("../CourseTest/ExcelImportComponent");
 const ExamenDialogAddQuestion = () => import("./ExamenDialogAddQuestion");
 const ExamenDialogEditQuestion = () => import("./ExamenDialogEditQuestion");
-const ExamenDialogImportExcelData = () => import("./ExamenDialogImportExcelData");
+const ExamenDialogImportExcelData = () =>
+  import("./ExamenDialogImportExcelData");
 export default {
   metaInfo: {
     title: "Редактирование экзамена | СДО PRO",
@@ -197,10 +208,12 @@ export default {
       document.querySelector("#photo").select();
     },
     deleteQuestion(id) {
-      this.examen.questions = this.examen.questions.filter(ques => ques.id !== id);
+      this.examen.questions = this.examen.questions.filter(
+        (ques) => ques.id !== id
+      );
     },
     updateDialogQuestion(id) {
-      this.quest = this.examen.questions.find(ques => ques.id === id);
+      this.quest = this.examen.questions.find((ques) => ques.id === id);
       this.dialogQuestionEdit = true;
     },
     updateQuestion(data) {
@@ -208,7 +221,7 @@ export default {
     },
     updateExamTest() {
       this.$store.dispatch("updateProfile", this.$route.params.id);
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
     addQuestionToTest(data) {
       this.examen.questions.push(data);

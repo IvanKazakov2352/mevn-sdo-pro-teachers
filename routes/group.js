@@ -44,6 +44,7 @@ router.put("/:id", (req, res, next) => {
       group.trainingplan = req.body.trainingplan;
       group.messagelistener = req.body.messagelistener;
       group.dostupExamen = req.body.dostupExamen
+      group.attemptExamen = req.body.attemptExamen
       group.user = req.body.user;
       group.course = req.body.course;
       group.tests = req.body.tests

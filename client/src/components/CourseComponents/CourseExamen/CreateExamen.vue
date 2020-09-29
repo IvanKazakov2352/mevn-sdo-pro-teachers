@@ -33,12 +33,12 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>
-                    Базовая настройка экзамена
+                    Базовая настройка экзаменационного теста
                   </v-list-item-title>
                   <v-col cols="12" sm="3">
                     <v-text-field
                       v-model="nameExamen"
-                      label="Название экзамена"
+                      label="Название экзаменационного теста"
                     ></v-text-field>
                   </v-col>
                 </v-list-item-content>
@@ -47,8 +47,28 @@
                 <v-list-item-content>
                   <v-col cols="12" sm="3">
                     <v-text-field
-                      v-model.number="countExam"
-                      label="Количество попыток сдачи экзамена"
+                      v-model.number="appraisal3"
+                      label="Процент прохождения теста на оценку 3"
+                    ></v-text-field>
+                  </v-col>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-col cols="12" sm="3">
+                    <v-text-field
+                      v-model.number="appraisal4"
+                      label="Процент прохождения теста на оценку 4"
+                    ></v-text-field>
+                  </v-col>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-col cols="12" sm="3">
+                    <v-text-field
+                      v-model.number="appraisal5"
+                      label="Процент прохождения теста на оценку 5"
                     ></v-text-field>
                   </v-col>
                 </v-list-item-content>
@@ -183,17 +203,14 @@ export default {
     countExam: null,
     photoExamen: null,
     dostupExamen: false,
-    question: null,
-    answer: null,
-    wronganswer: null,
-    wronganswer1: null,
-    wronganswer2: null,
-    wronganswer3: null,
-    comment: null,
+    appraisal3: null,
+    appraisal4: null,
+    appraisal5: null,
     array: ShablonQuestion.arr,
     questions: [],
     quest: {},
     examens: [],
+    listeners: [],
   }),
   methods: {
     addTestToExamen() {
@@ -203,6 +220,10 @@ export default {
         countExam: this.countExam,
         photoExamen: this.photoExamen,
         questions: this.questions,
+        listeners: this.listeners,
+        appraisal3: this.appraisal3,
+        appraisal4: this.appraisal4,
+        appraisal5: this.appraisal5,
       };
       this.profile.examens.push(exam);
       this.$store.dispatch("updateProfile", this.$route.params.id);
@@ -213,14 +234,14 @@ export default {
       this.dialogQuestion = false;
     },
     deleteQuestion(id) {
-      this.questions = this.questions.filter(ques => ques.id !== id);
+      this.questions = this.questions.filter((ques) => ques.id !== id);
     },
     updateQuestionDialog(id) {
-      this.quest = this.questions.find(ques => ques.id === id);
+      this.quest = this.questions.find((ques) => ques.id === id);
       this.dialogQuestionEdit = true;
     },
     deleteExamen(id) {
-      this.profile.examens = this.profile.examens.filter(examen => examen.id !== id);
+      this.profile.examens = this.profile.examens.filter((examen) => examen.id !== id);
       this.$store.dispatch("updateProfile", this.$route.params.id);
     },
     updateExamen(examen) {
@@ -237,8 +258,8 @@ export default {
       return exportToExcel(this.array);
     },
     handleSuccess(data) {
-      this.questions = data.results
-    }
+      this.questions = data.results;
+    },
   },
   components: {
     ExamenListQuestions,

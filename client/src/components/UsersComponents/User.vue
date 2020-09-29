@@ -70,7 +70,7 @@
                 >
               </v-col>
               <v-col cols="12" sm="10">
-                <v-expansion-panels>
+                <v-expansion-panels focusable>
                   <v-expansion-panel>
                     <v-expansion-panel-header
                       >Дополнительные параметры

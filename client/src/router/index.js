@@ -126,6 +126,14 @@ const routes = [
     },
   },
   {
+    path: "/profile/:id/listeners/:examenID",
+    name: "listeners",
+    component: () => import("@/components/CourseComponents/CourseExamen/ExamenListListener"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/profile/:id/category/:categoryID",
     name: "subcategory",
     props: true,

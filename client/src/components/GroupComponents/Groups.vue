@@ -163,6 +163,12 @@
               ></v-select>
             </v-col>
             <v-col cols="12">
+              <v-text-field
+                v-model.number="attemptExamen"
+                label="Количество попыток сдачи экзаменационных тестов(Цифра)"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12">
               <v-textarea
                 outlined
                 v-model="messagelistener"
@@ -174,7 +180,10 @@
               ></v-textarea>
             </v-col>
             <v-col cols="12">
-              <v-checkbox v-model="dostupExamen" label="Доступ до сдачи экзаменационных тестов"></v-checkbox>
+              <v-checkbox
+                v-model="dostupExamen"
+                label="Доступ до сдачи экзаменационных тестов"
+              ></v-checkbox>
             </v-col>
           </v-form>
         </v-card-text>
@@ -245,6 +254,7 @@ export default {
         namegroup: this.namegroup,
         trainingplan: this.trainingplan,
         dostupExamen: this.dostupExamen,
+        attemptExamen: this.attemptExamen,
         user: this.user,
         course: this.course,
       };
