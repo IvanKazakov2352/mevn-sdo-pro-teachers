@@ -4,6 +4,7 @@ export default {
   state: {
     tasks: [],
     task: {},
+    loading: true
   },
   mutations: {
     setTasks(state, data) {
@@ -27,7 +28,7 @@ export default {
     },
     async fetchTasks({ commit }) {
       const { data } = await axios.get("/api/tasks/");
-      commit("setTasks", data);
+      commit("setTasks", data)
     },
     async fetchTask({ commit }, payload) {
       const { data } = await axios.get("/api/tasks/" + payload);
@@ -55,5 +56,8 @@ export default {
     task(state) {
       return state.task;
     },
+    loading(state) {
+      return state.loading
+    }
   },
 };

@@ -21,7 +21,6 @@
                 :rules="phoneUserRules"
                 v-model="user.phone"
                 label="Телефон"
-                v-mask="'8(###) ###-##-##'"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="5">
@@ -188,7 +187,14 @@
           </v-row>
         </v-form>
         <v-col cols="12">
-          <v-btn class="ma-2" x-large tile outlined color="success" @click="updateUser">
+          <v-btn
+            class="ma-2"
+            x-large
+            tile
+            outlined
+            color="success"
+            @click="updateUser"
+          >
             <v-icon left>mdi-pencil</v-icon> Сохранить
           </v-btn>
           <v-btn
@@ -218,12 +224,9 @@
 <script>
 import axios from "axios";
 import emailjs from "emailjs-com";
-import { sendEmailToUser } from "@/functions/SendEmailToUser.js";
-import { userInfo } from "@/functions/CardListener.js";
-import {
-  generateLogin,
-  generatePassword,
-} from "@/functions/GenerateLogin&Password.js";
+import { sendEmailToUser } from "@/utils/SendEmailToUser.js";
+import { userInfo } from "@/utils/CardListener.js";
+import { generateLogin, generatePassword } from "@/utils/GenerateLogin&Password.js";
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
@@ -261,7 +264,10 @@ export default {
   methods: {
     updateUser() {
       this.$store.dispatch("updateUser", this.$route.params.id);
-      this.$router.push({ name: "users", query: { message: "UserUpdated" + `(${Date.now()})` } });
+      this.$router.push({
+        name: "users",
+        query: { message: "UserUpdated" + `(${Date.now()})` },
+      });
     },
     cardListener(user) {
       return userInfo(user);

@@ -37,7 +37,7 @@
   </v-simple-table>
 </template>
 <script>
-import { PrikazListener } from "@/functions/PrikazListener.js"
+import { PrikazListener } from "@/utils/PrikazListener.js"
 export default {
   props: {
     users: {

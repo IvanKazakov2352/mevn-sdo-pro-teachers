@@ -47,7 +47,7 @@
   </v-row>
 </template>
 <script>
-import { PrikazZachslenie } from "@/functions/PrikazZachislenie.js"
+import { PrikazZachslenie } from "@/utils/PrikazZachislenie.js"
 export default {
   props: {
     group: {

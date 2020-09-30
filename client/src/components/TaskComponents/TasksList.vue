@@ -114,6 +114,7 @@
 <script>
 import axios from "axios";
 import { mapGetters } from "vuex";
+const Loader = () => import("../SettingsComponents/Loader");
 export default {
   data: () => ({
     itemsPerPage: 4,
@@ -123,9 +124,12 @@ export default {
       this.$store.dispatch("deleteTasks", id);
     },
   },
-  computed: mapGetters(["allTasks", "countTasks"]),
+  computed: mapGetters(["allTasks", "countTasks", "loading"]),
   mounted() {
     this.$store.dispatch("fetchTasks");
+  },
+  components: {
+    Loader,
   },
 };
 </script>

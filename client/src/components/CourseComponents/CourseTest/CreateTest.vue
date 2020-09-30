@@ -357,7 +357,7 @@
 import TestingList from "@/components/CourseComponents/CourseTest/TestingList";
 import ExcelImportData from "@/components/CourseComponents/CourseTest/ExcelImportComponent";
 import ShablonQuestion from "@/components/CourseComponents/test.json";
-import { exportToExcel } from "@/functions/ExportExcelQuestionFile.js";
+import { exportToExcel } from "@/utils/ExportExcelQuestionFile.js";
 import XLSX from "xlsx";
 export default {
   metaInfo: {

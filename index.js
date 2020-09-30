@@ -5,6 +5,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./config/db");
+const Nexmo = require("nexmo");
+const socketio = require("socket.io");
 const taskRoutes = require("./routes/task");
 const counterpartyRoutes = require("./routes/counterparty");
 const groupRoutes = require("./routes/group");
@@ -16,9 +18,18 @@ const listenerRoutes = require("./routes/listener");
 const courseRoutes = require("./routes/course");
 const dealsRoutes = require("./routes/deal");
 const settingsRoutes = require("./routes/settings");
-const eventsRoutes = require("./routes/event")
-const path = require("path")
+const eventsRoutes = require("./routes/event");
+const emailRoutes = require("./routes/email")
+const path = require("path");
 const app = express();
+
+const nexmo = new Nexmo(
+  {
+    apiKey: "cce4107f",
+    apiSecret: "Sc4Li0IgKsxFXnEB",
+  },
+  { debug: true }
+);
 
 mongoose.set("useCreateIndex", true);
 mongoose
@@ -31,7 +42,7 @@ mongoose
   });
 
 app.use(cors());
-app.use('/files', express.static(path.join(__dirname, 'files')))
+app.use("/files", express.static(path.join(__dirname, "files")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -48,7 +59,10 @@ app.use("/api/listeners", listenerRoutes);
 app.use("/api/course", courseRoutes);
 app.use("/api/deals", dealsRoutes);
 app.use("/api/settings", settingsRoutes);
-app.use("/api/events", eventsRoutes)
+app.use("/api/events", eventsRoutes);
+app.use("/api/email", emailRoutes)
+
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(__dirname + "/public/"));
@@ -56,6 +70,14 @@ if (process.env.NODE_ENV === "production") {
   app.get(/.*/, (req, res) => res.sendFile(__dirname + "/public/index.html"));
 }
 
-app.listen(PORT, () => {
-  console.log(`App is running on ${PORT}`);
+const server = app.listen(PORT, () =>
+  console.log(`Server started on port ${PORT}`)
+);
+
+const io = socketio(server);
+io.on("connection", (socket) => {
+  console.log("Connected");
+  io.on("disconnect", () => {
+    console.log("Disconnected");
+  });
 });

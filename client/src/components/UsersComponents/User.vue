@@ -25,7 +25,6 @@
                   :rules="phoneUserRules"
                   v-model="phone"
                   label="Телефон"
-                  v-mask="'8(###) ###-##-##'"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="5">
@@ -215,10 +214,7 @@
 <script>
 import axios from "axios";
 import UsersList from "@/components/UsersComponents/UserList.vue";
-import {
-  generateLogin,
-  generatePassword,
-} from "@/functions/GenerateLogin&Password.js";
+import { generateLogin, generatePassword } from "@/utils/GenerateLogin&Password.js";
 export default {
   metaInfo: {
     title: "Слушатели | СДО PRO",

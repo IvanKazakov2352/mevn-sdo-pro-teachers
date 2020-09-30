@@ -78,6 +78,9 @@
         <span>Выйти из системы</span>
       </v-tooltip>
     </v-app-bar>
+    <v-snackbar v-model="snackbar">
+      {{ text }}
+    </v-snackbar>
     <v-main>
       <v-container fluid>
         <v-row>
@@ -100,6 +103,8 @@ export default {
     messages: 4,
     dialog: false,
     drawer: null,
+    snackbar: true,
+    text: "Соединение с интернетом утеряно, восставновите пожалуйста",
     exit: localStorage.getItem("userToken"),
     user: {},
     profileComponents: [
@@ -167,6 +172,9 @@ export default {
   },
   mounted() {
     this.getUserDetails();
+    setInterval(() => {
+      navigator.onLine ? this.snackbar = false : this.snackbar = true
+    }, 0)
   },
 };
 </script>

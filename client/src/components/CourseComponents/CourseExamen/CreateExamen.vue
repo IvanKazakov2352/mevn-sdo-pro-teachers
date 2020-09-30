@@ -185,7 +185,7 @@ const ExamenDialogImportExcelData = () => import("./ExamenDialogImportExcelData"
 const ExamenDialogAddQuestion = () => import("./ExamenDialogAddQuestion");
 const ExamenDialogEditQuestion = () => import("./ExamenDialogEditQuestion");
 import ShablonQuestion from "@/components/CourseComponents/test.json";
-import { exportToExcel } from "@/functions/ExportExcelQuestionFile.js";
+import { exportToExcel } from "@/utils/ExportExcelQuestionFile.js";
 export default {
   props: {
     profile: {

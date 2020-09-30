@@ -186,7 +186,7 @@
 </template>
 <script>
 import shablon from "../test.json";
-import { exportToExcel } from "@/functions/ExportExcelQuestionFile.js";
+import { exportToExcel } from "@/utils/ExportExcelQuestionFile.js";
 const ExcelImportData = () => import("../CourseTest/ExcelImportComponent");
 const ExamenDialogAddQuestion = () => import("./ExamenDialogAddQuestion");
 const ExamenDialogEditQuestion = () => import("./ExamenDialogEditQuestion");

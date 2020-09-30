@@ -7,6 +7,9 @@
         </v-toolbar-title>
       </v-toolbar>
       <v-col>
+        <v-btn class="ma-2" outlined color="indigo" @click="exportExcelUsers"
+          >Экспорт результатов тестирования в Excel</v-btn
+        >
         <v-card width="auto" height="auto">
           <v-col cols="12">
             <v-simple-table fixed-header id="Table">
@@ -22,7 +25,7 @@
                 <tbody>
                   <tr v-for="listener in paginateProduct" :key="listener.id">
                     <td>{{ listener.userName }}</td>
-                    <td>{{ listener.percent }}</td>
+                    <td>{{ listener.percent }}%</td>
                     <td>{{ listener.appraisal }}</td>
                     <td>
                       <v-tooltip bottom>
@@ -39,6 +42,21 @@
                           </v-btn>
                         </template>
                         <span>Удалить группу</span>
+                      </v-tooltip>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                            icon
+                            v-bind="attrs"
+                            v-on="on"
+                            @click="showTestResult(listener.id)"
+                          >
+                            <v-icon>
+                              mdi-transcribe
+                            </v-icon>
+                          </v-btn>
+                        </template>
+                        <span>Результат прохождения тестирования</span>
                       </v-tooltip>
                     </td>
                   </tr>
@@ -61,18 +79,32 @@
   </v-row>
 </template>
 <script>
+import { exportToExcel } from "@/utils/ExportFinalTesting";
 export default {
+  metaInfo: {
+    title: "Итоги прохождения данного тестирования | СДО PRO",
+  },
   data: () => ({
     page: 1,
     listenersPerPage: 10,
+    listener: {},
+    loading: true,
   }),
   methods: {
     pageClick(page) {
       this.page = page;
     },
     deleteResult(id) {
-      this.examen.listeners = this.examen.listeners.filter((listener) => listener.id !== id);
+      this.examen.listeners = this.examen.listeners.filter(
+        (listener) => listener.id !== id
+      );
       this.$store.dispatch("updateProfile", this.$route.params.id);
+    },
+    exportExcelUsers() {
+      return exportToExcel(this.examen.listeners);
+    },
+    showTestResult(id) {
+      this.listener = this.examen.listeners.find((l) => l.id === id);
     },
   },
   computed: {
@@ -90,3 +122,6 @@ export default {
   },
 };
 </script>
+<style scoped>
+@import "../../../assets/index.css";
+</style>
