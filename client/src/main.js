@@ -7,16 +7,15 @@ import vuetify from "./plugins/vuetify";
 import VueMask from "v-mask";
 import VueHtmlToPaper from "vue-html-to-paper";
 import UUID from "vue-uuid";
-import VueMeta from 'vue-meta'
+import VueMeta from "vue-meta";
 
 Vue.use(VueMask);
 Vue.use(VueHtmlToPaper, options);
 Vue.use(UUID);
 Vue.use(VueHtmlToPaper);
 Vue.use(VueMeta, {
-  refreshOnceOnNavigation: true
-})
-
+  refreshOnceOnNavigation: true,
+});
 
 Vue.config.productionTip = false;
 const options = {
@@ -33,4 +32,12 @@ new Vue({
   store,
   vuetify,
   render: (h) => h(App),
+  created() {
+    window.addEventListener("offline", () => {
+      store.dispatch("setConnected", false);
+    });
+    window.addEventListener("online", () => {
+      store.dispatch("setConnected", true);
+    });
+  },
 }).$mount("#app");
