@@ -23,7 +23,7 @@
       </div>
 
       <v-col cols="12">
-        <v-simple-table class="mr-2 ml-2" fixed-header id="Table">
+        <v-simple-table class="mr-2 ml-2" fixed-header ref="table">
           <template v-slot:default>
             <thead>
               <tr>
@@ -109,7 +109,12 @@ export default {
   }),
   methods: {
     deleteUser(id) {
-      this.$store.dispatch("deleteUser", id)
+      this.$notify({
+        title: "СДО PRO",
+        message: `Пользователь успешно удален`,
+        type: "success",
+      });
+      this.$store.dispatch("deleteUser", id);
     },
     printTable() {
       this.$htmlToPaper("Table");
@@ -170,7 +175,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("fetchUsers")
+    this.$store.dispatch("fetchUsers");
   },
 };
 </script>

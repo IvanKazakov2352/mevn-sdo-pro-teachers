@@ -1,9 +1,7 @@
 <template>
   <v-container fluid>
     <v-toolbar class="mb-2" color="indigo darken-5" dark flat>
-      <v-toolbar-title>
-        Профили обучения ({{ countModule }})
-      </v-toolbar-title>
+      <v-toolbar-title> Профили обучения ({{ countModule }}) </v-toolbar-title>
     </v-toolbar>
     <v-card max-height="auto" max-width="auto">
       <v-alert v-if="!countModule" type="info">
@@ -30,7 +28,7 @@
                     <template v-slot:activator="{ on, attrs }">
                       <router-link
                         tag="button"
-                        :to="{ name: 'course', params: { id: modul._id }}"
+                        :to="{ name: 'course', params: { id: modul._id } }"
                       >
                         <v-btn icon v-bind="attrs" v-on="on">
                           <v-icon>
@@ -85,6 +83,11 @@ export default {
   }),
   methods: {
     deleteModule(id) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Профиль обучения успешно удален`,
+        type: "success",
+      });
       this.$store.dispatch("deleteModule", id);
     },
     pageClick(page) {

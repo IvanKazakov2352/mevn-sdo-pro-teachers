@@ -97,17 +97,32 @@ export default {
         if (token) {
           localStorage.setItem("userToken", token);
           this.$router.push("/tasks");
-          sweetalert("Успех", "Регистрация прошла успешно", "success");
+          this.$notify({
+            title: "СДО PRO",
+            message: "Вы успешно зарегистрированны в системе",
+            type: "success",
+          });
           setTimeout(() => {
             location.reload();
           }, 2000);
-        } else sweetalert("Ошибка", "Ошибка регистрации", "Error");
+        } else {
+          this.$notify.error({
+            title: "СДО PRO",
+            message: "Ошибка регистрации, проверьте пожалуйста валидность введенных данных",
+          });
+        }
       } catch (err) {
         let error = err.response;
         if (error.status == 409) {
-          sweetalert("Error", error.data.message, "error");
+          this.$notify.error({
+            title: "Если вылезла эта ошибка то сделайте пожалуйста скриншот и вышлите администрации",
+            message: error.data.message,
+          });
         } else {
-          sweetalert("Error", error.data.err.message, "error");
+          this.$notify.error({
+            title: "Если вылезла эта ошибка то сделайте пожалуйста скриншот и вышлите администрации",
+            message: error.data.err.message,
+          });
         }
       }
     },

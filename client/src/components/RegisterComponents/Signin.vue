@@ -67,13 +67,25 @@ export default {
         localStorage.setItem("userToken", token);
         if (token) {
           this.$router.push("/tasks");
-          sweetalert("Успех", "Регистрация прошла успешно", "success");
+          this.$notify({
+            title: "СДО PRO",
+            message: "Вы успешно авторизованы в системе",
+            type: "success",
+          });
           setTimeout(() => {
             location.reload();
           }, 2000);
-        } else sweetalert("Ошибка", "Ошибка авторизации", "Error");
+        } else {
+          this.$notify.error({
+            title: "СДО PRO",
+            message: "Ошибка авторизации, проверьте пожалуйста правильность введенных данных",
+          });
+        }
       } catch (err) {
-        sweetalert("Ошибка", "Ошибка авторизации", "error");
+        this.$notify.error({
+          title: "СДО PRO",
+          message: "Ошибка авторизации, проверьте пожалуйста правильность введенных данных",
+        });
         console.log(err.response);
       }
     },

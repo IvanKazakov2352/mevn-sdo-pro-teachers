@@ -117,7 +117,11 @@ export default {
     logout() {
       localStorage.removeItem("userToken");
       this.$router.push("/signin");
-      location.reload();
+      setTimeout(() => {location.reload()}, 2000)
+      this.$notify.info({
+        title: "СДО PRO",
+        message: "Вы вышли из системы",
+      });
     },
     getUserDetails() {
       const token = localStorage.getItem("userToken");

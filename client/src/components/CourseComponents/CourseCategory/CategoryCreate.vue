@@ -58,7 +58,7 @@
         </v-dialog>
       </v-row>
       <v-row>
-        <list
+        <CategoryList
           class="mt-4 mb-4 mr-4 ml-4"
           v-for="category in categories"
           :key="category.id"
@@ -69,8 +69,7 @@
   </v-expansion-panel>
 </template>
 <script>
-import list from "@/components/CourseComponents/CourseCategory/CategoryList";
-import axios from "axios";
+const CategoryList = () => import("./CategoryList")
 import { mapGetters } from "vuex";
 export default {
   metaInfo: {
@@ -97,6 +96,11 @@ export default {
         linkPhotoCategory: this.linkPhotoCategory,
         subCategories: this.subCategories,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Категория обучения ${this.nameCategory} успешно создана`,
+        type: "success",
+      });
       this.$store.dispatch("addCategory", category);
       this.dialog = false;
     },
@@ -105,7 +109,7 @@ export default {
     ...mapGetters(["categories"]),
   },
   components: {
-    list,
+    CategoryList,
   },
 };
 </script>

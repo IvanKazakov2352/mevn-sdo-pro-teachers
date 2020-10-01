@@ -74,7 +74,7 @@
         </v-dialog>
       </v-row>
       <v-container fluid>
-        <v-simple-table >
+        <v-simple-table>
           <template v-slot:default>
             <thead>
               <tr>
@@ -135,6 +135,11 @@ export default {
   }),
   methods: {
     deleteBank(id) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Банковские реквизиты успешно удалены`,
+        type: "success",
+      });
       this.counterparty.banks = this.counterparty.banks.filter((bank) => bank.id !== id);
     },
     addBank() {
@@ -146,6 +151,11 @@ export default {
         lscore: this.lscore,
         bscore: this.bscore,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Банковские реквизиты успешно созданы`,
+        type: "success",
+      });
       this.counterparty.banks.push(bank);
       this.dialogBanks = false;
     },

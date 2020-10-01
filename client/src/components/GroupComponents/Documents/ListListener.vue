@@ -37,19 +37,21 @@
   </v-simple-table>
 </template>
 <script>
-import { PrikazListener } from "@/utils/PrikazListener.js"
+import { PrikazListener } from "@/utils/PrikazListener.js";
 export default {
   props: {
     users: {
       type: Array,
-      default: [],
       required: true,
+      default() {
+        return [];
+      },
     },
   },
   methods: {
     cardPrikazListener(user) {
-      return PrikazListener(user)
-    }
+      return PrikazListener(user);
+    },
   },
   mounted() {},
 };

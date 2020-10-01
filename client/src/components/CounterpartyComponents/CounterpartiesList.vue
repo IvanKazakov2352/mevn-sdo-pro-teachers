@@ -93,7 +93,12 @@ export default {
   }),
   methods: {
     deleteCounterparty(id) {
-      this.$store.dispatch("deleteCounterparties", id)
+      this.$notify({
+        title: "СДО PRO",
+        message: `Контрагент успешно удален`,
+        type: "success",
+      });
+      this.$store.dispatch("deleteCounterparties", id);
     },
     pageClick(page) {
       this.page = page;

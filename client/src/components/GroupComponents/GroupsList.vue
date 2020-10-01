@@ -148,9 +148,9 @@
   </v-container>
 </template>
 <script>
-import axios from "axios";
+const GroupsDocuments = () => import("./GroupsDocuments");
+import { exportToExcel } from "@/utils/ExportListenersToExcel";
 import { mapGetters } from "vuex";
-import GroupsDocuments from "@/components/GroupComponents/GroupsDocuments";
 export default {
   data: () => ({
     groups: [],
@@ -166,48 +166,26 @@ export default {
   }),
   methods: {
     findGroupArchive(group) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Группа обучения ${group.namegroup} успешно перемещена в архив`,
+        type: "success",
+      });
       this.$store.dispatch("addGroupsToArchive", group);
     },
     deleteGroup(id) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Группа обучения успешно удалена`,
+        type: "success",
+      });
       this.$store.dispatch("deleteGroups", id);
     },
     pageClick(page) {
       this.page = page;
     },
     exportListenersToExcel(group) {
-      import("../../vendor/Export2Excel").then((excel) => {
-        const tHeader = [
-          "ФИО Слушателя",
-          "Логин",
-          "Пароль",
-          "Дата регистрации",
-        ];
-        const filterVal = ["fiolistener", "login", "password", "dateregister"];
-        if (typeof group.user === "undefined") {
-          this.list = [];
-        } else {
-          const list = group.user;
-          const data = this.formatJson(filterVal, list);
-          excel.export_json_to_excel({
-            header: tHeader,
-            data,
-            filename: this.filename,
-            autoWidth: this.autoWidth,
-            bookType: this.bookType,
-          });
-        }
-      });
-    },
-    formatJson(filterVal, jsonData) {
-      return jsonData.map((v) =>
-        filterVal.map((j) => {
-          if (j === "timestamp") {
-            return parseTime(v[j]);
-          } else {
-            return v[j];
-          }
-        })
-      );
+      return exportToExcel(group.user, group.namegroup);
     },
   },
   computed: {

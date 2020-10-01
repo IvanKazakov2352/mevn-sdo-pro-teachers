@@ -40,8 +40,8 @@
               </v-list>
             </v-expansion-panel-content>
           </v-expansion-panel>
-          <category :profile="profile" />
-          <examen :profile="profile"/>
+          <Category :profile="profile" />
+          <Examen :profile="profile" />
         </v-expansion-panels>
         <v-col cols="12">
           <v-btn
@@ -50,7 +50,7 @@
             tile
             outlined
             color="success"
-            @click="updateProfile"
+            @click="updateProfile(profile)"
           >
             <v-icon left>mdi-pencil</v-icon> Сохранить
           </v-btn>
@@ -60,10 +60,9 @@
   </v-container>
 </template>
 <script>
-import category from "@/components/CourseComponents/CourseCategory/CategoryCreate";
-import examen from "@/components/CourseComponents/CourseExamen/CreateExamen"
+const Category = () => import("./CourseCategory/CategoryCreate")
+const Examen = () => import("./CourseExamen/CreateExamen")
 import { mapGetters } from "vuex";
-import axios from "axios";
 export default {
   metaInfo: {
     title: "Редактирование профиля обучения | СДО PRO",
@@ -72,7 +71,12 @@ export default {
     nameModuleRules: [(v) => !!v || "Укажите пожалуйста имя профиля обучения"],
   }),
   methods: {
-    updateProfile() {
+    updateProfile(profile) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Профиль обучения ${profile.nameProfile} успешно сохранен`,
+        type: "success",
+      });
       this.$store.dispatch("updateProfile", this.$route.params.id);
       this.$router.push({
         name: "courses",
@@ -87,8 +91,8 @@ export default {
     this.$store.dispatch("fetchModule", this.$route.params.id);
   },
   components: {
-    category,
-    examen
+    Category,
+    Examen,
   },
 };
 </script>

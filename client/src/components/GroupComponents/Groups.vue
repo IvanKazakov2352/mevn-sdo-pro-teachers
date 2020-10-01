@@ -208,8 +208,7 @@
   </v-row>
 </template>
 <script>
-import GroupsList from "@/components/GroupComponents/GroupsList";
-import axios from "axios";
+const GroupsList = () => import("./GroupsList")
 import { mapGetters } from "vuex";
 export default {
   metaInfo: {
@@ -225,6 +224,7 @@ export default {
     namegroup: null,
     trainingplan: null,
     dostupExamen: false,
+    attemptExamen: null,
     user: [],
     course: [],
     starttraining: new Date().toISOString().substr(0, 10),
@@ -258,6 +258,11 @@ export default {
         user: this.user,
         course: this.course,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Группа обучения ${this.namegroup} успешно создана`,
+        type: "success",
+      });
       this.$store.dispatch("addedGroup", group);
       this.dialog = false;
     },

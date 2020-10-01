@@ -24,6 +24,7 @@
                 <v-text-field
                   :rules="phoneUserRules"
                   v-model="phone"
+                  v-mask="`8(###) ###-##-##`"
                   label="Телефон"
                 ></v-text-field>
               </v-col>
@@ -214,7 +215,10 @@
 <script>
 import axios from "axios";
 import UsersList from "@/components/UsersComponents/UserList.vue";
-import { generateLogin, generatePassword } from "@/utils/GenerateLogin&Password.js";
+import {
+  generateLogin,
+  generatePassword,
+} from "@/utils/GenerateLogin&Password.js";
 export default {
   metaInfo: {
     title: "Слушатели | СДО PRO",
@@ -288,6 +292,11 @@ export default {
         pasport: this.pasport,
         vpasport: this.vpasport,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Пользователь ${this.fiolistener} успешно создан`,
+        type: "success",
+      });
       this.$store.dispatch("addedUser", listener);
       this.dialog = false;
     },

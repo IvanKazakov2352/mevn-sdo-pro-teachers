@@ -141,12 +141,11 @@
   </v-row>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
-import CounterpartiesDopDataZao from "@/components/CounterpartyComponents/CreateCounterparty/CounterpartiesDopDataZao";
-import CounterpartiesDopDataCh from "@/components/CounterpartyComponents/CreateCounterparty/CounterpartiesDopDataCh";
-import CounterpartiesBanks from "@/components/CounterpartyComponents/CreateCounterparty/CounterpartiesBanks";
-import CounterpartiyList from "@/components/CounterpartyComponents/CounterpartiesList";
+const CounterpartiesDopDataZao = () => import("./CounterpartiesDopDataZao")
+const CounterpartiesDopDataCh = () => import("./CounterpartiesDopDataCh")
+const CounterpartiesBanks = () => import("./CounterpartiesBanks")
+const CounterpartiyList = () => import("../CounterpartiesList")
 export default {
   metaInfo: {
     title: "Контрагенты | СДО PRO",
@@ -192,6 +191,11 @@ export default {
           banks,
         }
       );
+      this.$notify({
+        title: "СДО PRO",
+        message: `Контрагент успешно создан`,
+        type: "success",
+      });
       this.$store.dispatch("addedCounterparty", counterparty);
       this.dialog = false;
     },

@@ -206,8 +206,7 @@
   </v-row>
 </template>
 <script>
-import axios from "axios";
-import DealList from "@/components/DealComponents/DealList";
+const DealList = () => import("./DealList")
 import { mapGetters } from "vuex";
 export default {
   metaInfo: {
@@ -271,6 +270,11 @@ export default {
         colorCard: this.colorCard,
         colorChip: this.colorChip,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Сделка ${this.namedeal} успешно создана`,
+        type: "success",
+      });
       this.$store.dispatch("addedDeals", deal);
       this.dialog = false;
     },

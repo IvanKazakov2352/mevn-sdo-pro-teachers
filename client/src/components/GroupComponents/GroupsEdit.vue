@@ -179,7 +179,7 @@
               tile
               outlined
               color="success"
-              @click="updateGroup"
+              @click="updateGroup(group)"
             >
               <v-icon left>mdi-pencil</v-icon> Сохранить
             </v-btn>
@@ -190,7 +190,6 @@
   </v-container>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
   metaInfo: {
@@ -222,7 +221,12 @@ export default {
     ],
   }),
   methods: {
-    updateGroup() {
+    updateGroup(group) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Группа обучения ${group.namegroup} успешно сохранена`,
+        type: "success",
+      });
       this.$store.dispatch("updateGroup", this.$route.params.id);
       this.$router.push({
         name: "groups",

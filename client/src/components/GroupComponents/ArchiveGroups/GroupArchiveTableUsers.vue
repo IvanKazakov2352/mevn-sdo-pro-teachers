@@ -30,7 +30,7 @@
                       icon
                       v-bind="attrs"
                       v-on="on"
-                      @click="openUserDialog(user)"
+                      @click="openUserDialog(user._id)"
                     >
                       <v-icon>
                         mdi-account
@@ -41,119 +41,104 @@
                     >Вся информация по пользователю состоящего в группе</span
                   >
                 </v-tooltip>
-                <v-dialog v-model="dialog" max-width="600">
-                  <v-card>
-                    <v-container>
-                      <v-list-item three-line>
-                        <v-list-item-content>
-                          <v-list-item-title
-                            >Слушатель:
-                            {{ editUser.fiolistener }}</v-list-item-title
-                          >
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Дата регистрации:
-                            {{
-                              new Date(
-                                editUser.dateregister
-                              ).toLocaleDateString()
-                            }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Уникальный ID пользователя: {{ editUser._id }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Дата рождения:
-                            {{
-                              new Date(editUser.datebirth).toLocaleDateString()
-                            }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Дата получения паспорта:
-                            {{
-                              new Date(
-                                editUser.datereceiving
-                              ).toLocaleDateString()
-                            }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Логин для входа в систему СДО PRO Студенты:
-                            {{ editUser.login }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Пароль для входа в систему СДО PRO Студенты:
-                            {{ editUser.password }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Номер телефона слушателя:
-                            {{ editUser.phone }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Email слушателя:
-                            {{ editUser.email }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Образование слушателя:
-                            {{ editUser.education }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Должность слушателя:
-                            {{ editUser.position }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Снилс слушателя: {{ editUser.snils }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Место рождения:
-                            {{ editUser.birth }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Место регистрации:
-                            {{ editUser.register }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Место выдачи паспорта:
-                            {{ editUser.pasport }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                          <v-list-item-subtitle>
-                            Кем выдан паспорт:
-                            {{ editUser.vpasport }}
-                          </v-list-item-subtitle>
-                          <v-divider></v-divider>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-container>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="dialog = false"
-                      >
-                        Закрыть
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
               </td>
             </tr>
           </tbody>
         </template>
       </v-simple-table>
+      <v-dialog v-model="dialog" max-width="600">
+        <v-card>
+          <v-container>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Слушатель: {{ editUser.fiolistener }}
+                </v-list-item-title>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Дата регистрации:
+                  {{ new Date(editUser.dateregister).toLocaleDateString() }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Уникальный ID пользователя: {{ editUser._id }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Дата рождения:
+                  {{ new Date(editUser.datebirth).toLocaleDateString() }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Дата получения паспорта:
+                  {{ new Date(editUser.datereceiving).toLocaleDateString() }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Логин для входа в систему СДО PRO Студенты:
+                  {{ editUser.login }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Пароль для входа в систему СДО PRO Студенты:
+                  {{ editUser.password }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Номер телефона слушателя:
+                  {{ editUser.phone }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Email слушателя:
+                  {{ editUser.email }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Образование слушателя:
+                  {{ editUser.education }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Должность слушателя:
+                  {{ editUser.position }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Снилс слушателя: {{ editUser.snils }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Место рождения:
+                  {{ editUser.birth }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Место регистрации:
+                  {{ editUser.register }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Место выдачи паспорта:
+                  {{ editUser.pasport }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+                <v-list-item-subtitle>
+                  Кем выдан паспорт:
+                  {{ editUser.vpasport }}
+                </v-list-item-subtitle>
+                <v-divider></v-divider>
+              </v-list-item-content>
+            </v-list-item>
+          </v-container>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" text @click="close">
+              Закрыть
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
@@ -170,14 +155,18 @@ export default {
   },
   data: () => ({
     dialog: false,
-    editIndex: 0,
     editUser: {},
   }),
   methods: {
-    openUserDialog(user) {
-      this.editIndex = this.users.indexOf(user);
-      this.editUser = Object.assign({}, user);
+    openUserDialog(id) {
+      this.editUser = this.users.find((user) => user._id === id);
       this.dialog = true;
+    },
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editUser = {};
+      });
     },
   },
 };

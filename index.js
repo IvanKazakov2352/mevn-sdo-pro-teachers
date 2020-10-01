@@ -5,7 +5,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./config/db");
-const Nexmo = require("nexmo");
 const socketio = require("socket.io");
 const taskRoutes = require("./routes/task");
 const counterpartyRoutes = require("./routes/counterparty");
@@ -19,17 +18,8 @@ const courseRoutes = require("./routes/course");
 const dealsRoutes = require("./routes/deal");
 const settingsRoutes = require("./routes/settings");
 const eventsRoutes = require("./routes/event");
-const emailRoutes = require("./routes/email")
 const path = require("path");
 const app = express();
-
-const nexmo = new Nexmo(
-  {
-    apiKey: "cce4107f",
-    apiSecret: "Sc4Li0IgKsxFXnEB",
-  },
-  { debug: true }
-);
 
 mongoose.set("useCreateIndex", true);
 mongoose
@@ -60,8 +50,6 @@ app.use("/api/course", courseRoutes);
 app.use("/api/deals", dealsRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/events", eventsRoutes);
-app.use("/api/email", emailRoutes)
-
 
 
 if (process.env.NODE_ENV === "production") {

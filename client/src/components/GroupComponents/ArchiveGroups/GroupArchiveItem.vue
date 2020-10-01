@@ -2,33 +2,27 @@
   <v-row class="fill-height">
     <v-col cols="12">
       <v-toolbar class="ma-2" color="indigo darken-5" dark flat>
-        <v-toolbar-title>Группа {{ archive.namegroup }}</v-toolbar-title>
+        <v-toolbar-title>Группа {{ archive.group.namegroup }}</v-toolbar-title>
       </v-toolbar>
     </v-col>
     <v-col cols="12">
       <v-row justify="center">
         <v-expansion-panels class="archive">
-          <TableUsers :users="archive.user"/>
+          <TableUsers :users="archive.group.user" />
         </v-expansion-panels>
       </v-row>
     </v-col>
   </v-row>
 </template>
 <script>
-import axios from "axios";
-import TableUsers from "@/components/GroupComponents/ArchiveGroups/GroupArchiveTableUsers";
+const TableUsers = () => import("./GroupArchiveTableUsers")
+import { mapGetters } from "vuex";
 export default {
-  data: () => ({
-    archive: {},
-  }),
-  methods: {
-    async getArchive() {
-      const res = await axios.get("/api/archive/" + this.$route.params.id);
-      this.archive = res.data.group;
-    },
+  computed: {
+    ...mapGetters(["archive"]),
   },
   mounted() {
-    this.getArchive();
+    this.$store.dispatch("fetchArchive", this.$route.params.id)
   },
   components: {
     TableUsers,

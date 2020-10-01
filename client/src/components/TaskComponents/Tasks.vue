@@ -192,9 +192,8 @@
   </v-row>
 </template>
 <script>
-import axios from "axios";
-import TasksList from "@/components/TaskComponents/TasksList";
-import TasksCalendar from "@/components/TaskComponents/TasksCalendar";
+const TasksList = () => import("./TasksList")
+const TasksCalendar = () => import("./TasksCalendar")
 import { mapGetters } from "vuex";
 export default {
   metaInfo: {
@@ -236,6 +235,11 @@ export default {
         timestart: this.timestart,
         timeend: this.timeend,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Задача ${this.name} успешно создана`,
+        type: "success",
+      });
       this.$store.dispatch("addedTasks", task);
       this.dialog = false;
     },

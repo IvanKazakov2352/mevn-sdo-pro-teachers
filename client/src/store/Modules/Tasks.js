@@ -43,7 +43,7 @@ export default {
       await axios.put("/api/tasks/" + payload, {
         ...state.task,
       });
-      dispatch("fetchTask", payload);
+      dispatch("fetchTasks");
     },
   },
   getters: {

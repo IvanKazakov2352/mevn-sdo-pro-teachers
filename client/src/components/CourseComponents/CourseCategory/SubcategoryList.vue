@@ -109,7 +109,6 @@
   </v-card>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
   props: {
@@ -140,17 +139,30 @@ export default {
   methods: {
     deleteSubcategory(subcategory) {
       const id = subcategory.id;
+      this.$notify({
+        title: "СДО PRO",
+        message: `Подкатегория обучения успешно удалена`,
+        type: "success",
+      });
       this.category.subCategories = this.category.subCategories.filter(
         (subcategory) => subcategory.id !== id
       );
       this.$store.dispatch("deleteSubCategory", subcategory);
     },
     updateSubcategory(subcategory) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Подкатегория обучения успешно сохранена`,
+        type: "success",
+      });
       this.$store.dispatch("updateCategory", subcategory);
       this.dialog = false;
     },
     redirectToModule(subcategory) {
-      this.$router.push({name: "module", params: { subcategoryID: subcategory.id }});
+      this.$router.push({
+        name: "module",
+        params: { subcategoryID: subcategory.id },
+      });
     },
   },
   computed: {},

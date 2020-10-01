@@ -73,9 +73,8 @@
   </v-row>
 </template>
 <script>
-import axios from "axios";
+const SubcategoryList = () => import("./SubcategoryList")
 import { mapGetters } from "vuex";
-import SubcategoryList from "@/components/CourseComponents/CourseCategory/SubcategoryList";
 export default {
   metaInfo: {
     title: "Создание подкатегории обучения | СДО PRO",
@@ -104,6 +103,11 @@ export default {
         hoursTrainingSubcategory: this.hoursTrainingSubcategory,
         modules: this.modules,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Подкатегория обучения ${this.nameSubcategory} успешно создана`,
+        type: "success",
+      });
       this.category.subCategories.push(subcategory);
       this.$store.dispatch("updateProfile", this.$route.params.id);
       this.dialog = false;

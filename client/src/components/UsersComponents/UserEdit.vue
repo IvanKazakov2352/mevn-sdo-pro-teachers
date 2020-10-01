@@ -20,6 +20,7 @@
               <v-text-field
                 :rules="phoneUserRules"
                 v-model="user.phone"
+                v-mask="`8(###) ###-##-##`"
                 label="Телефон"
               ></v-text-field>
             </v-col>
@@ -183,57 +184,62 @@
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
+              <v-btn
+                class="ma-2 mt-5"
+                x-large
+                tile
+                outlined
+                color="success"
+                @click="updateUser"
+              >
+                <v-icon left>mdi-pencil</v-icon> Сохранить
+              </v-btn>
+              <v-btn
+                class="ma-2 mt-5"
+                x-large
+                tile
+                outlined
+                color="purple darken-3"
+                @click="cardListener(user)"
+              >
+                <v-icon left>mdi-microsoft-word</v-icon> Карточка слушателя
+              </v-btn>
+              <v-btn
+                class="ma-2 mt-5"
+                x-large
+                tile
+                outlined
+                color="blue lighten-1"
+                @click="sendEmail(user)"
+              >
+                <v-icon left>mdi-email</v-icon>Отправить доступ на Email
+              </v-btn>
             </v-col>
           </v-row>
         </v-form>
-        <v-col cols="12">
-          <v-btn
-            class="ma-2"
-            x-large
-            tile
-            outlined
-            color="success"
-            @click="updateUser"
-          >
-            <v-icon left>mdi-pencil</v-icon> Сохранить
-          </v-btn>
-          <v-btn
-            class="ma-2"
-            x-large
-            tile
-            outlined
-            color="purple darken-3"
-            @click="cardListener(user)"
-          >
-            <v-icon left>mdi-microsoft-word</v-icon> Карточка слушателя
-          </v-btn>
-          <v-btn
-            x-large
-            tile
-            outlined
-            color="blue lighten-1"
-            @click="sendEmail(user)"
-          >
-            <v-icon left>mdi-email</v-icon>Отправить доступ на Email
-          </v-btn>
-        </v-col>
       </v-row>
     </v-card>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 <script>
 import axios from "axios";
 import emailjs from "emailjs-com";
-import { sendEmailToUser } from "@/utils/SendEmailToUser.js";
+import { BASE_URL_STUDENTS } from "@/utils/keys";
 import { userInfo } from "@/utils/CardListener.js";
-import { generateLogin, generatePassword } from "@/utils/GenerateLogin&Password.js";
+import {
+  generateLogin,
+  generatePassword,
+} from "@/utils/GenerateLogin&Password.js";
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
     menu: false,
     menu1: false,
-    alertEmail: false,
     valid: false,
+    overlay: false,
     educations: [
       "Неопределенно",
       "Основное-общее",
@@ -263,6 +269,11 @@ export default {
   }),
   methods: {
     updateUser() {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Пользователь успешно сохранен`,
+        type: "success",
+      });
       this.$store.dispatch("updateUser", this.$route.params.id);
       this.$router.push({
         name: "users",
@@ -270,10 +281,45 @@ export default {
       });
     },
     cardListener(user) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Карточка на слушателя ${user.fiolistener} готова`,
+        type: "success",
+      });
       return userInfo(user);
     },
     sendEmail(user) {
-      return sendEmailToUser(user);
+      this.overlay = true;
+      const service_id = "mail_ru";
+      const template_id = "template_53mzJSYr";
+      const user_id = "user_nY337vvVnnfQu6UUSpba2";
+      const templateParams = {
+        emailTo: user.email,
+        to_name: `${user.fiolistener}`,
+        login: `${user.login}`,
+        password: `${user.password}`,
+        base_url: `${BASE_URL_STUDENTS}`,
+      };
+      emailjs
+        .send(service_id, template_id, templateParams, user_id, {
+          reply_to: "kazakov3344@mail.ru",
+        })
+        .then((result) => {
+          console.log("Success", result.status, result.text);
+          this.overlay = false;
+          this.$notify({
+            title: "СДО PRO",
+            message: "Сообщение успешно отправлено",
+            type: "success",
+          });
+        })
+        .catch((error) => {
+          console.log("Error", error);
+          this.$notify.error({
+            title: "Сообщение не отправлено",
+            message: "Просим прощение, возможны проблемы с сервером",
+          });
+        });
     },
     generatingLogin() {
       const login = generateLogin();

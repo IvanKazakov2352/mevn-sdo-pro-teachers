@@ -35,7 +35,7 @@ export default {
     },
     async updateCounterparty({dispatch, state}, payload) {
       await axios.put("/api/counterparty/" + payload, {...state.counterparty})
-      dispatch("fetchCounterparty", payload);
+      dispatch("fetchCounterparties", payload);
     },
     async deleteCounterparties({ commit, dispatch }, payload) {
       await axios.delete("/api/counterparty/" + payload);

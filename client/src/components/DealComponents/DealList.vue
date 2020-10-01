@@ -72,7 +72,6 @@
   </v-container>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
@@ -80,7 +79,12 @@ export default {
   }),
   methods: {
     deleteDeal(id) {
-      this.$store.dispatch("deleteDeal", id)
+      this.$notify({
+        title: "СДО PRO",
+        message: `Сделка успешно удалена`,
+        type: "success",
+      });
+      this.$store.dispatch("deleteDeal", id);
     },
   },
   computed: {

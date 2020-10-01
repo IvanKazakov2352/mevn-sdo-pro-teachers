@@ -99,7 +99,6 @@
   </v-row>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
@@ -111,6 +110,11 @@ export default {
       this.page = page;
     },
     deleteGroupToArchive(id) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Группа обучения из архива успешно удалена`,
+        type: "success",
+      });
       this.$store.dispatch("deleteGroupsToArchive", id);
     },
   },
@@ -126,7 +130,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("fetchArchive");
+    this.$store.dispatch("fetchArchives");
   },
 };
 </script>

@@ -82,7 +82,12 @@
           <v-btn color="green darken-1" text @click="dialog = false">
             Отмена
           </v-btn>
-          <v-btn color="green darken-1" text :disabled="!valid" @click="updateCategory(category)">
+          <v-btn
+            color="green darken-1"
+            text
+            :disabled="!valid"
+            @click="updateCategory(category)"
+          >
             Редактировать
           </v-btn>
         </v-card-actions>
@@ -91,7 +96,6 @@
   </v-card>
 </template>
 <script>
-import axios from "axios";
 export default {
   props: {
     category: {
@@ -116,12 +120,22 @@ export default {
       });
     },
     deleteCategory(category) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Категория обучения успешно удалена`,
+        type: "success",
+      });
       this.$store.dispatch("deleteCategory", category);
     },
     updateCategory(category) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Категория обучения успешно сохранена`,
+        type: "success",
+      });
       this.$store.dispatch("updateCategory", category);
-      this.dialog = false
-    }
+      this.dialog = false;
+    },
   },
 };
 </script>

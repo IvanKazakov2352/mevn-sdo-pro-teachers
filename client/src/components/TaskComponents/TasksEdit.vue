@@ -179,7 +179,7 @@
             tile
             outlined
             color="success"
-            @click="updateTask"
+            @click="updateTask(task)"
           >
             <v-icon left>mdi-pencil</v-icon> Сохранить
           </v-btn>
@@ -189,7 +189,6 @@
   </v-container>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
   metaInfo: {
@@ -209,7 +208,12 @@ export default {
     ],
   }),
   methods: {
-    updateTask() {
+    updateTask(task) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Задача ${task.name} успешно сохранена`,
+        type: "success",
+      });
       this.$store.dispatch("updateTask", this.$route.params.id);
       this.$router.push({
         name: "tasks",

@@ -191,7 +191,7 @@
             tile
             outlined
             color="success"
-            @click="updateDeal"
+            @click="updateDeal(deal)"
           >
             <v-icon left>mdi-pencil</v-icon> Сохранить
           </v-btn>
@@ -201,14 +201,21 @@
   </v-container>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 export default {
   data: () => ({}),
   methods: {
-    updateDeal() {
+    updateDeal(deal) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Сделка ${deal.namedeal} успешно сохранена`,
+        type: "success",
+      });
       this.$store.dispatch("updateDeal", this.$route.params.id);
-      this.$router.push({ name: "deals", query: { message: "DealUpdated" + `(${Date.now()})` } });
+      this.$router.push({
+        name: "deals",
+        query: { message: "DealUpdated" + `(${Date.now()})` },
+      });
     },
   },
   computed: {

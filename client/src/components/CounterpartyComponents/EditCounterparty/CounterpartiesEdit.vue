@@ -144,11 +144,10 @@
   </v-container>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
-import CounterpartyBanks from "@/components/CounterpartyComponents/EditCounterparty/CounterpartyEditBanks";
-import CounterpartyEditCh from "@/components/CounterpartyComponents/EditCounterparty/CounterpartyEditCh";
-import CounterpartyEditZao from "@/components/CounterpartyComponents/EditCounterparty/CounterpartyEditZao";
+const CounterpartyBanks = () => import("./CounterpartyEditBanks")
+const CounterpartyEditCh = () => import("./CounterpartyEditCh")
+const CounterpartyEditZao = () => import("./CounterpartyEditZao")
 export default {
   metaInfo: {
     title: "Редактирование контрагента | СДО PRO",
@@ -166,6 +165,11 @@ export default {
   }),
   methods: {
     updateCounterparty() {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Контрагент успешно сохранен`,
+        type: "success",
+      });
       this.$store.dispatch("updateCounterparty", this.$route.params.id);
       this.$router.push({
         name: "counterparties",
@@ -173,10 +177,10 @@ export default {
       });
     },
     dataZao(dataZao) {
-      Object.assign(this.counterparty, dataZao)
+      Object.assign(this.counterparty, dataZao);
     },
     dataCh(dataCh) {
-      Object.assign(this.counterparty, dataCh)
+      Object.assign(this.counterparty, dataCh);
     },
   },
   mounted() {

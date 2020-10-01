@@ -6,6 +6,8 @@ export default {
     archives: [],
     group: {},
     groupByID: {},
+    groupDocuments: {},
+    archive: {},
   },
   mutations: {
     setGroups(state, data) {
@@ -14,8 +16,11 @@ export default {
     setGroup(state, data) {
       state.groupByID = data;
     },
-    setArchive(state, data) {
+    setArchives(state, data) {
       state.archives = data;
+    },
+    setArchive(state, data) {
+      state.archive = data
     },
     addGroup(state, payload) {
       state.groups.push(payload);
@@ -29,6 +34,9 @@ export default {
     findGroupToArchive(state, payload) {
       state.groups.find((g) => g.payload === payload);
       state.group = payload;
+    },
+    groupDocuments(state, data) {
+      state.groupDocuments = data;
     },
   },
   actions: {
@@ -54,7 +62,7 @@ export default {
       await axios.put("/api/groups/" + payload, {
         ...state.groupByID,
       });
-      dispatch("fetchGroup", payload);
+      dispatch("fetchGroups");
     },
     async addGroupsToArchive({ commit, dispatch, state }, payload) {
       commit("findGroupToArchive", payload);
@@ -62,14 +70,22 @@ export default {
       dispatch("deleteGroups", state.group._id);
       dispatch("fetchGroups");
     },
-    async fetchArchive({ commit }) {
+    async fetchArchives({ commit }) {
       const { data } = await axios.get("/api/archive/");
+      commit("setArchives", data);
+    },
+    async fetchArchive({ commit }, payload) {
+      const { data } = await axios.get("/api/archive/" + payload);
       commit("setArchive", data);
     },
     async deleteGroupsToArchive({ commit, dispatch }, payload) {
       await axios.delete("/api/archive/" + payload);
       commit("deleteGroupToArchive", payload);
       dispatch("fetchArchive");
+    },
+    async groupDocuments({ commit }, payload) {
+      const { data } = await axios.get("/api/groups/" + payload);
+      commit("groupDocuments", data);
     },
   },
   getters: {
@@ -88,5 +104,11 @@ export default {
     archivesCount(state) {
       return state.archives.length;
     },
+    documents(state) {
+      return state.groupDocuments;
+    },
+    archive(state) {
+      return state.archive
+    }
   },
 };

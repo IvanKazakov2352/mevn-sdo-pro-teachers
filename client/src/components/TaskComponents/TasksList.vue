@@ -112,7 +112,6 @@
   </v-container>
 </template>
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 const Loader = () => import("../SettingsComponents/Loader");
 export default {
@@ -121,6 +120,11 @@ export default {
   }),
   methods: {
     deleteTask(id) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Задача успешно удалена`,
+        type: "success",
+      });
       this.$store.dispatch("deleteTasks", id);
     },
   },

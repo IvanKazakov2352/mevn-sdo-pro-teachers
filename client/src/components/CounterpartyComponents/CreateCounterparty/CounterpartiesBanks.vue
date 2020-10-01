@@ -140,12 +140,22 @@ export default {
         bscore: this.bscore,
       };
       this.banks.push(bank);
+      this.$notify({
+        title: "СДО PRO",
+        message: `Банковские реквизиты успешно добавлены`,
+        type: "success",
+      });
       this.$emit("addBanks", { banks: this.banks });
       this.dialogBank = false;
     },
     deleteBank(id) {
-      this.banks = this.banks.filter(bank => bank.id !== id)
-    }
+      this.$notify({
+        title: "СДО PRO",
+        message: `Банковские реквизиты успешно удалены`,
+        type: "success",
+      });
+      this.banks = this.banks.filter((bank) => bank.id !== id);
+    },
   },
 };
 </script>

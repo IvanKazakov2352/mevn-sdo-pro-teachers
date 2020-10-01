@@ -122,7 +122,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
   data: () => ({
     longnameorganization: null,
@@ -146,24 +146,22 @@ export default {
     fiozamdirector: null,
     phone1: null,
     phone2: null,
-    settings: {},
   }),
   methods: {
-    async getSettings() {
-      const res = await axios.get("/api/settings/5f197e301c700b2760043a50");
-      this.settings = res.data;
-    },
-    async saveSettings() {
-      const res = await axios.put(
-        "/api/settings/5f197e301c700b2760043a50",
-        this.settings
-      );
-      this.settings = res.data;
-      location.reload()
+    saveSettings() {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Настройки СДО успешно изменены`,
+        type: "success",
+      });
+      this.$store.dispatch("saveSettings");
     },
   },
-  async mounted() {
-    await this.getSettings();
+  computed: {
+    ...mapGetters(["settings"]),
+  },
+  mounted() {
+    this.$store.dispatch("getSettings");
   },
 };
 </script>

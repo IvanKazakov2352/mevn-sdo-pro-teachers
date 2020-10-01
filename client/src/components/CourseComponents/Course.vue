@@ -53,12 +53,12 @@
       </v-card>
     </v-dialog>
     <v-col cols="12">
-      <courseList />
+      <CourseList />
     </v-col>
   </v-row>
 </template>
 <script>
-import courseList from "@/components/CourseComponents/CourseList";
+const CourseList = () => import("./CourseList")
 export default {
   metaInfo: {
     title: "Профили обучения | СДО PRO",
@@ -71,7 +71,7 @@ export default {
     dostupOnLections: true,
     nameModuleRules: [(v) => !!v || "Укажите пожалуйста имя профиля обучения"],
     categories: [],
-    examens: []
+    examens: [],
   }),
   methods: {
     addProfileModule() {
@@ -81,14 +81,19 @@ export default {
         dostupOnModule: this.dostupOnModule,
         dostupOnTests: this.dostupOnTests,
         categories: this.categories,
-        examens: this.examens
+        examens: this.examens,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Профиль обучения ${this.nameProfile} успешно создан`,
+        type: "success",
+      });
       this.$store.dispatch("addedModule", profile);
       this.dialog = false;
     },
   },
   components: {
-    courseList,
+    CourseList,
   },
 };
 </script>
