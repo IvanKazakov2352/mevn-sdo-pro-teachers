@@ -48,7 +48,6 @@
   </v-row>
 </template>
 <script>
-import TestingList from "@/components/CourseComponents/CourseTest/TestingListItem";
 export default {
   props: {
     lection: {
@@ -68,9 +67,6 @@ export default {
     redirectToUpdateTest(test) {
       this.$router.push({name: 'testEdit', params: {testID: test.id}})
     }
-  },
-  components: {
-    TestingList,
   },
 };
 </script>

@@ -65,7 +65,7 @@
       </v-toolbar>
     </v-col>
     <v-row>
-      <moduleList
+      <ModuleList
         class="ml-9 mt-4 mb-4"
         v-for="modul in subCategory.modules"
         :key="modul.id"
@@ -76,8 +76,8 @@
   </v-row>
 </template>
 <script>
+const ModuleList = () => import("./ModuleList");
 import { mapGetters } from "vuex";
-import moduleList from "@/components/CourseComponents/CourseModule/ModuleList";
 export default {
   metaInfo: {
     title: "Создание модуля обучения | СДО PRO",
@@ -107,6 +107,11 @@ export default {
         descriptionModule: this.descriptionModule,
         lections: this.lections,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Модуль обучения ${this.nameModule} успешно создан`,
+        type: "success",
+      });
       this.subCategory.modules.push(module);
       this.$store.dispatch("updateProfile", this.$route.params.id);
       this.dialog = false;
@@ -121,7 +126,7 @@ export default {
     },
   },
   components: {
-    moduleList,
+    ModuleList,
   },
 };
 </script>

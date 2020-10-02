@@ -95,9 +95,12 @@ export default {
       this.page = page;
     },
     deleteResult(id) {
-      this.examen.listeners = this.examen.listeners.filter(
-        (listener) => listener.id !== id
-      );
+      this.$notify({
+        title: "СДО PRO",
+        message: `Результат пользователя успешно удален`,
+        type: "success",
+      });
+      this.examen.listeners = this.examen.listeners.filter((listener) => listener.id !== id);
       this.$store.dispatch("updateProfile", this.$route.params.id);
     },
     exportExcelUsers() {

@@ -190,8 +190,7 @@ import { exportToExcel } from "@/utils/ExportExcelQuestionFile.js";
 const ExcelImportData = () => import("../CourseTest/ExcelImportComponent");
 const ExamenDialogAddQuestion = () => import("./ExamenDialogAddQuestion");
 const ExamenDialogEditQuestion = () => import("./ExamenDialogEditQuestion");
-const ExamenDialogImportExcelData = () =>
-  import("./ExamenDialogImportExcelData");
+const ExamenDialogImportExcelData = () => import("./ExamenDialogImportExcelData");
 export default {
   metaInfo: {
     title: "Редактирование экзамена | СДО PRO",
@@ -208,9 +207,7 @@ export default {
       document.querySelector("#photo").select();
     },
     deleteQuestion(id) {
-      this.examen.questions = this.examen.questions.filter(
-        (ques) => ques.id !== id
-      );
+      this.examen.questions = this.examen.questions.filter((ques) => ques.id !== id);
     },
     updateDialogQuestion(id) {
       this.quest = this.examen.questions.find((ques) => ques.id === id);

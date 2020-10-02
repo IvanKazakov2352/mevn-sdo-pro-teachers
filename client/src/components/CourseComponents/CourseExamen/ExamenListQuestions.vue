@@ -74,9 +74,19 @@ export default {
   },
   methods: {
     deleteQuestion(id) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Вопрос успешно удален`,
+        type: "success",
+      });
       this.$emit("deleteQuestion", id);
     },
     updateQuestionDialog(id) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Вопрос успешно сохранен`,
+        type: "success",
+      });
       this.$emit("updateQuestionDialog", id);
     },
   },

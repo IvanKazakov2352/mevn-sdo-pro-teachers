@@ -123,12 +123,20 @@ export default {
   }),
   methods: {
     deleteModule(id) {
-      this.subCategory.modules = this.subCategory.modules.filter(
-        (cat) => cat.id !== id
-      );
+      this.$notify({
+        title: "СДО PRO",
+        message: `Модуль обучения успешно удален`,
+        type: "success",
+      });
+      this.subCategory.modules = this.subCategory.modules.filter((cat) => cat.id !== id);
       this.$store.dispatch("deleteSubModule", this.profile);
     },
     updateModule(modul) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Модуль обучения успешно сохранен`,
+        type: "success",
+      });
       this.$store.dispatch("updateCategory", modul);
       this.dialog = false;
     },

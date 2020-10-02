@@ -79,9 +79,12 @@ export default {
   }),
   methods: {
     deleteLection(id) {
-      this.subModule.lections = this.subModule.lections.filter(
-        (lect) => lect.id !== id
-      );
+      this.$notify({
+        title: "СДО PRO",
+        message: `Лекция успешно удалена`,
+        type: "success",
+      });
+      this.subModule.lections = this.subModule.lections.filter((lect) => lect.id !== id);
       this.$store.dispatch("updateProfile", this.$route.params.id);
     },
     lectionPreview(lect) {

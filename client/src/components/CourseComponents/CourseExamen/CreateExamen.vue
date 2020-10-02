@@ -225,6 +225,11 @@ export default {
         appraisal4: this.appraisal4,
         appraisal5: this.appraisal5,
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Экзамен ${this.nameExamen} успешно создан`,
+        type: "success",
+      });
       this.profile.examens.push(exam);
       this.$store.dispatch("updateProfile", this.$route.params.id);
       this.dialog = false;

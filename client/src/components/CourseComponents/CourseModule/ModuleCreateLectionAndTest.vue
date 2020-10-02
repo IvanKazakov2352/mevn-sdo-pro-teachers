@@ -64,12 +64,12 @@
   </v-row>
 </template>
 <script>
+const LectionList = () => import("./LectionList")
 import { mapGetters } from "vuex";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import { quillEditor } from "vue-quill-editor";
-import LectionList from "@/components/CourseComponents/CourseModule/LectionList";
 export default {
   metaInfo: {
     title: "Создание лекции | СДО PRO",
@@ -113,6 +113,11 @@ export default {
         tests: this.tests,
         content: this.$refs.lection.quill.getContents(),
       };
+      this.$notify({
+        title: "СДО PRO",
+        message: `Лекция ${this.nameLection} успешно создана`,
+        type: "success",
+      });
       this.subModule.lections.push(lection);
       this.$store.dispatch("updateProfile", this.$route.params.id);
       this.dialog = false;

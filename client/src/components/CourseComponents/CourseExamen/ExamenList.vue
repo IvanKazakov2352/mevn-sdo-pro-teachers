@@ -32,7 +32,12 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" @click="redirectToListListers(examen)">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+            @click="redirectToListListers(examen)"
+          >
             <v-icon>
               mdi-clipboard-list
             </v-icon>
@@ -54,14 +59,24 @@ export default {
   },
   methods: {
     updateExamen(examen) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Экзамен ${examen.nameExamen} успешно сохранен`,
+        type: "success",
+      });
       this.$emit("updateExamen", examen);
     },
     deleteExamen(id) {
+      this.$notify({
+        title: "СДО PRO",
+        message: `Экзамен успешно удален`,
+        type: "success",
+      });
       this.$emit("deleteExamen", id);
     },
     redirectToListListers(examen) {
-      this.$router.push({name: 'listeners', params: {examenID: examen.id}})
-    }
+      this.$router.push({ name: "listeners", params: { examenID: examen.id } });
+    },
   },
 };
 </script>
