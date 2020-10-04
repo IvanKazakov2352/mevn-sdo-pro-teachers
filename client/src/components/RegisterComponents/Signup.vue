@@ -92,38 +92,16 @@ export default {
         password: this.password,
       };
       try {
-        const response = await axios.post("/api/admin/register", admin);
-        const token = response.data.token;
-        if (token) {
-          localStorage.setItem("userToken", token);
-          this.$router.push("/tasks");
-          this.$notify({
-            title: "СДО PRO",
-            message: "Вы успешно зарегистрированны в системе",
-            type: "success",
-          });
-          setTimeout(() => {
-            location.reload();
-          }, 2000);
-        } else {
-          this.$notify.error({
-            title: "СДО PRO",
-            message: "Ошибка регистрации, проверьте пожалуйста валидность введенных данных",
-          });
-        }
+        const res = await axios.post("/api/auth/register", admin);
+        const message = res.data.message
+        this.$notify({
+          title: "СДО PRO",
+          message: message,
+          type: "success",
+        });
+        this.$router.push("/signin")
       } catch (err) {
-        let error = err.response;
-        if (error.status == 409) {
-          this.$notify.error({
-            title: "Если вылезла эта ошибка то сделайте пожалуйста скриншот и вышлите администрации",
-            message: error.data.message,
-          });
-        } else {
-          this.$notify.error({
-            title: "Если вылезла эта ошибка то сделайте пожалуйста скриншот и вышлите администрации",
-            message: error.data.err.message,
-          });
-        }
+        console.log(err);
       }
     },
   },

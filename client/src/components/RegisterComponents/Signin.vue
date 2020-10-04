@@ -62,31 +62,36 @@ export default {
         password: this.password,
       };
       try {
-        const response = await axios.post("/api/admin/login", admin);
-        const token = response.data.token;
-        localStorage.setItem("userToken", token);
-        if (token) {
-          this.$router.push("/tasks");
+        const res = await axios.post("/api/auth/login", admin);
+        const message = res.data.message;
+        console.log(res)
+        if (message === "Вы успешно авторизованы в системе") {
           this.$notify({
             title: "СДО PRO",
-            message: "Вы успешно авторизованы в системе",
+            message: message,
             type: "success",
           });
+          this.$router.push("/tasks");
           setTimeout(() => {
             location.reload();
-          }, 2000);
-        } else {
+          }, 1000);
+          this.$store.commit("setAdmin", res.data.user)
+        } else if (message === "Неверный пароль, введите еще раз") {
           this.$notify.error({
             title: "СДО PRO",
-            message: "Ошибка авторизации, проверьте пожалуйста правильность введенных данных",
+            message,
+          });
+        } else if (message === "Пользователь с данным email не найден в системе") {
+          this.$notify.error({
+            title: "СДО PRO",
+            message,
           });
         }
       } catch (err) {
         this.$notify.error({
           title: "СДО PRO",
-          message: "Ошибка авторизации, проверьте пожалуйста правильность введенных данных",
+          message,
         });
-        console.log(err.response);
       }
     },
   },

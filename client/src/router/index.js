@@ -269,6 +269,14 @@ const routes = [
     },
   },
   {
+    path: "/rooms",
+    name: "rooms",
+    component: () => import("@/components/RoomComponents/Rooms"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/signin",
     name: "signin",
     component: () => import("@/components/RegisterComponents/Signin.vue"),
@@ -292,7 +300,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (localStorage.getItem("userToken") == null) {
+    if (!document.cookie) {
       next({
         path: "/signin",
       });

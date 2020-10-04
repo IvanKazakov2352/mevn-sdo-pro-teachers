@@ -50,7 +50,7 @@
       <v-menu v-if="exit" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on">
-            {{ user.fio }}
+            {{ admin.fio }} - {{ admin.position }}
           </v-btn>
         </template>
         <v-list subheader>
@@ -96,16 +96,16 @@
 </template>
 
 <script>
-import jwt_decode from "jwt-decode";
-import { mapGetters } from "vuex";
+import axios from "axios";
 export default {
   data: () => ({
     alerts: 6,
     messages: 4,
     dialog: false,
     drawer: null,
-    text: "Соединение с сервером утеряно, проверьте пожалуйста свое соединение с интернетом",
-    exit: localStorage.getItem("userToken"),
+    text:
+      "Соединение с сервером утеряно, проверьте пожалуйста свое соединение с интернетом",
+    exit: document.cookie,
     user: {},
     profileComponents: [
       { title: "Уведовления", icon: "mdi-alert-rhombus", route: "/alerts" },
@@ -114,22 +114,22 @@ export default {
     ],
   }),
   methods: {
-    logout() {
-      localStorage.removeItem("userToken");
-      this.$router.push("/signin");
-      setTimeout(() => {location.reload()}, 2000)
+    async logout() {
+      const res = await axios.get("/api/auth/logout");
+      const message = res.data.message;
       this.$notify.info({
         title: "СДО PRO",
-        message: "Вы вышли из системы",
+        message,
       });
-    },
-    getUserDetails() {
-      const token = localStorage.getItem("userToken");
-      const decoded = jwt_decode(token);
-      this.user = decoded;
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     },
   },
   computed: {
+    admin() {
+      return this.$store.getters["adminOne"];
+    },
     connected() {
       return !this.$store.getters["connected"];
     },
@@ -173,12 +173,14 @@ export default {
             text: "Сделки",
             route: "/deals",
           },
+          {
+            icon: "mdi-video",
+            text: "Видеокомнаты",
+            route: "/rooms",
+          },
         ];
       }
     },
-  },
-  mounted() {
-    this.getUserDetails();
   },
 };
 </script>
