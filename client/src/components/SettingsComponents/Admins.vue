@@ -90,7 +90,6 @@
 </template>
 <script>
 import axios from "axios";
-import sweetalert from "sweetalert";
 export default {
   data: () => ({
     fio: null,

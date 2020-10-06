@@ -53,7 +53,6 @@
 </template>
 <script>
 import axios from "axios";
-import sweetalert from "sweetalert";
 export default {
   metaInfo: {
     title: "Регистрация | СДО PRO",

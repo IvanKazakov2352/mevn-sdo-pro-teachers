@@ -60,9 +60,8 @@ export default {
       commit("addCategory", payload);
       dispatch("updateProfile", payload.routeID);
     },
-    deleteCategory({ commit, dispatch }, payload) {
+    deleteCategory({ commit }, payload) {
       commit("deleteCategory", payload.id);
-      dispatch("updateProfile", payload.routeID);
     },
     updateCategory({ commit, dispatch }, payload) {
       commit("updateCategory", payload);

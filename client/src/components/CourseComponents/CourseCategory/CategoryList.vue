@@ -27,6 +27,24 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+            @click="dialogCopyCategoryToProfile(category)"
+          >
+            <v-icon>
+              mdi-content-copy
+            </v-icon>
+          </v-btn>
+        </template>
+        <span
+          >Копировать категорию со всеми настройками в другой профль
+          обучения</span
+        >
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" @click="dialog = true">
             <v-icon>
               mdi-pencil
@@ -93,9 +111,54 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-row justify="center">
+      <v-dialog v-model="dialogCopyCategories" persistent max-width="800px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">
+              Копирование категории: {{ copyCategory.nameCategory }}
+            </span>
+          </v-card-title>
+          <v-card-text>
+            Выберите профиль обучения куда нужно скопировать категорию обучения
+          </v-card-text>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <v-select
+                    v-model="profile"
+                    :items="allModule"
+                    item-text="nameProfile"
+                    label="Выберите профиль обучения"
+                    outlined
+                    return-object
+                  ></v-select>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialogCopyCategories = false"
+              >Отмена</v-btn
+            >
+            <v-btn color="blue darken-1" text @click="copyCategoryToProfile(category)"
+              >Копировать</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </v-card>
 </template>
 <script>
+import { mapGetters } from "vuex";
+import axios from "axios"
 export default {
   props: {
     category: {
@@ -106,7 +169,10 @@ export default {
   },
   data: () => ({
     dialog: false,
+    dialogCopyCategories: false,
     valid: false,
+    copyCategory: {},
+    profile: {},
     nameCategoryRules: [(v) => !!v || "Введите пожалуйста название категории"],
     photoCategoryRules: [
       (v) => !!v || "Вставьте пожалуйста ссылку на фотографию",
@@ -126,6 +192,7 @@ export default {
         type: "success",
       });
       this.$store.dispatch("deleteCategory", category);
+      this.$store.dispatch("updateProfile", this.$route.params.id);
     },
     updateCategory(category) {
       this.$notify({
@@ -136,6 +203,21 @@ export default {
       this.$store.dispatch("updateCategory", category);
       this.dialog = false;
     },
+    dialogCopyCategoryToProfile(category) {
+      this.copyCategory = category;
+      this.dialogCopyCategories = true;
+    },
+    async copyCategoryToProfile(category) {
+      this.profile.categories.push(this.copyCategory)
+      await axios.put("/api/course/" + this.profile._id, {...this.profile})
+      this.dialogCopyCategories = false
+    }
+  },
+  computed: {
+    ...mapGetters(["allModule"]),
+  },
+  mounted() {
+    this.$store.dispatch("fetchModules");
   },
 };
 </script>

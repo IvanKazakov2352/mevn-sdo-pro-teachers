@@ -5,16 +5,13 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import VueMask from "v-mask";
-import VueHtmlToPaper from "vue-html-to-paper";
 import UUID from "vue-uuid";
 import VueMeta from "vue-meta";
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(VueMask);
-Vue.use(VueHtmlToPaper, options);
 Vue.use(UUID);
-Vue.use(VueHtmlToPaper);
 Vue.use(ElementUI);
 Vue.use(VueMeta, {
   refreshOnceOnNavigation: true,

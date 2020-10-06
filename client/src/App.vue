@@ -50,7 +50,7 @@
       <v-menu v-if="exit" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn text v-bind="attrs" v-on="on">
-            {{ admin.fio }} - {{ admin.position }}
+            {{ admin.fio }}
           </v-btn>
         </template>
         <v-list subheader>
@@ -111,12 +111,14 @@ export default {
       { title: "Уведовления", icon: "mdi-alert-rhombus", route: "/alerts" },
       { title: "Чат", icon: "mdi-chat", route: "/chat" },
       { title: "События", icon: "mdi-alpha-e-box", route: "/events" },
+      { title: "Аккаунт преподавателя", icon: "mdi-book-account", route: "/account" },
     ],
   }),
   methods: {
     async logout() {
       const res = await axios.get("/api/auth/logout");
       const message = res.data.message;
+      this.$store.commit("setAdmin", {})
       this.$notify.info({
         title: "СДО PRO",
         message,

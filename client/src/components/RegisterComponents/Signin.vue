@@ -36,7 +36,6 @@
 </template>
 <script>
 import axios from "axios";
-import sweetalert from "sweetalert";
 export default {
   metaInfo: {
     title: "Авторизация | СДО PRO",
@@ -46,6 +45,7 @@ export default {
     password: null,
     loading: false,
     valid: false,
+    photo: null,
     emailRules: [
       (v) => !!v || "Введите Email",
       (v) => /.+@.+\..+/.test(v) || "Введите корректный Email",
@@ -75,6 +75,7 @@ export default {
           setTimeout(() => {
             location.reload();
           }, 1000);
+          res.data.user =  Object.assign(res.data.user, {photo: this.photo})
           this.$store.commit("setAdmin", res.data.user)
         } else if (message === "Неверный пароль, введите еще раз") {
           this.$notify.error({

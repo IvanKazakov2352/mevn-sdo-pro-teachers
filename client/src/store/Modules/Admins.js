@@ -15,9 +15,13 @@ export default {
   },
   actions: {
     async fetchAdmins({ commit }) {
-      const { data } = await axios.get("/api/getAdmin");
+      const { data } = await axios.get("/api/admins");
       commit("setAdmins", data);
     },
+    async updateAdmin({commit}, payload) {
+      await axios.put("/api/admins/update", payload)
+      commit("setAdmin", payload)
+    }
   },
   getters: {
     allAdmins(state) {

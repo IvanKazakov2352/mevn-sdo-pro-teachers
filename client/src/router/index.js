@@ -120,7 +120,8 @@ const routes = [
   {
     path: "/profile/:id/examen/:examenID",
     name: "examen",
-    component: () => import("@/components/CourseComponents/CourseExamen/ExamenEdit"),
+    component: () =>
+      import("@/components/CourseComponents/CourseExamen/ExamenEdit"),
     meta: {
       requiresAuth: true,
     },
@@ -128,7 +129,8 @@ const routes = [
   {
     path: "/profile/:id/listeners/:examenID",
     name: "listeners",
-    component: () => import("@/components/CourseComponents/CourseExamen/ExamenListListener"),
+    component: () =>
+      import("@/components/CourseComponents/CourseExamen/ExamenListListener"),
     meta: {
       requiresAuth: true,
     },
@@ -137,7 +139,8 @@ const routes = [
     path: "/profile/:id/category/:categoryID",
     name: "subcategory",
     props: true,
-    component: () => import("@/components/CourseComponents/CourseCategory/CreateSubcategory"),
+    component: () =>
+      import("@/components/CourseComponents/CourseCategory/CreateSubcategory"),
     meta: {
       requiresAuth: true,
     },
@@ -146,52 +149,65 @@ const routes = [
     path: "/profile/:id/category/:categoryID/module/:subcategoryID",
     name: "module",
     props: true,
-    component: () => import("@/components/CourseComponents/CourseModule/CreateModule"),
+    component: () =>
+      import("@/components/CourseComponents/CourseModule/CreateModule"),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID",
+    path:
+      "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID",
     name: "createLection",
     props: true,
-    component: () => import("@/components/CourseComponents/CourseModule/ModuleCreateLectionAndTest"),
+    component: () =>
+      import(
+        "@/components/CourseComponents/CourseModule/ModuleCreateLectionAndTest"
+      ),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/lection/:lectID",
+    path:
+      "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/lection/:lectID",
     name: "previewLection",
     props: true,
-    component: () => import("@/components/CourseComponents/CourseModule/LectionPreview"),
+    component: () =>
+      import("@/components/CourseComponents/CourseModule/LectionPreview"),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/lectionEdit/:lectEditID",
+    path:
+      "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/lectionEdit/:lectEditID",
     name: "lectionEdit",
     props: true,
-    component: () => import("@/components/CourseComponents/CourseModule/LectionEdit"),
+    component: () =>
+      import("@/components/CourseComponents/CourseModule/LectionEdit"),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/testing/:lectTestID",
+    path:
+      "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/testing/:lectTestID",
     name: "createTest",
     props: true,
-    component: () => import("@/components/CourseComponents/CourseTest/CreateTest"),
+    component: () =>
+      import("@/components/CourseComponents/CourseTest/CreateTest"),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/testing/:lectTestID/test/:testID",
+    path:
+      "/profile/:id/category/:categoryID/module/:subcategoryID/lections/:moduleID/testing/:lectTestID/test/:testID",
     name: "testEdit",
     props: true,
-    component: () => import("@/components/CourseComponents/CourseTest/TestingEdit"),
+    component: () =>
+      import("@/components/CourseComponents/CourseTest/TestingEdit"),
     meta: {
       requiresAuth: true,
     },
@@ -272,6 +288,14 @@ const routes = [
     path: "/rooms",
     name: "rooms",
     component: () => import("@/components/RoomComponents/Rooms"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: () => import("@/components/SettingsComponents/Account"),
     meta: {
       requiresAuth: true,
     },
