@@ -30,7 +30,11 @@
             <v-text-field
               v-model="adminOne.photo"
               label="Ссылка на фотографию"
+              id="photo"
             ></v-text-field>
+            <v-btn text small color="primary" @click="selectlinkPhoto"
+              >Выделить ссылку</v-btn
+            >
           </v-col>
           <v-col cols="12">
             <v-btn
@@ -62,6 +66,9 @@ export default {
         message: "Настройки аккаунта успешно сохранены",
         type: "success",
       });
+    },
+    selectlinkPhoto() {
+      document.querySelector("#photo").select();
     },
   },
   computed: {

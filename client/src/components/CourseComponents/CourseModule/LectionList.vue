@@ -20,7 +20,7 @@
         </template>
         <span>Просмотреть превью лекции</span>
       </v-tooltip>
-<!--       <v-tooltip bottom>
+      <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" @click="redirectToEditlection(lect)">
             <v-icon>
@@ -29,7 +29,7 @@
           </v-btn>
         </template>
         <span>Редактирование данной лекции</span>
-      </v-tooltip> -->
+      </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" @click="createTest(lect)">

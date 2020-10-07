@@ -64,18 +64,16 @@ export default {
       try {
         const res = await axios.post("/api/auth/login", admin);
         const message = res.data.message;
-        console.log(res)
         if (message === "Вы успешно авторизованы в системе") {
           this.$notify({
             title: "СДО PRO",
-            message: message,
+            message,
             type: "success",
           });
           this.$router.push("/tasks");
           setTimeout(() => {
             location.reload();
           }, 1000);
-          res.data.user =  Object.assign(res.data.user, {photo: this.photo})
           this.$store.commit("setAdmin", res.data.user)
         } else if (message === "Неверный пароль, введите еще раз") {
           this.$notify.error({

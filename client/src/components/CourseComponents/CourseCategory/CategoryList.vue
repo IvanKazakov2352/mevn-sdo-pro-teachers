@@ -147,7 +147,10 @@
               @click="dialogCopyCategories = false"
               >Отмена</v-btn
             >
-            <v-btn color="blue darken-1" text @click="copyCategoryToProfile(category)"
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="copyCategoryToProfile(category)"
               >Копировать</v-btn
             >
           </v-card-actions>
@@ -158,13 +161,17 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios"
+import axios from "axios";
 export default {
   props: {
     category: {
       type: Object,
       required: true,
       default: {},
+    },
+    nameProfile: {
+      type: String,
+      required: true,
     },
   },
   data: () => ({
@@ -208,10 +215,23 @@ export default {
       this.dialogCopyCategories = true;
     },
     async copyCategoryToProfile(category) {
-      this.profile.categories.push(this.copyCategory)
-      await axios.put("/api/course/" + this.profile._id, {...this.profile})
-      this.dialogCopyCategories = false
-    }
+      if (this.nameProfile === this.profile.nameProfile) {
+        const copyCategoryParentProfile = {
+          id: this.$uuid.v4(),
+          nameCategory: `Копия - ${category.nameCategory}`,
+          routeID: category.routeID,
+          linkPhotoCategory: category.linkPhotoCategory,
+          subCategories: category.subCategories,
+        };
+        this.profile.categories.push(copyCategoryParentProfile)
+        await axios.put("/api/course/" + this.profile._id, { ...this.profile });
+        this.dialogCopyCategories = false;
+      } else {
+        this.profile.categories.push(this.copyCategory);
+        await axios.put("/api/course/" + this.profile._id, { ...this.profile });
+        this.dialogCopyCategories = false;
+      }
+    },
   },
   computed: {
     ...mapGetters(["allModule"]),

@@ -63,17 +63,25 @@
           v-for="category in categories"
           :key="category.id"
           :category="category"
+          :nameProfile="profile.nameProfile"
         />
       </v-row>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
 <script>
-const CategoryList = () => import("./CategoryList")
+const CategoryList = () => import("./CategoryList");
 import { mapGetters } from "vuex";
 export default {
   metaInfo: {
     title: "Создание категории обучения | СДО PRO",
+  },
+  props: {
+    profile: {
+      type: Object,
+      required: true,
+      default: {},
+    },
   },
   data: () => ({
     dialog: false,

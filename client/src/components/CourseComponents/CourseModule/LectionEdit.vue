@@ -23,8 +23,8 @@
       </v-col>
     </v-col>
     <v-col cols="12">
-      <v-btn class="mt-5 ml-3" x-large tile outlined color="success">
-        <v-icon left>mdi-pencil</v-icon> Редактировать
+      <v-btn class="mt-5 ml-3" x-large tile outlined color="success" @click="updateLection">
+        <v-icon left>mdi-pencil</v-icon> Сохранить
       </v-btn>
     </v-col>
   </v-row>
@@ -48,6 +48,13 @@ export default {
       theme: "snow",
     },
   }),
+  methods: {
+    updateLection() {
+      const content = this.$refs.editor.quill.getContents()
+      Object.assign(this.lection, {content})
+      this.$store.dispatch("updateProfile", this.$route.params.id)
+    }
+  },
   computed: {
     lection() {
       return this.$store.getters.lection(
@@ -59,8 +66,7 @@ export default {
     },
   },
   mounted() {
-    const delta = Quill.import('delta')
-    console.log(delta)
+    this.$refs.editor.quill.setContents(this.lection.content.ops);
   },
   components: {
     quillEditor,
