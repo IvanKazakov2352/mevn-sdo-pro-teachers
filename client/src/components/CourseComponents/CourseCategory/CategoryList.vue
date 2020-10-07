@@ -226,6 +226,9 @@ export default {
         this.profile.categories.push(copyCategoryParentProfile)
         await axios.put("/api/course/" + this.profile._id, { ...this.profile });
         this.dialogCopyCategories = false;
+        setTimeout(() => {
+          location.reload()
+        }, 500)
       } else {
         this.profile.categories.push(this.copyCategory);
         await axios.put("/api/course/" + this.profile._id, { ...this.profile });
